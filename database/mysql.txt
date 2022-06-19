@@ -1,0 +1,19 @@
+1.show databases;// 查看所有的数据库
+2.use testdatabase /xxx; //使用1中查询出来的任意一个数据库
+3.show tables;// 查看当前数据库的所有表
+4.show variables like 'character_set%'; //查看所有字符集
+5.set character_set_results='gbk';// 设置查询结果集编码
+6.select column_name,column_comment,data_type,column_type from information_schema.columns where table_name=表名;//查询表字段信息（字段名、描述、类型、长度）
+7.	//设置数据库字符集
+8.desc 表名;show columns from 表名;describe 表名;show create table 表名;//查看表结构命令 如：desc t_admin
+9.SELECT TABLE_NAME,TABLE_COMMENT FROM information_schema.TABLES WHERE table_schema='数据库名称';//查询数据库所有表注释
+10.SELECT COLUMN_NAME,column_comment FROM INFORMATION_SCHEMA.Columns WHERE table_name='表名' AND table_schema='mammothcode';//查询数据库下表所有字段注释
+
+
+针对已经存在的表，添加主键约束
+格式一：
+alter table 表名 modify 列名 数据类型 primary key；
+格式二：
+alter table 表名 add primary key(列名);
+格式三：
+alter table 表名 add constraint 主键约束的名字 primary key(列名);

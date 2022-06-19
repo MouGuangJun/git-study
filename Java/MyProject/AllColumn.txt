@@ -1,0 +1,17 @@
+
+APPLY_RELATIVE<==>columnName<==>122
+APPROVE_RELATIVE<==>columnName<==>33
+INSPECT_DETAIL<==>columnName<==>13
+INSPECT_INFO<==>columnName<==>29
+CONTRACT_RELATIVE<==>columnName<==>31
+CLASSIFY_DATA<==>columnName<==>1936
+CLASSIFY_RECORD<==>columnName<==>40
+DUN_INFO<==>columnName<==>217
+LAWCASE_BOOK<==>columnName<==>6
+AWE_DO_CATALOG<==>columnName<==>1
+AWE_DO_LIBRARY<==>columnName<==>12
+OBJECTTYPE_CATALOG<==>columnName<==>1
+OBJECTTYPE_CATALOG<==>columnName<==>1
+OBJECTTYPE_RELA<==>columnName<==>5
+OBJECTTYPE_RELA<==>columnName<==>4
+INSPECT_DATA<==>columnName<==>23

@@ -1,0 +1,224 @@
+-------------------------------------------------Mysql-------------------------------------------------
+1.show databases; 查看所有的数据库，等同于select schema_name from information_schema.schemata\G。\G 替换;,以纵向报表的形式输出结果，有利于阅读。
+
+2.status; 查看mysql数据库的运行状态
+
+3.use 命令选择数据库 例如 use information_schema,当使用此命令后
+   --select schema_name from information_schema.schemata\G;，可以为
+   --select schema_name from schemata\G;
+   
+4.show tables;查看数据库中的表
+   --同样也可以在information_schema中查看，show命令是方便使用的简短模式。
+   --select table_name from tables where table_schema='information_schema';
+5. desc table_name; 查看表结构，如desc user_info;
+
+6.查看表状态 show table status from db like 条件，如show table status from testdatabase like 'index';
+   --可以查看engine数据库引擎，version，row、index等信息
+   --查询数据库运行状态的基本命令：
+   --#查询数据库连接
+   --show full processlist;
+   --show status like '%Max_used_connections%';
+   --show status like '%Threads_connected%';#当前连接数
+   --show status like '%table_lock%';#表锁定
+   --show status like 'innodb_row_lock%';#行锁定
+   --show status like '%qcache%'; #查询缓存情况
+   --show variables like "%query_cache%";
+   --SHOW STATUS LIKE 'Qcache%';
+   --show variables like "%binlog%";
+   --show status like 'Aborted_clients';#由于客户没有正确关闭连接已经死掉，已经放弃的连接数量
+   --show variables like '%max_connections%';//查看最大连接数量
+   --show variables like '%timeout%';#查看超时时间
+   --show variables like 'log_%'; #查看日志是否启动
+   --show variables like "%char%";#查看数据库的编码设置
+
+7.小技巧，当多行命令输入，发现错误后，用\c结束。
+
+
+8.修改mysql的字符集：
+   --mysql> set character_set_client=utf8;
+   --mysql> set character_set_connection=utf8;
+   --mysql> set character_set_database=utf8;
+   --mysql> set character_set_results=utf8;
+   --mysql> set character_set_server=utf8;
+   --mysql> set character_set_system=utf8;
+   --mysql> set collation_connection=utf8;
+   --mysql> set collation_database=utf8;
+   --mysql> set collation_server=utf8;
+   
+9.set names utf8; 命令用于设置使用的字符集
+
+10.一些最重要的 SQL 命令
+   --SELECT - 从数据库中提取数据
+   --UPDATE - 更新数据库中的数据
+   --DELETE - 从数据库中删除数据
+   --INSERT INTO - 向数据库中插入新数据
+   --CREATE DATABASE - 创建新数据库
+   --ALTER DATABASE - 修改数据库
+   --CREATE TABLE - 创建新表
+   --ALTER TABLE - 变更（改变）数据库表
+   --DROP TABLE - 删除表
+   --CREATE INDEX - 创建索引（搜索键）
+   --DROP INDEX - 删除索引
+   
+11.MySQL 数据类型
+在 MySQL 中，有三种主要的类型：Text（文本）、Number（数字）和 Date/Time（日期/时间）类型。
+
+Text 类型：
+
+A.数据类型							描述
+
+CHAR(size)							保存固定长度的字符串（可包含字母、数字以及特殊字符）。在括号中指定字符串的长度。最多 255 个字符。
+
+VARCHAR(size)						保存可变长度的字符串（可包含字母、数字以及特殊字符）。在括号中指定字符串的最大长度。最多 255 个字符。
+										注释：如果值的长度大于 255，则被转换为 TEXT 类型。
+										
+TINYTEXT							存放最大长度为 255 个字符的字符串。
+
+TEXT								存放最大长度为 65,535 个字符的字符串。
+
+BLOB								用于 BLOBs（Binary Large OBjects）。存放最多 65,535 字节的数据。
+
+MEDIUMTEXT							存放最大长度为 16,777,215 个字符的字符串。
+
+MEDIUMBLOB							用于 BLOBs（Binary Large OBjects）。存放最多 16,777,215 字节的数据。
+
+LONGTEXT							存放最大长度为 4,294,967,295 个字符的字符串。
+
+LONGBLOB							用于 BLOBs (Binary Large OBjects)。存放最多 4,294,967,295 字节的数据。
+
+ENUM(x,y,z,etc.)					允许您输入可能值的列表。可以在 ENUM 列表中列出最大 65535 个值。如果列表中不存在插入的值，则插入空值。
+										注释：这些值是按照您输入的顺序排序的。
+										可以按照此格式输入可能的值： ENUM('X','Y','Z')
+
+SET									与 ENUM 类似，不同的是，SET 最多只能包含 64 个列表项且 SET 可存储一个以上的选择。
+
+
+B.Number 类型：
+
+数据类型							描述
+
+TINYINT(size)						带符号-128到127 ，无符号0到255。
+
+SMALLINT(size)						带符号范围-32768到32767，无符号0到65535, size 默认为 6。
+
+MEDIUMINT(size)						带符号范围-8388608到8388607，无符号的范围是0到16777215。 size 默认为9
+
+INT(size)							带符号范围-2147483648到2147483647，无符号的范围是0到4294967295。 size 默认为 11
+
+BIGINT(size)						带符号的范围是-9223372036854775808到9223372036854775807，无符号的范围是0到18446744073709551615。size 默认为 20
+
+FLOAT(size,d)						带有浮动小数点的小数字。在 size 参数中规定显示最大位数。在 d 参数中规定小数点右侧的最大位数。
+
+DOUBLE(size,d)						带有浮动小数点的大数字。在 size 参数中规显示定最大位数。在 d 参数中规定小数点右侧的最大位数。
+
+DECIMAL(size,d)						作为字符串存储的 DOUBLE 类型，允许固定的小数点。在 size 参数中规定显示最大位数。
+										在 d 参数中规定小数点右侧的最大位数。
+										
+注意：以上的 size 代表的并不是存储在数据库中的具体的长度，如 int(4) 并不是只能存储4个长度的数字。
+
+实际上int(size)所占多少存储空间并无任何关系。int(3)、int(4)、int(8) 在磁盘上都是占用 4 btyes 的存储空间。
+就是在显示给用户的方式有点不同外，int(M) 跟 int 数据类型是相同的。
+
+例如：
+1、int的值为10 （指定zerofill）
+
+int（9）显示结果为000000010
+int（3）显示结果为010
+就是显示的长度不一样而已 都是占用四个字节的空间
+
+
+Date 类型：
+
+数据类型							描述
+
+DATE()								日期。格式：YYYY-MM-DD
+									注释：支持的范围是从 '1000-01-01' 到 '9999-12-31'
+						
+DATETIME()							*日期和时间的组合。格式：YYYY-MM-DD HH:MM:SS
+									注释：支持的范围是从 '1000-01-01 00:00:00' 到 '9999-12-31 23:59:59'
+						
+TIMESTAMP()							*时间戳。TIMESTAMP 值使用 Unix 纪元('1970-01-01 00:00:00' UTC) 至今的秒数来存储。格式：YYYY-MM-DD HH:MM:SS
+									注释：支持的范围是从 '1970-01-01 00:00:01' UTC 到 '2038-01-09 03:14:07' UTC
+						
+TIME()								时间。格式：HH:MM:SS
+									注释：支持的范围是从 '-838:59:59' 到 '838:59:59'
+						
+YEAR()								2 位或 4 位格式的年。
+									注释：4 位格式所允许的值：1901 到 2155。2 位格式所允许的值：70 到 69，表示从 1970 到 2069。
+
+注释：即便 DATETIME 和 TIMESTAMP 返回相同的格式，它们的工作方式很不同。在 INSERT 或 UPDATE 查询中，
+TIMESTAMP 自动把自身设置为当前的日期和时间。TIMESTAMP 也接受不同的格式，比如 YYYYMMDDHHMMSS、YYMMDDHHMMSS、YYYYMMDD 或 YYMMDD。
+
+
+12.WHERE 子句中的运算符
+下面的运算符可以在 WHERE 子句中使用：
+
+运算符								描述
+=									等于
+<>									不等于。注释：在 SQL 的一些版本中，该操作符可被写成 !=
+>									大于
+<									小于
+>=									大于等于
+<=									小于等于
+BETWEEN								在某个范围内
+LIKE								搜索某种模式
+IN									指定针对某个列的多个可能值
+
+
+Where 子句
+搜索 empno 等于 7900 的数据：Select * from emp where empno=7900;
+
+Where +条件（筛选行）
+条件：列，比较运算符，值
+比较运算符包涵：= > < >= ,<=, !=,<> 表示（不等于）
+Select * from emp where ename='SMITH';
+例子中的 SMITH 用单引号引起来，表示是字符串，字符串要区分大小写。
+
+逻辑运算
+And:与 同时满足两个条件的值。
+Select * from emp where sal > 2000 and sal < 3000;
+查询 EMP 表中 SAL 列中大于 2000 小于 3000 的值。
+
+Or:或 满足其中一个条件的值
+Select * from emp where sal > 2000 or comm > 500;
+查询 emp 表中 SAL 大于 2000 或 COMM 大于500的值。
+
+Not:非 满足不包含该条件的值。
+select * from emp where not sal > 1500;
+查询EMP表中 sal 小于等于 1500 的值。
+
+逻辑运算的优先级：
+()    not        and         or
+
+特殊条件
+1.空值判断： is null
+Select * from emp where comm is null;
+查询 emp 表中 comm 列中的空值。
+
+2.between and (在 之间的值)
+Select * from emp where sal between 1500 and 3000;
+查询 emp 表中 SAL 列中大于 1500 的小于 3000 的值。
+注意：大于等于 1500 且小于等于 3000， 1500 为下限，3000 为上限，下限在前，上限在后，查询的范围包涵有上下限的值。
+
+3.In
+Select * from emp where sal in (5000,3000,1500);
+查询 EMP 表 SAL 列中等于 5000，3000，1500 的值。
+
+4.like
+Like模糊查询
+Select * from emp where ename like 'M%';
+查询 EMP 表中 Ename 列中有 M 的值，M 为要查询内容中的模糊信息。
+% 表示多个字值，_下划线表示一个字符；
+M% : 为能配符，正则表达式，表示的意思为模糊查询信息为 M 开头的。
+%M% : 表示查询包含M的所有内容。
+%M_ : 表示查询以M在倒数第二位的所有内容。
+
+不带比较运算符的 WHERE 子句：
+WHERE 子句并不一定带比较运算符，当不带运算符时，会执行一个隐式转换。当 0 时转化为 false，1 转化为 true。例如：
+
+SELECT studentNO FROM student WHERE 0
+则会返回一个空集，因为每一行记录 WHERE 都返回 false。
+
+SELECT  studentNO  FROM student WHERE 1
+返回 student 表所有行中 studentNO 列的值。因为每一行记录 WHERE 都返回 true。
+

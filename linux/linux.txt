@@ -1,0 +1,107 @@
+mkdir tempFile：创建文件夹
+touch helloWorld.txt：创建文件
+rm helloWorld.txt：删除文件
+rm -rf tempFile：删除文件夹
+cd ..：回到上一层
+mv 文件名 文件目录[mv helloworld.txt tempFile]：剪切命令
+   --使用mv命令进行重命名的操作：
+		mv helloworld.php ../shellscript/helloworld.sh：将helloworld.php从当前目录移动到shellscript目录并且将文件的后缀名改为.sh
+		mv gjmou littleboy：将文件夹gjmou名字改为littleboy
+cp 文件名 文件目录[cp helloworld.txt ..]：复制命令
+tar -czvf 打包后的文件名 被打包的文件名 [tar -czvf myZip.tar.gz helloworld.sh]：压缩命令
+tar -xzvf 文件名 [tar -xzvf myZip.tar.gz]：将压缩包解压到当前目录
+tar -xzvf 文件名 -C 目录[tar -xzvf myZip.tar.gz -C ..]：将压缩解压到上一级目录
+tar -xzvf 文件名 目录[tar -xzvf gjmou.tar.gz gjmou/hlfan]：解压压缩文件的指定目录
+tar 的参数解释（-c：创建打包文件、-x：解压功能、-z：通过gzip的支持进行压缩/解压缩，此时文件名为*.tar.gz、-v：在压缩/解压的过程中，将正在处理的文件名显示出来、-f filename：-f后面跟处理后文件的全名称（路径+文件名+后缀名））
+rename[rename helloworld.sh(源文件名) helloworld.php(新文件名) helloworld.sh(源文件名)]：重命名文件名
+
+清空文件：
+cat命令：cat /dev/null > file_name(文件名) --推荐使用
+vim命令：在文件内使用%d命令将文件清空，在输入wq命令保存文件
+echo命令：echo "" > file_name(文件名) 这时候会在文件中写入一个换行符
+
+crontab -l：查看所有的定时任务
+
+chmod命令
+chmod 744 log.log;
+自己	   所属组	    其他
+rwx			rwx			rwx
+111			111			111
+注意：1代表有权限，0代表权限
+chmod 744 log.log;命令解析如下：
+111			100			100
+rwx			r--			r--
+表示log.log文件自己拥有读、写、执行权限，所属组和其他用户只要读的权限
+
+grep命令:
+常用格式：grep[选项] "模型" [文件]
+grep "root" /etc/passwd
+常用选项：
+	-E：开启扩展(Extend)的正则表达式
+	-i：忽略大小写(ignore case) #grep -i "ROOT" /etc/passwd
+	-v：反过来(invert)，只打印没有匹配的，而匹配的反而不打印
+	-n：显示行号 #grep -n "root" /etc/passwd
+	-w：被匹配的文本只能是单词，而不能是单词中的某一部分，如文本中有liker，搜索like就不会匹配到该部分内容
+	-c：显示总共多少行被匹配到了，而不是显示被匹配到的内容。同时使用cv是显示多少行没有匹配到 #grep -vc "root" /etc/passwd
+	-o：只显示被模式匹配到的字符串 #grep -o "root" /etc/passwd
+	-color：将匹配到的内容以颜色高亮显示
+	-A n：显示匹配到的字符串所在的行及其后n行，after #grep -A 2 "core id" /proc/cpuinfo
+	-B n：显示匹配到的字符串所在的行及其前n行，before #grep -B 2 "core id" /proc/cpuinfo
+	-C n：显示匹配到的字符串所在的行及其前后各n行，context #grep -C 2 "core id" /proc/cpuinfo
+将没有出现root和nologin的行取出来
+	grep -v "root" /etc/passwd | grep -v "nologin"
+用dmesg列出核心信息，再以grep内含eth那行，要将捉到的关键字显色，并加上行号来表示
+	dmesg | grep -n --color=auto 'eth'
+	
+根据文件内容递归查找目录
+grep "energywise" * [在当前目录搜索带'energywise'行的文件]
+grep -r "energywise" * [在当前目录及其子目录下搜索'energywise'行的文件]
+grep -l -r "energywise" *  [在当前目录及其子目录下搜索'energywise'行的文件，但是不显示匹配的行，只显示匹配的文件]
+
+模式部分：
+1.直接输入要匹配的字符串，这个可以用fgrep（fast grep）代替来提高查询速度。查询hello.c中的printf的个数：grep -c "printf" hello.c
+2.使用基本正则表达式
+	匹配字符：
+	.				--> 任意一个字符
+	[abc]			--> 表示匹配一个字符，这个字符必须是abc中的一个
+	[a-zA-Z]		--> 表示匹配一个字符，这个字符必须是a-z或者A-Z这52个字母中的一个
+	[123]			--> 表示匹配一个字符，这个字符必须是除了123以外的所有字符
+一些常用的字符集，系统做了定义：
+	[a-zA-Z]  		==  [[:alpha:]]
+	[0-9]  			==  [[:digit:]]
+	[a-zA-Z0-9]		==  [[:alnum:]]
+	tab,space		==  [[:space:]]
+	[A-Z]			==  [[:upper:]]
+	[a-z]			==  [[:lower:]]
+	标点符号		==  [[:punct:]]
+
+匹配次数：
+	\{m,n\}:匹配其前面出现的字符至少m次，至多n次  #grep "/.\{2\}sh" /etc/passwd 匹配文件中存在/[2个字符]sh的字符串 
+	\?:匹配其前面出现的内容0次或1次，等价于\{0,1\} #grep "/.\?ash" /etc/passwd 匹配文件中存在/[0到1个字符]ash的字符串 
+	*:匹配其前面出现的任意次，等价于\{0,\}，所以".*"表示任意字符任意次，即无论什么内容全部匹配 #grep "/.*sh" /etc/password：匹配文件中存在/[任意字符]sh的字符串
+	
+位置锚定：
+	^：锚定行首 #grep "^g.*" /etc/passwd
+	$：锚定行尾 #grep ".*bash$" /etc/passwd
+	^$：用于匹配空白行
+	\b或\<：锚定单词的词首		"\<like" 会匹配到liker 不会匹配到alike  #grep ".*bash\>" /etc/passwd
+	\b或者\>：锚定单词的词尾 	"\<like\>" 即不会匹配到liker，也不会匹配到alike #grep "\<sh" /etc/passwd
+	\B与\b的作用相反			\Blike   会匹配到alike 不会匹配到liker	#grep "\Bsh\b" /etc/passwd 
+								\Blike\B  即不会匹配到liker，也不会匹配到alike	#grep "\Bsh\b" /etc/passwd
+
+分组及引用
+	string ： 将string作为一个整体方便后面引用
+	\1：引用第1个左括号及其队以ing的右括号所匹配的内容
+	\2：引用第2个左括号及其对应右括号所匹配的内容
+	\n：引用第n个左括号及其对应的右括号所匹配的内容
+示例：
+	grep "^\([[:alpha:]]\).*\1$" /etc/passwd 匹配以相同字符开始和结尾的字符串 如：a[任意字符]a
+	
+linux：&、&&、|、||
+&	表示任务在后台执行，如要在后台运行redis-server，则有redis-server &;
+&& 	表示前一条命令执行成功时，才执行后一条命令，如echo '1' && echo '2';
+| 	表示管道，上一条命令的输出，作为下一条命令参数，如 echo 'yes' | wc -l，再如 ps aux | grep nginx;
+|| 	表示上一条命令执行失败后，才执行下一条命令，如cat nofile || echo "fail";
+
+	
+	

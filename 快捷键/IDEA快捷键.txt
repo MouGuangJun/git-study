@@ -1,0 +1,60 @@
+去掉空白： Ctrl + Shift + J
+
+格式化代码： Ctrl + Alt + L
+
+选中下一个相同内容的快捷键是：Alt + J 
+
+选中所有相同内容的快捷键是：Ctrl + Shift + Alt + J 
+
+ctrl + F：查找当前文本中相同的代码
+	ctrl + L：查找下一个
+	ctrl + shift + L：查找上一个
+	
+Ctrl + Y：删除一整行
+Ctrl + D：复制一整行
+
+ctrl + z：撤销
+ctrl + shift + z：反撤销
+
+ctrl + N：搜索类
+
+ctrl + shfit + U：大小写切换
+
+alt + 左键拖动鼠标：块编辑
+
+ctrl + alt + 左右箭头：返回上一步操作
+alt + 左右箭头：不同页面的切换
+
+ctrl + h：查看类继承关系
+
+debug状态下：
+	alt + f8：查看选中的变量的值
+	
+ctrl + alt + t：try...catch...自动生成
+
+ctrl + alt + o：去掉无效的引用
+
+ctrl + alt + d：快速寻找接口的实现类
+
+alt + shift + 上下箭头：将该行上下移动
+
+ctrl + p：提示所有的重载方法
+
+ctrl + alt + h：查看方法被那些类的方法调用
+
+ctrl + shift + f：全局搜索快捷键
+
+idea创建模板文件：
+	File | Settings | Editor | File and Code Templates
+	设置Name：mybatis-config
+		Extension：xml
+		然后将文本的内容复制到对应的文本框即可
+		
+ctrl+shift+(+)/(-)：IDEA展开、折叠方法  //ctrl和shift和加号键一起按是展开，和减号一起按是折叠
+
+ctrl + alt + b：快速定位到接口的实现类
+ctrl + u：快速定位到当前类的父类
+
+alt + 7：查看类中的所有方法和属性
+
+ctrl + 鼠标左键：查看被哪些类引用过

@@ -1,0 +1,38 @@
+重启：reboot
+关机：shutdown
+	shutdown -h
+	Linux 将在一分钟内关闭。“-h”选项明确表示关闭或关闭系统。通常可以通过单独输入关闭命令来产生相同的结果。
+	
+	shutdown -r
+	Linux 将在一分钟内重新启动。“-r”选项代表重新启动或重新启动。
+	
+	shutdown -h 0/shutdown now
+	Linux 将立即关闭。在这种情况下，关闭命令后跟“-h”选项和时间规范“0”，表示立即。
+	
+	shutdown -r 0/shutdown -r now
+	Linux 将立即重新启动。在这种情况下，关闭命令后跟“-r”选项和时间规范“0”，即立即。
+	
+	shutdown -h 20/shutdown -h +20
+	输入命令 20 分钟后，Linux 将关闭。
+	
+	shutdown -r 20/shutdown -r +20
+	输入命令 20 分钟后 Linux 会重新启动。
+	
+	shutdown -h 17:30/shutdown 17:30
+	下午 5:30 关闭 Linux 的命令
+	时间规范基于 Linux 中的 24 小时格式，符合语法 (hh:mm)。在本例中，Linux 在下午 5:30（即 17:30）关闭。再一次，我们可以省略代表关闭或关闭系统电源的“-h”选项：
+	
+	shutdown -r 17:30
+	下午 5:30 重启 Linux 的命令
+	Linux 将在下午 5:30（即 17:30）重新启动。在这种情况下，代表“重新启动”的“-r”选项显然不能省略——否则，Linux 将在不重新启动的情况下关闭。
+	
+	shutdown -P
+	Linux下电命令
+	该命令明确表示将关闭系统并切断主电源。
+	
+	shutdown 'WRITE YOUR WALL MESSAGE HERE'
+	设置墙消息的命令
+	墙消息是显示在操作系统用户屏幕上的信息。例如，管理员可以使用墙消息通知用户系统正在关闭。
+	
+	shutdown -c
+	使用此命令，可以取消预定的关机或重启。

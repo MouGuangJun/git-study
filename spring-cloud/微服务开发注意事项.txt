@@ -1,0 +1,7 @@
+1.每个人需要一个自己特定的版本号（如工号）
+2.在开发之前需要先定义好各个模块的包
+3.需要添加mybatis mapper的时候需要先查询是否已经存在对应的mapper
+4.添加服务Service需要跟组长确定
+5.常量类枚举需要先按照不同的功能进行规划
+6.Example.CreateCreteria() 方法andCondition和andEqual（如果value为空，不拼接sql条件）等方法的区别
+7.StreamUtils、MybatisUtils、StringUtils、DateUtils、Arith工具类的准备

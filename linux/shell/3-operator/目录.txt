@@ -1,0 +1,6 @@
+demo1=Shell基本运算符
+demo2=关系运算符
+demo3=布尔运算符
+demo4=逻辑运算符
+demo5=字符串运算符
+demo6=文件测试运算符

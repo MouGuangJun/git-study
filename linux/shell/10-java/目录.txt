@@ -1,0 +1,2 @@
+excute=执行java程序的shell脚本
+compiler=编译java程序的shell脚本
