@@ -58,3 +58,6 @@ ctrl + u：快速定位到当前类的父类
 alt + 7：查看类中的所有方法和属性
 
 ctrl + 鼠标左键：查看被哪些类引用过
+
+
+修改项目的sources、tests、resources、test resources exclude等工程结构：File | Project Structure | Modules

@@ -1,0 +1,4 @@
+ctrl + shift + k： 添加特殊格式代码
+ctrl + 1/2/3/...：添加标题
+ctrl + shfit + ]：段前添加小黑点
+ctrl + T：插入表格

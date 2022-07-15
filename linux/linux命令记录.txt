@@ -36,3 +36,14 @@
 	
 	shutdown -c
 	使用此命令，可以取消预定的关机或重启。
+	
+	
+修改IP地址：vi /etc/sysconfig/network-scripts/ifcfg-ens33
+重启网络服务：service network restart
+修改主机名称：vi /etc/hostname
+关闭防火墙命令：systemctl stop firewalld
+查看防火墙状态命令：systemctl status firewalld
+CRT上传window文件到linux服务器：alt + p打开ftp传输工具，直接将window的文件拖上去即可
+永久生效配置文件：source /etc/profile
+
+/gjmou/software/zookeeper

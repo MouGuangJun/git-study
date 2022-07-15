@@ -1140,7 +1140,7 @@ $ git branch -a #第三分支已经被删除
 
 ## 其他
 
-### 提交github的基本操作：
+### 提交github的基本操作
 
 ```bash
 $ git init
@@ -1779,6 +1779,30 @@ git commit -m "这个commit会被覆盖"
 # B 是当前分支名
 git reset --hard origin/B
 ```
+
+
+
+### IDEA连接GitHub
+
+1、设置git路径：
+
+![image-20220626171711040](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171711040.png)
+
+
+
+2、配置SSH密钥
+
+![image-20220626171800456](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171800456.png)
+
+
+
+3、配置github仓库地址
+
+![image-20220626171843796](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171843796.png)
+
+![image-20220626171906620](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171906620.png)
+
+
 
 
 
