@@ -965,7 +965,7 @@ git merge [alias]/[branch]
 
 接下来我们在 Github 上点击 **README.md** 并在线修改它:
 
-![image-20220618181851534](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220618181851534.png)
+![image-20220618181851534](../../md-photo/image-20220618181851534.png)
 
 然后我们在本地更新修改。
 
@@ -1230,7 +1230,7 @@ Deleted branch origin/master (was 7984582).
 
 ### git分支管理
 
-![img](https://img-blog.csdnimg.cn/img_convert/095739b5605ed15a8578c29cac3d9dbd.png)
+![img](../../md-photo/095739b5605ed15a8578c29cac3d9dbd.png)
 
 #### 1.GIT创建分支
 
@@ -1326,7 +1326,7 @@ $ git branch
   master
 ```
 
-![img](https://img-blog.csdnimg.cn/img_convert/9ecca2760945c842e5cbed8c831f6edc.png)
+![img](../../md-photo/9ecca2760945c842e5cbed8c831f6edc.png)
 
 ##### **1.2 创建远程分支**
 
@@ -1353,19 +1353,19 @@ To https://github.com/MouGuangJun/git-study.git
 
 远程分支已经创建成功：
 
-![image-20220618215258955](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220618215258955.png)
+![image-20220618215258955](../../md-photo/image-20220618215258955.png)
 
 
 
-![img](https://img-blog.csdnimg.cn/img_convert/92085d5512b0cc541ac82fbff18fab74.png)
+![img](../../md-photo/92085d5512b0cc541ac82fbff18fab74.png)
 
 
 
 <font color="green">**GitHub上创建远程分支**</font>
 
-![image-20220618221249425](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220618221249425.png)
+![image-20220618221249425](../../md-photo/image-20220618221249425.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/408dda1bad9ff3a9aa735962251fb728.png)
+![img](../../md-photo/408dda1bad9ff3a9aa735962251fb728.png)
 
 PS: 上述创建的同名本地分支跟远程分支并没建立关联， 这样操作指令会比较不方便（如“git pull”指令得输入对应的远程分支名）， 怎么让其建立关联？
 
@@ -1477,13 +1477,13 @@ Saved working directory and index state On ThreeBranch: 我要切换到别的分
 
 图解：
 
-![img](https://img-blog.csdnimg.cn/img_convert/bbb552bfb7223214c21d7c57907f42c1.png)
+![img](../../md-photo/bbb552bfb7223214c21d7c57907f42c1.png)
 
 
 
 在新分支开发完后：
 
-![img](https://img-blog.csdnimg.cn/img_convert/72cfcbab7db7e1a8628ebb5a9cf0331f.png)
+![img](../../md-photo/72cfcbab7db7e1a8628ebb5a9cf0331f.png)
 
 
 
@@ -1521,11 +1521,11 @@ overflow to SecondBranch!
 
 图解：
 
-![img](https://img-blog.csdnimg.cn/img_convert/54f0b95647cd3847fc0ee378f00b9816.png)
+![img](../../md-photo/54f0b95647cd3847fc0ee378f00b9816.png)
 
 切换到新的分支后：
 
-![img](https://img-blog.csdnimg.cn/img_convert/e25ec334c061f9f3e845fd33367f60ea.png)
+![img](../../md-photo/e25ec334c061f9f3e845fd33367f60ea.png)
 
 
 
@@ -1562,7 +1562,7 @@ $ git status -s #暂存区中的文件被清空
 
 图解：
 
-![img](https://img-blog.csdnimg.cn/img_convert/ad3b1c3ceabb82881dfde60c037be8bf.png)
+![img](../../md-photo/ad3b1c3ceabb82881dfde60c037be8bf.png)
 
 
 
@@ -1587,7 +1587,7 @@ $ git stash drop stash@{0}
 
 例如在新分支ThreeBranch开发的功能已完成并已提交；接下来走测试流程需要将代码合并到SecondBranch分支（我所在团队SecondBranch为测试分支，不同团队的测试分支会不一样）
 
-![img](https://img-blog.csdnimg.cn/img_convert/c0da229eca9308445f112df4c8a2386d.png)
+![img](../../md-photo/c0da229eca9308445f112df4c8a2386d.png)
 
 ```bash
 $ git branch #查看当前分支
@@ -1646,7 +1646,7 @@ To https://github.com/MouGuangJun/git-study.git
 
 可以看到文件已经被推送到第二分支上
 
-![image-20220619120454238](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220619120454238.png)
+![image-20220619120454238](../../md-photo/image-20220619120454238.png)
 
 
 
@@ -1666,7 +1666,7 @@ To https://github.com/MouGuangJun/git-study.git
 
 在第三分支上创建一个remote file文件：
 
-![image-20220619121234370](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220619121234370.png)
+![image-20220619121234370](../../md-photo/image-20220619121234370.png)
 
 
 
@@ -1711,7 +1711,7 @@ $ ls -a #remote file已经被合并下来
 
 修改ThreeBranch远程的文件：
 
-![image-20220619121953897](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220619121953897.png)
+![image-20220619121953897](../../md-photo/image-20220619121953897.png)
 
 
 
@@ -1786,21 +1786,31 @@ git reset --hard origin/B
 
 1、设置git路径：
 
-![image-20220626171711040](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171711040.png)
+![image-20220626171711040](../../md-photo/image-20220626171711040.png)
+
+
+
+开始使用本地的git
+
+![image-20220802232007499](../../md-photo/image-20220802232007499.png)
+
+
 
 
 
 2、配置SSH密钥
 
-![image-20220626171800456](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171800456.png)
+![image-20220626171800456](../../md-photo/image-20220626171800456.png)
 
 
 
 3、配置github仓库地址
 
-![image-20220626171843796](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171843796.png)
+![image-20220626171843796](../../md-photo/image-20220626171843796.png)
 
-![image-20220626171906620](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626171906620.png)
+git@github.com:MouGuangJun/design-mode.git
+
+![image-20220626171906620](../../md-photo/image-20220626171906620.png)
 
 
 
@@ -1810,7 +1820,7 @@ git reset --hard origin/B
 
 git 常用命令(**点击图片查看大图**)：
 
-![img](https://www.runoob.com/wp-content/uploads/2015/02/011500266295799.jpg)
+![img](../../md-photo/011500266295799.jpg)
 
 ```bash
 git init                                                  # 初始化本地git仓库（创建新仓库）

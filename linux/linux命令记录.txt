@@ -42,8 +42,16 @@
 重启网络服务：service network restart
 修改主机名称：vi /etc/hostname
 关闭防火墙命令：systemctl stop firewalld
+永久关闭防火墙：systemctl disable firewalld
 查看防火墙状态命令：systemctl status firewalld
 CRT上传window文件到linux服务器：alt + p打开ftp传输工具，直接将window的文件拖上去即可
 永久生效配置文件：source /etc/profile
 
-/gjmou/software/zookeeper
+# 开放防火墙端口
+# 查看开放的端口
+sudo firewall-cmd --zone=public --list-ports
+# 添加端口
+#27017改成要添加的端口（--permanent永久生效，没有此参数重启后失效）
+firewall-cmd --zone=public --add-port=27017/tcp --permanent   
+# 更新防火墙
+sudo firewall-cmd --reload

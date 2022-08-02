@@ -61,3 +61,8 @@ ctrl + 鼠标左键：查看被哪些类引用过
 
 
 修改项目的sources、tests、resources、test resources exclude等工程结构：File | Project Structure | Modules
+
+
+idea git提交贴边或悬浮
+
+在类里面ctrl + alt + u：生成类的继承关系图

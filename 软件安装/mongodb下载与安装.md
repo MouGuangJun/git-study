@@ -4,9 +4,9 @@
 
 [MongoDB 源码下载地址](https://www.mongodb.com/download-center#community)
 
-![img](https://www.runoob.com/wp-content/uploads/2013/10/0D72BC20-1D77-437E-972C-286EB5EFB183.jpg)
+![img](../../md-photo/0D72BC20-1D77-437E-972C-286EB5EFB183.jpg)
 
-![img](https://www.runoob.com/wp-content/uploads/2013/10/558D36F2-01AF-49C3-BA07-F2728B216C87.jpg)
+![img](../../md-photo/558D36F2-01AF-49C3-BA07-F2728B216C87.jpg)
 
 
 
@@ -24,7 +24,7 @@ mv mongodb-linux-x86_64-rhel70-5.0.9 mongodb #重命名
 
 修改环境变量：
 
-![image-20220714090235083](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220714090235083.png)
+![image-20220714090235083](../../md-photo/image-20220714090235083.png)
 
 生效环境变量：
 
@@ -72,12 +72,22 @@ mongod --config mongodb.conf #通过配置文件的方式进行启动
 使用普通命令启动：（<font color="green">*不建议使用*</font>）
 
 ```bash
-mongod --dbpath /gjmou/software/mongodb/data --logpath /gjmou/software/mongodb/logs/mongod.log
+# 普通命令启动
+$ mongod --dbpath /gjmou/software/mongodb/data --logpath /gjmou/software/mongodb/logs/mongod.log
+
+# 使用配置方式启动的命令
+$ mongod --config XXX.config
 ```
 
 
 
 ## MongoDB 后台管理 Shell
+
+命令格式：
+
+```bash
+$ mongo -u 用户名 -p 密码 --port 端口号 --host IP数据库名
+```
 
 如果你需要进入 mongodb 后台管理，你需要先打开 mongodb 装目录的下的 **bin 目录**，然后执行**mongo 命令**文件。
 
@@ -145,7 +155,7 @@ switched to db admin
 <font color="red">**防火墙规则添加端口号：27017**</font>
 
 ```bash
-# 查看开发的端口
+# 查看开放的端口
 sudo firewall-cmd --zone=public --list-ports
 
 # 添加端口
@@ -160,10 +170,10 @@ sudo firewall-cmd --reload
 
 启动compass，添加配置信息：
 
-![image-20220714234629730](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220714234629730.png)
+![image-20220714234629730](../../md-photo/image-20220714234629730.png)
 
 
 
 连接成功：
 
-![image-20220714234703990](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220714234703990.png)
+![image-20220714234703990](../../md-photo/image-20220714234703990.png)

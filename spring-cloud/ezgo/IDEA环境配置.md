@@ -2,25 +2,25 @@
 
 ## Maven选取
 
-![image-20220626164306480](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626164306480.png)
+![image-20220626164306480](../../../md-photo/image-20220626164306480.png)
 
 
 
 ## 字符集设置
 
-![image-20220626164551359](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626164551359.png)
+![image-20220626164551359](../../../md-photo/image-20220626164551359.png)
 
 
 
 ## 注解激活生效
 
-![image-20220626164644189](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626164644189.png)
+![image-20220626164644189](../../../md-photo/image-20220626164644189.png)
 
 
 
 ## 编译器选择8版本
 
-![image-20220626164811412](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626164811412.png)
+![image-20220626164811412](../../../md-photo/image-20220626164811412.png)
 
 
 
@@ -28,7 +28,7 @@
 
 过滤多余的idea、maven的配置文件
 
-![image-20220626164941023](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220626164941023.png)
+![image-20220626164941023](../../../md-photo/image-20220626164941023.png)
 
 
 
@@ -60,25 +60,25 @@
 
 修改idea设置：
 
-![image-20220703202911585](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220703202911585.png)
+![image-20220703202911585](../../../md-photo/image-20220703202911585.png)
 
 
 
 快捷键：ctrl + alt + shift + /
 
-![image-20220703202958746](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220703202958746.png)
+![image-20220703202958746](../../../md-photo/image-20220703202958746.png)
 
-![image-20220703203041517](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220703203041517.png)
+![image-20220703203041517](../../../md-photo/image-20220703203041517.png)
 
 
 
 ## Run Dashboard
 
-![image-20220703214237600](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220703214237600.png)
+![image-20220703214237600](../../../md-photo/image-20220703214237600.png)
 
 
 
-![image-20220703214332208](C:\Users\19007\AppData\Roaming\Typora\typora-user-images\image-20220703214332208.png)
+![image-20220703214332208](../../../md-photo/image-20220703214332208.png)
 
 
 

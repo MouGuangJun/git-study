@@ -6,7 +6,7 @@
 
 ​	SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。在2014年开源 [scala](https://so.csdn.net/so/search?q=scala&spm=1001.2101.3001.7020) 语言版本。
 
-![img](https://img-blog.csdnimg.cn/img_convert/5ba368daed80d653109e77940df2d255.webp?x-oss-process=image/format,png)
+![image](../../md-photo/format,png.png)
 
 
 
@@ -238,7 +238,7 @@ public class SnowFlakeUtil {
 
 ## wapper
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210528191635138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JyYXZlX2po,size_16,color_FFFFFF,t_70#pic_center)
+![image](../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JyYXZlX2po,size_16,color_FFFFFF,t_70#pic_center.png)
 
 - Wrapper ： 条件构造抽象类，最顶端父类
 
