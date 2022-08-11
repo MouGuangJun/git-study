@@ -66,3 +66,5 @@ ctrl + 鼠标左键：查看被哪些类引用过
 idea git提交贴边或悬浮
 
 在类里面ctrl + alt + u：生成类的继承关系图
+
+ctrl + alt + o ：清除无效import
