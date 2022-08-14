@@ -49,7 +49,7 @@ atomicInteger.compareAndSet(2, 3);
 
 - **ABA问题及解决方案**
 
-![在这里插入图片描述](../../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L291dHNhbmRpbmc=,size_16,color_FFFFFF,t_70-16591000687343.png)
+![image](../../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L291dHNhbmRpbmc=,size_16,color_FFFFFF,t_70-16591000687343.png)
 
 1.Thread1和Thread2都拿到值，都为A
 2.Thread2把A值更新为B

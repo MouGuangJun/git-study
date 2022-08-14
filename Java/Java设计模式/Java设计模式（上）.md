@@ -48,7 +48,7 @@
 
 #### 示例
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16.png)
 
 工厂：
 
@@ -132,7 +132,7 @@ public interface TV {
 
 #### 模式结构
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594557307083.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594557307083.png)
 
 
 
@@ -224,11 +224,11 @@ public class Program implements Product {
 **产品族**：在抽象工厂模式中，产品族是指由同一个工厂生产的，
 位于不同产品等级结构中的一组产品。
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16.png)
 
 #### 模式结构
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881427703.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881427703.png)
 
 
 
@@ -236,11 +236,11 @@ public class Program implements Product {
 
 计算机包含内存（RAM），CPU等硬件设备，根据如图所示的“产品等级结构-产品族示意图”，使用抽象工厂模式实现计算机设备创建过程并绘制类图。
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881656926.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881656926.png)
 
 根据题意，明白相应的产品族与产品等级结构，建立相应的抽象类，同一产品族的实现共同工厂类，同一产品等级结构继承共同的产品类。画出相应的类图，写出相应的代码。
 
-![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881890589.png)
+![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAc2hpbmUgc3Vu,size_20,color_FFFFFF,t_70,g_se,x_16-16594881890589.png)
 
 
 
@@ -386,7 +386,7 @@ pcRAM.stroe();
 
 ​	建造者模式<font color='red'>将复杂产品的创建步骤分解在在不同的方法中</font>，使得创建过程更加清晰，从而更精确控制复杂对象的产生过程；通过隔离复杂对象的构建与使用，也就是将产品的创建与产品本身分离开来，使得<font color='red'>同样的构建过程可以创建不同的对象</font>；并且每个具体建造者都相互独立，因此可以很方便地替换具体建造者或增加新的具体建造者，<font color='red'>用户使用不同的具体建造者即可得到不同的产品对象</font>。
 
-![img](../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70.jpeg)
+![img](../../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70.jpeg)
 
 
 
@@ -720,7 +720,7 @@ public class Singleton5 {
 
 #### 定义
 
-![img](../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70-16596680506063.jpeg)
+![img](../../../md-photo/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70-16596680506063.jpeg)
 
 原型模式的核心是就是原型类 Prototype，Prototype 类需要具备以下两个条件：
 
