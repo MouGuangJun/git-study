@@ -642,7 +642,7 @@ c702fd5a628a49fa9b80167331d367794f26c0c3 192.168.239.72:5482@15482 master - 0 16
 
 
 
-<font color='red'>**如果某一段插槽的主从节点全部挂掉，如果redis配置文件中配置了 cluster-require-full-coverage为yes，那么整个集群挂掉；如果为no，那么只是改插槽部分的数据无法使用，其他插槽还是能提供使用。**</font>
+<font color='red'>**如果某一段插槽的主从节点全部挂掉，如果redis配置文件中配置了 cluster-require-full-coverage为yes，那么整个集群挂掉；如果为no，那么只是该插槽部分的数据无法使用，其他插槽还是能提供使用。**</font>
 
 
 
