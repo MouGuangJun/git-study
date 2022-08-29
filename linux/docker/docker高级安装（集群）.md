@@ -320,3 +320,280 @@ $ docker stop redis-node1 redis-node2 redis-node3 redis-node4 redis-node5 redis-
 
 
 
+### redis集群扩容
+
+**<font color='red'>添加6485和6486端口实例</font>**
+
+```bash
+# 添加6485和6486实例
+# 6485
+$ docker run -d --name redis-node7 --net host --privileged=true -v /local/redis_cluster/redis-node7/data:/data 16ecd2772934 --cluster-enabled yes --appendonly yes --port 6485
+# 6486
+$ docker run -d --name redis-node8 --net host --privileged=true -v /local/redis_cluster/redis-node8/data:/data 16ecd2772934 --cluster-enabled yes --appendonly yes --port 6486
+
+# 将6485节点作为master
+$ docker exec -it redis-node7 bash
+
+# 添加master节点(后面那个6479是master节点)
+# 这里是将节点加入了集群中，但是并没有分配slot，所以这个节点并没有真正的开始分担集群工作
+$docker redis-cli --cluster add-node 192.168.239.74:6485 192.168.239.74:6479
+
+# 检查redis集群状态
+$docker redis-cli --cluster check 192.168.239.74:6485
+```
+
+当前集群状态：
+
+![image-20220824211248651](../../../md-photo/image-20220824211248651.png)
+
+
+
+```bash
+# 重新分配哈希槽位(后面那个6485是master节点)
+$docker redis-cli --cluster reshard 192.168.239.74:6485
+>>> Performing Cluster Check (using node 192.168.239.74:6485)
+M: 7486231378debd48feba4011b8a6eb07acb2e263 192.168.239.74:6485
+   slots: (0 slots) master
+M: 7962fcbb671c29fd77c17df9b273236798db8fe2 192.168.239.74:6479
+   slots:[0-5460] (5461 slots) master
+   1 additional replica(s)
+S: b7b061f463b189ec8ad4d108e8bd07895de420d8 192.168.239.74:6482
+   slots: (0 slots) slave
+   replicates 7962fcbb671c29fd77c17df9b273236798db8fe2
+M: 7cbdb8196d621ba2f6ecd5c6b1b4410410622960 192.168.239.74:6481
+   slots:[10923-16383] (5461 slots) master
+   1 additional replica(s)
+M: e1d9c657878f395e741623e3be54eb52a8909aef 192.168.239.74:6480
+   slots:[5461-10922] (5462 slots) master
+   1 additional replica(s)
+S: 2ae8e22cb1933a8ac3ffdd86e34cc2a01ba80f4b 192.168.239.74:6484
+   slots: (0 slots) slave
+   replicates 7cbdb8196d621ba2f6ecd5c6b1b4410410622960
+S: 3507680d64e12564e2f1dde314fc56a1dc9988dd 192.168.239.74:6483
+   slots: (0 slots) slave
+   replicates e1d9c657878f395e741623e3be54eb52a8909aef
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+How many slots do you want to move (from 1 to 16384)? 4096 #[分配的哈希槽数=总槽数/master数]
+What is the receiving node ID? 7486231378debd48feba4011b8a6eb07acb2e263#[被分配的master]
+Please enter all the source node IDs.
+  Type 'all' to use all the nodes as source nodes for the hash slots.
+  Type 'done' once you entered all the source nodes IDs.
+Source node #1: all #[全部重新分配]
+```
+
+![image-20220824212141531](../../../md-photo/image-20220824212141531.png)
+
+
+
+```bash
+# 查看重新分配后的结果
+$docker redis-cli --cluster check 192.168.239.74:6485
+192.168.239.74:6485 (74862313...) -> 1 keys | 4096 slots | 0 slaves.
+192.168.239.74:6479 (7962fcbb...) -> 0 keys | 4096 slots | 1 slaves.
+192.168.239.74:6481 (7cbdb819...) -> 1 keys | 4096 slots | 1 slaves.
+192.168.239.74:6480 (e1d9c657...) -> 0 keys | 4096 slots | 1 slaves.
+[OK] 2 keys in 4 masters.
+0.00 keys per slot on average.
+>>> Performing Cluster Check (using node 192.168.239.74:6485)
+M: 7486231378debd48feba4011b8a6eb07acb2e263 192.168.239.74:6485 
+   # 可以看到6485节点的哈希槽位是之前的槽位分出来的，而非重新均分
+   slots:[0-1364],[5461-6826],[10923-12287] (4096 slots) master
+M: 7962fcbb671c29fd77c17df9b273236798db8fe2 192.168.239.74:6479
+   slots:[1365-5460] (4096 slots) master
+   1 additional replica(s)
+S: b7b061f463b189ec8ad4d108e8bd07895de420d8 192.168.239.74:6482
+   slots: (0 slots) slave
+   replicates 7962fcbb671c29fd77c17df9b273236798db8fe2
+M: 7cbdb8196d621ba2f6ecd5c6b1b4410410622960 192.168.239.74:6481
+   slots:[12288-16383] (4096 slots) master
+   1 additional replica(s)
+M: e1d9c657878f395e741623e3be54eb52a8909aef 192.168.239.74:6480
+   slots:[6827-10922] (4096 slots) master
+   1 additional replica(s)
+S: 2ae8e22cb1933a8ac3ffdd86e34cc2a01ba80f4b 192.168.239.74:6484
+   slots: (0 slots) slave
+   replicates 7cbdb8196d621ba2f6ecd5c6b1b4410410622960
+S: 3507680d64e12564e2f1dde314fc56a1dc9988dd 192.168.239.74:6483
+   slots: (0 slots) slave
+   replicates e1d9c657878f395e741623e3be54eb52a8909aef
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+```
+
+重新分配后的结果：
+
+![image-20220824212557496](../../../md-photo/image-20220824212557496.png)
+
+
+
+将6486实例作为6485实例的从节点
+
+```bash
+# 7486231378debd48feba4011b8a6eb07acb2e263是6485实例的redis编号
+# 192.168.239.74:6486 192.168.239.74:6485是需要创建主从关系的两个实例
+$docker redis-cli --cluster add-node 192.168.239.74:6486 192.168.239.74:6485 --cluster-slave --cluster-master-id 7486231378debd48feba4011b8a6eb07acb2e263
+
+# 查看redis集群状态
+$docker redis-cli --cluster check 192.168.239.74:6485
+192.168.239.74:6485 (74862313...) -> 1 keys | 4096 slots | 1 slaves.
+192.168.239.74:6479 (7962fcbb...) -> 0 keys | 4096 slots | 1 slaves.
+192.168.239.74:6481 (7cbdb819...) -> 1 keys | 4096 slots | 1 slaves.
+192.168.239.74:6480 (e1d9c657...) -> 0 keys | 4096 slots | 1 slaves.
+[OK] 2 keys in 4 masters.
+0.00 keys per slot on average.
+>>> Performing Cluster Check (using node 192.168.239.74:6485)
+M: 7486231378debd48feba4011b8a6eb07acb2e263 192.168.239.74:6485
+   slots:[0-1364],[5461-6826],[10923-12287] (4096 slots) master
+   1 additional replica(s)
+M: 7962fcbb671c29fd77c17df9b273236798db8fe2 192.168.239.74:6479
+   slots:[1365-5460] (4096 slots) master
+   1 additional replica(s)
+S: b7b061f463b189ec8ad4d108e8bd07895de420d8 192.168.239.74:6482
+   slots: (0 slots) slave
+   replicates 7962fcbb671c29fd77c17df9b273236798db8fe2
+M: 7cbdb8196d621ba2f6ecd5c6b1b4410410622960 192.168.239.74:6481
+   slots:[12288-16383] (4096 slots) master
+   1 additional replica(s)
+M: e1d9c657878f395e741623e3be54eb52a8909aef 192.168.239.74:6480
+   slots:[6827-10922] (4096 slots) master
+   1 additional replica(s)
+# 可以看到6486作为7486231378debd48feba4011b8a6eb07acb2e263【6485】的从节点
+S: 2004378407c91ba144da45e1025db52e099d49a8 192.168.239.74:6486
+   slots: (0 slots) slave
+   replicates 7486231378debd48feba4011b8a6eb07acb2e263
+S: 2ae8e22cb1933a8ac3ffdd86e34cc2a01ba80f4b 192.168.239.74:6484
+   slots: (0 slots) slave
+   replicates 7cbdb8196d621ba2f6ecd5c6b1b4410410622960
+S: 3507680d64e12564e2f1dde314fc56a1dc9988dd 192.168.239.74:6483
+   slots: (0 slots) slave
+   replicates e1d9c657878f395e741623e3be54eb52a8909aef
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+```
+
+
+
+### redis集群缩容
+
+**<font color='red'>删除6485和6486端口实例</font>**
+
+先删除从节点，再删除主节点（主节点（读写）可能还在写数据，所以得先删除从节点（只读））
+
+```bash
+# 删除6486从节点
+# 192.168.239.74:6486 为实例ip和端口号，2004378407c91ba144da45e1025db52e099d49a8为redis编号
+$docker redis-cli --cluster del-node 192.168.239.74:6486 2004378407c91ba144da45e1025db52e099d49a8
+
+>>> Removing node 2004378407c91ba144da45e1025db52e099d49a8 from cluster 192.168.239.74:6486
+>>> Sending CLUSTER FORGET messages to the cluster...
+>>> Sending CLUSTER RESET SOFT to the deleted node.
+
+# 查看当前集群状态
+$docker redis-cli --cluster check 192.168.239.74:6485   
+```
+
+![image-20220824214015177](../../../md-photo/image-20220824214015177.png)
+
+
+
+清空6485的所有槽位，全部给6479实例（**<font color='red'>如果不全部分给一个实例，按照个数重复执行一下的命令即可</font>**）：
+
+```bash
+$docker redis-cli --cluster reshard 192.168.239.74:6485
+>>> Performing Cluster Check (using node 192.168.239.74:6485)
+M: 7486231378debd48feba4011b8a6eb07acb2e263 192.168.239.74:6485
+   slots:[0-1364],[5461-6826],[10923-12287] (4096 slots) master
+M: 7962fcbb671c29fd77c17df9b273236798db8fe2 192.168.239.74:6479
+   slots:[1365-5460] (4096 slots) master
+   1 additional replica(s)
+S: b7b061f463b189ec8ad4d108e8bd07895de420d8 192.168.239.74:6482
+   slots: (0 slots) slave
+   replicates 7962fcbb671c29fd77c17df9b273236798db8fe2
+M: 7cbdb8196d621ba2f6ecd5c6b1b4410410622960 192.168.239.74:6481
+   slots:[12288-16383] (4096 slots) master
+   1 additional replica(s)
+M: e1d9c657878f395e741623e3be54eb52a8909aef 192.168.239.74:6480
+   slots:[6827-10922] (4096 slots) master
+   1 additional replica(s)
+S: 2ae8e22cb1933a8ac3ffdd86e34cc2a01ba80f4b 192.168.239.74:6484
+   slots: (0 slots) slave
+   replicates 7cbdb8196d621ba2f6ecd5c6b1b4410410622960
+S: 3507680d64e12564e2f1dde314fc56a1dc9988dd 192.168.239.74:6483
+   slots: (0 slots) slave
+   replicates e1d9c657878f395e741623e3be54eb52a8909aef
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+# 重新分配的哈希槽个数
+How many slots do you want to move (from 1 to 16384)? 4096
+# 接收被删除实例上的所有哈希槽
+What is the receiving node ID? 7962fcbb671c29fd77c17df9b273236798db8fe2
+Please enter all the source node IDs.
+  Type 'all' to use all the nodes as source nodes for the hash slots.
+  Type 'done' once you entered all the source nodes IDs.
+# 被删除的redis实例，可以为多个（all：全部；输入实例编号完成后，按done结束）
+Source node #1: 7486231378debd48feba4011b8a6eb07acb2e263
+Source node #2: done
+```
+
+![image-20220824214945993](../../../md-photo/image-20220824214945993.png)
+
+
+
+查看重新分配的结果：
+
+```bash
+$docker redis-cli --cluster check 192.168.239.74:6485 
+```
+
+![image-20220824215331988](../../../md-photo/image-20220824215331988.png)
+
+
+
+```bash
+# 删除6485主节点
+$docker redis-cli --cluster del-node 192.168.239.74:6485 7486231378debd48feba4011b8a6eb07acb2e263
+
+# 检查集群状态信息 可以看到恢复了三主三从
+$docker redis-cli --cluster check 192.168.239.74:6479 
+192.168.239.74:6479 (7962fcbb...) -> 1 keys | 5461 slots | 1 slaves.
+192.168.239.74:6481 (7cbdb819...) -> 3 keys | 5461 slots | 1 slaves.
+192.168.239.74:6480 (e1d9c657...) -> 1 keys | 5462 slots | 1 slaves.
+[OK] 5 keys in 3 masters.
+0.00 keys per slot on average.
+>>> Performing Cluster Check (using node 192.168.239.74:6479)
+M: 7962fcbb671c29fd77c17df9b273236798db8fe2 192.168.239.74:6479
+   slots:[2731-6826],[10923-12287] (5461 slots) master
+   1 additional replica(s)
+S: 2ae8e22cb1933a8ac3ffdd86e34cc2a01ba80f4b 192.168.239.74:6484
+   slots: (0 slots) slave
+   replicates 7cbdb8196d621ba2f6ecd5c6b1b4410410622960
+S: b7b061f463b189ec8ad4d108e8bd07895de420d8 192.168.239.74:6482
+   slots: (0 slots) slave
+   replicates 7962fcbb671c29fd77c17df9b273236798db8fe2
+S: 3507680d64e12564e2f1dde314fc56a1dc9988dd 192.168.239.74:6483
+   slots: (0 slots) slave
+   replicates e1d9c657878f395e741623e3be54eb52a8909aef
+M: 7cbdb8196d621ba2f6ecd5c6b1b4410410622960 192.168.239.74:6481
+   slots:[0-1364],[12288-16383] (5461 slots) master
+   1 additional replica(s)
+M: e1d9c657878f395e741623e3be54eb52a8909aef 192.168.239.74:6480
+   slots:[1365-2730],[6827-10922] (5462 slots) master
+   1 additional replica(s)
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+```
+
+redis集群的状态信息：
+
+![image-20220824220337593](../../../md-photo/image-20220824220337593.png)
