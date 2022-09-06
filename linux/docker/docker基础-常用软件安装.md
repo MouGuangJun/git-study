@@ -74,7 +74,7 @@ $docker mysql -uroot -p
 
 ```bash
 # 对mysql容器添加数据卷
-$ docker run -d -p 3306:3306 --privileged=true -v /local/mysql/log:/var/log/mysql -v /local/mysql/data:/var/lib/mysql -v /local/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 3218b38490ce
+$ docker run -d --name=mysql -p 3306:3306 --privileged=true -v /local/mysql/log:/var/log/mysql -v /local/mysql/data:/var/lib/mysql -v /local/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 mysql
 
 # 解决中文乱码问题
 $ vi /local/mysql/conf/my.cnf
@@ -152,7 +152,7 @@ daemonize no
 ### 指定容器卷
 
 ```bash
-$ docker run -d -p 6379:6379 --privileged=true -v /local/redis/conf/redis.conf:/etc/redis/redis.conf -v /local/redis/data:/data 16ecd2772934 redis-server /etc/redis/redis.conf
+$ docker run -d -p 6379:6379 --name=redis --privileged=true -v /local/redis/conf/redis.conf:/etc/redis/redis.conf -v /local/redis/data:/data redis:6.0.8 redis-server /etc/redis/redis.conf
 
 # 启动后修改databases配置为10，然后重启redis容器，发现使用select 15会报错，证明redis使用了/local/redis/conf/redis.conf该路径下的配置进行启动
 

@@ -1,0 +1,1160 @@
+# Vue基础
+
+## 特点
+
+1.采用**<font color='red'>组件化</font>**模式，提高代码复用率、且让代码更好维护。
+
+2.**<font color='red'>声明式</font>**编码，让编码人员无需直接操作DOM，提高开发效率。
+
+3.使用**<font color='red'>虚拟DOM</font>**+优秀的**<font color='red'>Diff算法</font>**，尽量复用DOM节点
+
+
+
+## Vue基础配置
+
+### Vue-Devtools
+
+官网：
+
+[Vue Devtools](https://v2.cn.vuejs.org/v2/guide/installation.html#Vue-Devtools)
+
+下载Vue Devtools，直接拖入到谷歌浏览器的扩展程序列表中即可。
+
+
+
+### 关闭开发模式警告
+
+在body标签中添加以下的js配置：
+
+```html
+<script type="text/javascript">
+    Vue.config.productionTip = false // 阻止Vue启动时生成生产提示。
+</script>
+```
+
+
+
+## HelloWorld
+
+### 引入Vue
+
+```html
+script type="text/javascript" src="../js/vue.js"></script>
+```
+
+
+
+### 使Vue进行工作
+
+
+
+- 想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象；（在body里面进行操作）
+
+```javascript
+<script type="text/javascript">
+    Vue.config.productionTip = false // 阻止Vue启动时生成生产提示。
+
+    // 创建Vue实例
+    new Vue({
+        // el用户指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
+        el:'#root',
+        data:{// data中用于存储数据，数据供el所选定的容器去使用
+            name:'Vue'
+        }
+    });
+</script>
+```
+
+
+
+- root容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法；
+
+  <font color='red'>其中{{}}是Vue的写法</font>
+
+  ```html
+  <div id = "root">
+      <h1>Hello, {{name}}</h1>
+  </div>
+  ```
+
+  
+
+- root容器里的代码被称为【Vue模板】;
+
+
+
+### 结果
+
+![image-20220829142651646](../../../md-photo/image-20220829142651646.png)
+
+
+
+### 注意事项
+
+1. Vue实例跟容器只能是一对一的关系，真实开发中只有一个Vue实例，并且会配合着组件一起使用
+2. {{xxx}}中的xxx要写js表达式（**<font color='red'>xxx可以自动读取到data中的所有属性</font>**），如将当前数据改为大写：{{val.toUpperCase()}}
+3. 一旦data中的数据发生改变，那么模板中用到该数据的地方也会自动更新
+4. 使用Vue开发者工具进行简单测试
+
+![image-20220829144215648](../../../md-photo/image-20220829144215648.png)
+
+
+
+## 模板语法
+
+### 插值语法
+
+功能：用于解析标签体内容。
+写法:{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性，如
+
+```html
+<h3>你好，{{value}}</h3>
+```
+
+
+
+### 指令语法
+
+功能：用于解析标签（包括:标签属性、标签体内容、绑定事件.....） 。
+举例：<font color='bold'>v-bind:href="xxx”或简写为 :href="xxx"</font>，xxx同样要写js表达式，且可以直接读取到data中的所有属性。v-bind**<font color='red'>可以给任意一个标签中的属性绑定值</font>**，如：
+
+```html
+<a v-bind:href="value">点击我到百度的官网</a>
+<a :href="value">点击我到百度的官网</a>
+```
+
+
+
+**Tips**
+
+Vue中有很多的指令，且形式都是: v-????，此处我们只是拿v-bind举个例子。
+
+解析多层结构的数据：
+
+```json
+data: {
+    name: 'jack',
+    site: {
+        url: 'http://www.baidu.com',
+        name: '百度'
+    }
+}
+```
+
+解析：
+
+```html
+<a :href="site.url">点击我到{{site.name}}的官网</a>
+```
+
+
+
+## 数据绑定
+
+### 单项数据绑定
+
+#### 命令
+
+v-bind：数据只能从data流向页面。
+
+#### 案例
+
+略
+
+
+
+### 双向数据绑定
+
+#### 命令
+
+v-model：数据不仅能从data流向页面，还可以从页面流向data。
+
+**<font color='red'>v-model只能应用在表单类元素（输入类元素）上，(如:input、select等）</font>**
+
+v-model:value 可以简写为v-model，因为v-model默认收集的就是value值。
+
+#### 案例
+
+```html
+<div id='root'>
+    <!-- 普通的写法 -->
+    <!-- 单向数据绑定：<input type="text" v-bind:value="name" />
+<br />
+双向数据绑定：<input type="text" v-model:value="name" />
+<br /> -->
+
+    <!-- 简写的方式 -->
+    单向数据绑定：<input type="text" :value="name" />
+    <br />
+    双向数据绑定：<input type="text" v-model="name" />
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#root',
+        data: {
+            "name":"尚硅谷"
+        }
+    });
+</script>
+```
+
+
+
+结果：
+
+单向绑定：
+
+![image-20220829164437526](../../../md-photo/image-20220829164437526.png)
+
+双向绑定：
+
+![image-20220829164510873](../../../md-photo/image-20220829164510873.png)
+
+## data与el的2种写法
+
+### el
+
+- new Vue时候配置el属性。
+- 先创建Vue实例，随后再通过vm.$mount(' #root')指定el的值。
+
+```javascript
+// 初始化Vue对象时进行挂载
+new Vue({
+    el: '#root',
+    data: {
+        name: 'vue'
+    }
+});
+
+// 初始化Vue对象完成后进行挂载
+const v = new Vue({
+    data: {
+        name: 'vue'
+    }
+});
+
+v.$mount('#root');
+```
+
+
+
+### data
+
+- 对象式
+- 函数式
+
+```javascript
+// 对象式写法
+new Vue({
+    el: '#root',
+    data: {
+        name: 'vue'
+    }
+});
+
+// 函数式写法
+new Vue({
+    el: '#root',
+    /* data:function() {
+                return {
+                    name: 'vue'
+                };
+            } */
+    data() {
+        return {
+            name: 'vue'
+        };
+    }
+})
+```
+
+如何选择:目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错。
+
+### 重要原则
+
+- 由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了。
+
+
+
+## MVVM模型
+
+- M：模型(Model) ：对应 data 中的数据
+- V：视图(View) ：模板
+- VM：视图模型(ViewModel) ： Vue 实例对象
+
+![img](../../../md-photo/5b25e59d1c7bb2786a20464ecd222ba2.png)
+
+实际应用：
+
+![image-20220829173743600](../../../md-photo/image-20220829173743600.png)
+
+
+
+其中：
+
+把Model中的数据解析到页面上：Model -> ViewModel -> View
+
+把前端的修改保存到Model中：View -> ViewModel -> Model
+
+
+
+注意：
+
+- data中所有的属性,最后都出现在了vm身上。
+- vm身上所有的属性及Vue原型上所有属性，在Vue模板中都可以直接使用。
+
+
+
+## Object.defineProperty方法
+
+### 描述
+
+使用普通的方式定义person对象：
+
+```javascript
+<script type="text/javascript">
+    let number = 18;
+
+// 定义一个person对象
+let person = {
+    name: '张三',
+    sex: '男',
+    age: 18
+};
+
+console.log(person);
+
+</script>
+```
+
+可以看到所有的属性颜色都是一样的：
+
+![image-20220830093310335](../../../md-photo/image-20220830093310335.png)
+
+
+
+使用Object.defineProperty的方法定义age属性：
+
+```javascript
+<script type="text/javascript">
+    let number = 18;
+
+// 定义一个person对象
+let person = {
+    name: '张三',
+    sex: '男',
+};
+
+// 参数分别为：被定义的对象、需要操作的属性、属性配置信息
+Object.defineProperty(person, 'age', {
+    value: 18
+});
+
+console.log(person);
+
+</script>
+```
+
+
+
+可以看到age属性的颜色跟其他的不一样，因为其是用Object.defineProperty定义，可以对该属性进行一些高级的操作：
+
+![image-20220830093519601](../../../md-photo/image-20220830093519601.png)
+
+### 控制属性可以枚举
+
+遍历person的所有键值：
+
+```javascript
+// 参数分别为：被定义的对象、需要操作的属性、属性配置信息
+Object.defineProperty(person, 'age', {
+    value: 18
+});
+
+// 遍历person对象中的所有键值
+console.log(Object.keys(person));
+```
+
+
+
+可以看到，无法遍历到age元素：
+
+![image-20220830094152695](../../../md-photo/image-20220830094152695.png)
+
+
+
+
+
+对age元素添加属性：
+
+```javascript
+Object.defineProperty(person, 'age', {
+    value: 18,
+    enumerable: true // 控制元素是否可以枚举，默认值为false
+});
+```
+
+
+
+可以看到此时可以遍历到age元素了：
+
+![image-20220830094353961](../../../md-photo/image-20220830094353961.png)
+
+
+
+### 控制属性是否可以被修改
+
+默认情况下，无法修改age元素的值：
+
+![image-20220830094811733](../../../md-photo/image-20220830094811733.png)
+
+
+
+添加元素可以被修改的属性：
+
+```javascript
+Object.defineProperty(person, 'age', {
+    value: 18,
+    enumerable: true, // 控制元素是否可以枚举，默认值为false
+    writable: true, // 控制元素是否可以被修改，默认值为false
+});
+```
+
+
+
+![image-20220830095051075](../../../md-photo/image-20220830095051075.png)
+
+
+
+### 控制属性是否可以被删除
+
+默认情况下，无法删除age元素：
+
+![image-20220830095450438](../../../md-photo/image-20220830095450438.png)
+
+
+
+添加元素可以被删除的属性：
+
+```javascript
+Object.defineProperty(person, 'age', {
+    value: 18,
+    enumerable: true, // 控制元素是否可以枚举，默认值为false
+   	configurable: true // 控制元素是否可以被删除，默认值为false
+});
+```
+
+
+
+![image-20220830095620854](../../../md-photo/image-20220830095620854.png)
+
+
+
+### 对象中元素动态获取变量的值
+
+默认情况下，如果仅仅是将变量直接赋值给对象，那么修改变量/元素时，都不会影像到对方，做不到一起变化的效果：
+
+```javascript
+let number = 18;
+
+// 定义一个person对象
+let person = {
+    name: '张三',
+    sex: '男',
+    age: number
+};
+
+console.log(person);
+```
+
+![image-20220830100547927](../../../md-photo/image-20220830100547927.png)
+
+
+
+```javascript
+let number = 18;
+
+// 定义一个person对象
+let person = {
+    name: '张三',
+    sex: '男',
+};
+
+Object.defineProperty(person, 'age', {
+    // 当有人读取person的age元素时，get函数(getter)就会被调用，且返回值就是age的值
+    get() {
+        return number;
+    }
+    
+    // 当有人修改person的age元素时，set函数(setter)就会被调用，且会收到修改的具体值
+    set(value) {
+    	number = value;
+	}
+});
+
+console.log(person);
+```
+
+![image-20220830101233454](../../../md-photo/image-20220830101233454.png)
+
+
+
+### 总结
+
+**<font color='red'>数据代理：通过一个对象代理对另一个对象中属性的操作（读/写)</font>**
+
+
+
+## Vue中的数据代理
+
+1. vue中的数据代理：通过vm对象来代理data对象中属性的操作（读/写)
+2. Vue中数据代理的好处：更加方便的操作data中的数据
+3. 基本原理：通过object.defineProperty()把data对象中所有属性添加到vm上。为每一个添加到vm上的属性，都指定一个getter/setter。在getter/setter内部去操作（读/写）data中对应的属性。
+
+![image-20220830105936319](../../../md-photo/image-20220830105936319.png)
+
+
+
+## 事件处理
+
+### 事件的基本使用
+
+使用v-on:xxx或@xxx绑定事件，其中xxx是事件名；事件的回调需要配置在Vue实例中的methods对象中，最终会在vm上。
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <button v-on:click="showInfo1">点我提示信息（不传参）</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo1() {
+                    alert("同学您好！");
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+methods中配置的函数,不要用箭头函数!否则this就不是vm了，而普通函数都是被Vue所管理的函数，this的指向是vm或组件实例对象。
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <button @click="showInfo1">点我提示信息（不传参）</button>
+        <button @click="showInfo2($event, 66)">点我提示信息（传参）</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo1: () => {
+                    console.log(this);
+                    alert("同学您好！");
+                },
+
+                showInfo2(event, number) {
+                    console.log(this);
+                    alert(number + "同学您好！");
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+![image-20220830114809519](../../../md-photo/image-20220830114809519.png)
+
+
+
+@click='demo'和@click='demo($event)'效果一致。但前者只有一个默认的event参数，后者可以传参。
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <button @click="showInfo1">点我提示信息（不传参）</button>
+        <button @click="showInfo2($event, 66)">点我提示信息（传参）</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo1(event) {
+                    console.log(event);
+                    alert("同学您好！");
+                },
+
+                showInfo2(event, number) {
+                    console.log(event, number);
+                    alert(number + "同学您好！");
+                },
+            }
+        });
+    </script>
+</body>
+```
+
+![image-20220830122717442](../../../md-photo/image-20220830122717442.png)
+
+
+
+### 事件修饰符
+
+#### 阻止默认事件
+
+js写法：
+
+```javascript
+<!-- 准备一个容器 -->
+<div id='root'>
+    <h1>欢迎来到{{name}}学习</h1>
+<!-- 组织默认事件 -->
+<a href="http://www.baidu.com" @click="showInfo">点我提示信息</a>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+    el: '#root',
+    data: {
+        name: '尚硅谷'
+    },
+
+    methods: {
+        showInfo(e) {
+            e.preventDefault();
+            alert('同学您好！');
+        }
+    }
+});
+```
+
+
+
+vue的写法：
+
+关键字：**prevent**
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <!-- 组织默认事件 -->
+        <a href="http://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(e) {
+                    alert('同学您好！');
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+结果：
+
+![image-20220830142451667](../../../md-photo/image-20220830142451667.png)
+
+
+
+#### 阻止事件冒泡
+
+js写法：
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- 阻止事件冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click="showInfo">点我提示信息</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(e) {
+                    // 阻止事件冒泡
+                    e.stopPropagation();
+                    alert('同学您好！');
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+vue的写法：
+
+关键字：**stop**
+
+```javascript
+<style>
+    /* 与上面的间距 */
+    * {
+        margin-top: 20px;
+    }
+
+    /* 高度为50，背景为天蓝色 */
+    .demo1 {
+        height: 50px;
+        background-color: skyblue
+    }
+</style>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- 阻止事件冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">点我提示信息</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(e) {
+                    alert('同学您好！');
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+结果：
+
+![image-20220830143746121](../../../md-photo/image-20220830143746121.png)
+
+
+
+
+
+#### 事件只触发一次
+
+vue写法：
+
+关键字：**once**
+
+```javascript
+<button @click.once="showInfo">点我提示信息</button>
+```
+
+
+
+结果：
+
+![image-20220830143931575](../../../md-photo/image-20220830143931575.png)
+
+
+
+
+
+#### 事件的捕获模式
+
+```javascript
+<style>
+    /* 与上面的间距 */
+    * {
+        margin-top: 20px;
+    }
+
+    .box1 {
+        padding: 5px;
+        background-color: skyblue
+    }
+
+    .box2 {
+        padding: 5px;
+        background-color: orange;
+    }
+</style>
+
+<div class="box1" @click="showMsg(1)">
+    div1
+<div class="box2" @click="showMsg(2)">div2</div>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+    el: '#root',
+    data: {
+        name: '尚硅谷'
+    },
+
+    methods: {
+        showMsg(msg) {
+            console.log(msg);
+        }
+    }
+});
+</script>
+```
+
+
+
+捕获事件先解析box1再解析box2，但是正常执行的是冒泡事件，此时先执行box2再执行box，结果为：
+
+![image-20220830150226219](../../../md-photo/image-20220830150226219.png)
+
+
+
+在捕获事件的时候就执行：
+
+关键字：**capture**
+
+```javascript
+<div class="box1" @click.capture="showMsg(1)">
+    div1
+<div class="box2" @click="showMsg(2)">div2</div>
+</div>
+```
+
+![image-20220830150427655](../../../md-photo/image-20220830150427655.png)
+
+
+
+#### 仅对当前操作元素触发
+
+关键字：**self**
+
+```javascript
+<!-- 只有event.target是当前操作的元素时才触发事件 -->
+<div class="demo1" @click.self="showInfo">
+    <button @click="showInfo">点我提示信息</button>
+</div>
+```
+
+仅对当前操作的元素触发，这里的操作元素为button，所以div上的事件不会执行：
+
+![image-20220830150955566](../../../md-photo/image-20220830150955566.png)
+
+
+
+
+
+#### 事件无需等待回调函数
+
+关键字：**passive**
+
+```javascript
+<style>
+    /* 与上面的间距 */
+    * {
+        margin-top: 20px;
+    }
+
+    .list {
+        width: 200px;
+        height: 200px;
+        background-color: peru;
+        /* 超出的部分使用滚动条 */
+        overflow: auto;
+    }
+
+    li {
+        height: 100px;
+    }
+</style>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <!-- 滚动的关键字：wheel[鼠标滚动]、scroll[滚动条滚动] -->
+        <ul @wheel="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                demo() {
+                    for (let i = 0; i < 100000; i++) {
+                        console.log('@');
+                    }
+
+                    console.log('累坏了！！！');
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+此时的效果：
+
+![image-20220830153230064](../../../md-photo/image-20220830153230064.png)
+
+
+
+使用passive关键字让事件立即执行：
+
+```javascript
+<ul @wheel.passive="demo" class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+```
+
+![image-20220830153505612](../../../md-photo/image-20220830153505612.png)
+
+
+
+
+
+#### Tips
+
+**修饰符可以连续写**。
+
+```html
+<!-- 修饰符可以连续写，先停止冒泡，再阻止默认事件 -->
+<a href="http://www.baidu.com" @click.stop.prevent="showInfo">点我提示信息</a>
+```
+
+
+
+### 键盘事件
+
+js键盘事件：
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <!-- keyup：按下键盘并松手时执行，keydown：按下键盘时执行 -->
+        <input type="text" placeholder="按下回车提示输入" @keyup='showInfo' />
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(event) {
+                    // 打印当前按下的键盘码值，其中13为enter键
+                    // console.log(event.keyCode);
+
+                    // 当按下的时enter键时，触发事件
+                    if (event.keyCode === 13) {
+                        console.log(event.target.value);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+![image-20220830170825780](../../../md-photo/image-20220830170825780.png)
+
+
+
+vue的写法：
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <!-- keyup：按下键盘并松手时执行，keydown：按下键盘时执行 -->
+        <input type="text" placeholder="按下回车提示输入" @keyup.enter='showInfo' />
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(event) {
+                    // vue的用法
+                    console.log(event.target.value);
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+#### Vue中常用的按键别名
+
+| 按键 | 别名                             |
+| ---- | -------------------------------- |
+| 回车 | enter                            |
+| 删除 | delete(捕获“删除”和“退格”键)     |
+| 退出 | esc                              |
+| 空格 | space                            |
+| 换行 | tab(特殊，必须配合keydown去使用) |
+| 上   | up                               |
+| 下   | down                             |
+| 左   | left                             |
+| 右   | right                            |
+
+
+
+#### 键原始的key值绑定
+
+Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（短横线命名)，如CapsLock为**caps-lock**：
+
+```html
+<input type="text" placeholder="按下回车提示输入" @keydown.caps-lock='showInfo' />
+```
+
+
+
+#### 系统修饰键
+
+系统修饰键（用法特殊):ctrl、alt、shift、meta（windows键）
+
+- 配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+
+```html
+<input type="text" placeholder="按下回车提示输入" @keydown.ctrl='showInfo' />
+```
+
+![image-20220830171647438](../../../md-photo/image-20220830171647438.png)
+
+
+
+
+
+- 配合keydown使用：正常触发事件。
+
+```html
+<input type="text" placeholder="按下回车提示输入" @keydown.ctrl='showInfo' />
+```
+
+![image-20220830171743137](../../../md-photo/image-20220830171743137.png)
+
+
+
+#### 使用keyCode去指定具体的按键
+
+也可以使用keyCode去指定具体的按键（不推荐)
+
+```html
+<input type="text" placeholder="按下回车提示输入" @keyup.13='showInfo' />
+```
+
+![image-20220830171901563](../../../md-photo/image-20220830171901563.png)
+
+
+
+#### 自定义键名=键码
+
+Vue.config.keyCodes.自定义键名=键码，可以去定制按键别名（不推荐)
+
+```javascript
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>欢迎来到{{name}}学习</h1>
+        <!-- keyup：按下键盘并松手时执行，keydown：按下键盘时执行 -->
+        <input type="text" placeholder="按下回车提示输入" @keyup.huiche='showInfo' />
+    </div>
+
+    <script type="text/javascript">
+        // 自定义enter的码值为huiche
+        Vue.config.keyCodes.huiche = 13;
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            },
+
+            methods: {
+                showInfo(event) {
+                    console.log(event.target.value);
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+![image-20220830172142472](../../../md-photo/image-20220830172142472.png)
+
+
+
+#### Tips
+
+**keyup后面的按键可以是多个**。
+
+```html
+<!-- 只有按下ctrl + y的时候才会生效 -->
+<input type="text" placeholder="按下回车提示输入" @keyup.ctrl.y='showInfo' />
+```

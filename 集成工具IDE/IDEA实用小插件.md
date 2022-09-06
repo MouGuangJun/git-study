@@ -23,3 +23,10 @@ Ctrl + A 然后Enter
 得到结果
 
 ![image-20220727000232312](../../md-photo/image-20220727000232312.png)
+
+
+
+## 自动生成对象的set方法
+
+插件市场下载--> Alibaba Java Coding Guidelines插件
+

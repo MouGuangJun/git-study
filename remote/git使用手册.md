@@ -1816,6 +1816,57 @@ git@github.com:MouGuangJun/design-mode.git
 
 
 
+### VSCode连接GitHub
+
+点击终端，新建终端。
+
+```bash
+# 初始化仓库
+$ git init
+
+#创建主分支
+$ git branch -M master
+
+#连接到远程仓库中
+$ git remote add master git@github.com:MouGuangJun/Vue-Study.git
+
+# 将所有文件添加到暂存区
+$ git add .
+
+# 提交当前的文件到git中
+$ git commit -m "第一次将vue的项目提交到远程仓库"
+
+ #将本地仓库中的内容推送到github的远程仓库中（第一个master为远程的）
+$ git push -u master master
+
+# 在远程创建开发分支(development_branch)
+# 拉取远程分支的信息
+$ git pull
+
+# 切换到开发分支
+$ git checkout remotes/master/development_branch
+```
+
+
+
+vscode检出开发分支：
+
+![image-20220903181820898](../../md-photo/image-20220903181820898.png)
+
+
+
+![image-20220903181937096](../../md-photo/image-20220903181937096.png)
+
+
+
+然后进行对应的提交、推送操作：
+
+![image-20220903182022962](../../md-photo/image-20220903182022962.png)
+
+![image-20220903182046719](../../md-photo/image-20220903182046719.png)
+
+
+
 ### Git 常用命令大全
 
 git 常用命令(**点击图片查看大图**)：
