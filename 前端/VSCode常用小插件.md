@@ -14,3 +14,11 @@
   
 
 ![image](../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARGFuaWVsMTcxMDI0,size_20,color_FFFFFF,t_70,g_se,x_16.png)
+
+
+
+## Live Server
+
+让html以默认服务器的方式运行：
+
+![image-20220907211910802](../../md-photo/image-20220907211910802.png)

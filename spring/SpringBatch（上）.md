@@ -1493,3 +1493,9 @@ public class RestartReader implements ItemStreamReader<Students> {
 去除模拟的错误之后，程序从第五条开始读取：
 
 ![image-20220906204415787](../../md-photo/image-20220906204415787.png)
+
+
+
+整体结构示意图：
+
+![image-20220906213502026](../../md-photo/image-20220906213502026.png)

