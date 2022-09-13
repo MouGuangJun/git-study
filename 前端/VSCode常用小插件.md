@@ -1,8 +1,8 @@
 # VSCode常用小插件
 
-## Vue常用插件
+## Vue 3 Snippets
 
-**Vue 3 Snippets**：Vue3代码片段
+Vue3代码片段
 
 
 
@@ -22,3 +22,19 @@
 让html以默认服务器的方式运行：
 
 ![image-20220907211910802](../../md-photo/image-20220907211910802.png)
+
+
+
+## Vetur
+
+.vue文件开发帮助插件
+
+![image-20220912180033811](../../md-photo/image-20220912180033811.png)
+
+
+
+## vue-beautify
+
+.vue文件代码格式化插件：
+
+![image-20220912181102869](../../md-photo/image-20220912181102869.png)

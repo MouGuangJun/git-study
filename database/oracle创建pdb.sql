@@ -74,8 +74,33 @@ grant connect ,resource,dba  to  CCMS;
 grant create session  to  CCMS;
 
 --创建数据库文件夹并赋予权限
+--在linux操作系统上时，需要注意文件夹权限属于哪个用户？ 重新给文件夹赋权：chown -R oracle:oinstall dir_CCMS 
 create or replace directory  dir_CCMS as 'D:\oracle\dir_CCMS';
 grant read ,write on directory   dir_CCMS to CCMS ;
+
+
+
+-------导入数据开始 以下用到ORCLPDB的地方，以后都修改为自己的容器--------------
+--这里需要配置ORCLPDB的监听 listener.ora 和 tnsnames.ora
+--监听相关命令：lsnrctl stop/start/status
+-- listener.ora需要追加内容：
+SID_LIST_LISTENER =
+   (SID_LIST =
+       (SID_DESC =
+           (GLOBAL_DBNAME = ORCLPDB)
+           (SID_NAME = ORCLPDB)
+        )
+    )
+	
+-- tnsnames.ora需要追加内容：
+PDB1 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = oracle1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = PDB1)
+    )
+  )
 
 
 --从dmp中将数据导入到pdb中【需要将dumpfile放到数据库文件夹--dir_CCMS中】
@@ -110,3 +135,5 @@ grant create session  to  CLMS;
 --导入dmp文件语句
 impdp CCMS/CCMS@ORCLPDB full=y directory=dir_CCMS dumpfile=credit_20220224.dmp remap_schema=CCMS:CCMS remap_tablespace=TSCCMS:TSCCMS table_exists_action=replace logfile =CCMS_20220501.log
 
+
+--导入表时，出现以下的错误
