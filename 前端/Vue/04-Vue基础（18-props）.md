@@ -1042,3 +1042,197 @@ export default {
 
 
 **<font color='red'>之后的所有vue组件只挑选重要部分进行笔记，完整项目参见</font>**：[牟光俊/vue-cli (gitee.com)](https://gitee.com/guang_jun_mu/vue-cli)
+
+
+
+## props配置
+
+### 简单接收
+
+App：
+
+```vue
+<template>
+  <div>
+    <Student name="张三" age="18" sex="男"/>
+  </div>
+</template>
+```
+
+Student：
+
+```vue
+<template>
+  <div>
+    <h1>{{msg}}</h1>
+    <h2>学生姓名：{{name}}</h2>
+    <h2>学生性别：{{sex}}</h2>
+    <h2>学生年龄：{{age+1}}</h2>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Student",
+  data() {
+    return {
+      msg: "我是一个尚硅谷的学生"
+    };
+  },
+
+  //简单接收
+  props: ["name", "age", "sex"]
+};
+</script>
+```
+
+
+
+得到结果：
+
+![image-20220914153318904](../../../md-photo/image-20220914153318904.png)
+
+
+
+App使用的时候绑定属性：
+
+```vue
+<Student name="张三" :age="18" sex="男"/>
+```
+
+
+
+得到结果：
+
+![image-20220914153445133](../../../md-photo/image-20220914153445133.png)
+
+
+
+### 类型的限制
+
+```javascript
+// 接收的同时进行类型的限制
+props: {
+    name: String,
+    age: Number,
+    sex: String
+}
+```
+
+
+
+如果App传入属性：
+
+```vue
+<Student name="张三" age="18" sex="男"/>
+```
+
+得到结果：
+
+![image-20220914153640299](../../../md-photo/image-20220914153640299.png)
+
+
+
+### 高级限制
+
+```javascript
+props: {
+    name: {
+      type: String, // name是字符串
+      required: true // name是必要的
+    },
+
+    age: {
+      type: Number,
+      default: 99 // 默认值为99
+    },
+
+    sex: {
+      type: String,
+      required: true
+    }
+  }
+```
+
+
+
+如果App传入：
+
+```html
+<Student age="18" sex="男"/>
+```
+
+得到结果：
+
+![image-20220914154038714](../../../md-photo/image-20220914154038714.png)
+
+
+
+如果App传入：
+
+```html
+<Student name="张三" sex="男"/>
+```
+
+得到结果：
+
+![image-20220914154157380](../../../md-photo/image-20220914154157380.png)
+
+
+
+### 注意事项
+
+props是只读的，如果我们尝试修改prop属性值，控制台会报错（不影响使用）。**<font color='red'>props的优先级高于data中的属性，重名的时候，控制台会报错，data中的数据会被覆盖</font>**。
+
+Student中添加点击事件：
+
+```vue
+<template>
+	<button @click="updateAge">尝试修改年龄</button>
+</template>
+
+<script>
+  methods: {
+    updateAge() {
+      this.age++;
+    }
+  }
+</script>
+
+```
+
+
+
+值修改了，但是控制台会报错：
+
+![image-20220914155430898](../../../md-photo/image-20220914155430898.png)
+
+
+
+正确的修改方式，使用中间属性进行修改：
+
+Student中进行以下的修改：
+
+```vue
+<template>
+	<h2>学生年龄：{{myAge}}</h2>
+</template>
+
+<script>
+  data() {
+    return {
+      msg: "我是一个尚硅谷的学生",
+      myAge: this.age
+    };
+  },
+  methods: {
+    updateAge() {
+      this.myAge++;
+    }
+  }
+</script>
+```
+
+得到结果：
+
+![image-20220914155932907](../../../md-photo/image-20220914155932907.png)
