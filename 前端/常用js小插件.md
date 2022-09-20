@@ -21,3 +21,24 @@
 搜索对应的链接，然后ctrl + s保存即可：
 
 ![image-20220905090402722](../../md-photo/image-20220905090402722.png)
+
+
+
+## 随机数nanoid
+
+安装方式，使用node.js的安装方式。
+
+```js
+npm i nanoid
+```
+
+使用方式：
+
+```javascript
+// 引入nanoid
+import {nanoid} from 'nanoid';
+
+// 使用方式
+const randomId = nanoid();
+```
+
