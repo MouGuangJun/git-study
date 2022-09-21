@@ -38,3 +38,11 @@ Vue3代码片段
 .vue文件代码格式化插件：
 
 ![image-20220912181102869](../../md-photo/image-20220912181102869.png)
+
+
+
+## Auto-Open Markdown Preview
+
+自动渲染md文件
+
+![image-20220921230910024](../../md-photo/image-20220921230910024.png)

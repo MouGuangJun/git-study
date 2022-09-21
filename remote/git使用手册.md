@@ -1816,6 +1816,20 @@ git@github.com:MouGuangJun/design-mode.git
 
 
 
+4.克隆远程的项目（复制github的url即可）
+
+![image-20220917124108923](../../md-photo/image-20220917124108923.png)
+
+设置ssh方式的url：
+
+![image-20220918223046755](../../md-photo/image-20220918223046755.png)
+
+git的ssh方式：**<font color='red'>git@github.com:MouGuangJun/仓库名.git</font>**
+
+![image-20220918223109067](../../md-photo/image-20220918223109067.png)
+
+
+
 ### VSCode连接GitHub
 
 点击终端，新建终端。
