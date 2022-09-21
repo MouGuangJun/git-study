@@ -17,3 +17,10 @@ alter table 表名 modify 列名 数据类型 primary key；
 alter table 表名 add primary key(列名);
 格式三：
 alter table 表名 add constraint 主键约束的名字 primary key(列名);
+
+-- mysql导出数据库命令
+mysqldump -u [数据库用户名] -p -A>[备份文件的保存路径]
+mysqldump -u root -p -A > D:\notebook\study-note\database\sql\mysql\all.sql
+
+mysqldump -u [数据库用户名] -p [要备份的数据库名称]>[备份文件的保存路径]
+mysqldump  --column-statistics=0 -u root -p nacos > D:\notebook\study-note\database\sql\mysql\nacos.sql
