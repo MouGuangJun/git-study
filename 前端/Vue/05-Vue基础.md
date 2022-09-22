@@ -368,3 +368,439 @@ Student：
 
 
 
+## TodoList案例
+
+### 组件拆分
+
+组件分为以下的4块：
+![image-20220921195046332](../../../md-photo/image-20220921195046332.png)
+
+
+
+其中Item数据本应该放到List组件中，但是由于Header添加的元素也需要放到List，且Header和List不能直接沟通，所以暂时将数据放到App中，让它们之间可以直接交互。
+
+
+
+### 列表展示
+
+App中存放数据并将数据（todos）传递到List中：
+
+```vue
+<template>
+  <!-- 将todos中的数据传递到list -->
+  <List :todos="todos"/>
+</template>
+
+<script>
+
+import List from "./components/List";
+
+export default {
+  components: { List },
+  data() {
+    return {
+      todos: [
+        { id: "00001", title: "吃饭", done: true },
+        { id: "00002", title: "睡觉", done: true },
+        { id: "00003", title: "抽烟", done: false }
+      ]
+    };
+  }
+};
+</script>
+```
+
+
+
+List遍历数据，并将每一个元素的具体展示（todo）交给Item来进行展示：
+
+```vue
+<template>
+  <div>
+    <ul class="todo-main">
+      <Item
+        v-for="todoObj in todos"
+        :key="todoObj.id"
+        :todo="todoObj" />
+    </ul>
+  </div>
+</template>
+
+<script>
+import Item from "./Item";
+
+export default {
+  name: "List",
+  components: { Item },
+  props: ["todos"]
+};
+</script>
+```
+
+
+
+Item中展示具体的元素：
+
+```vue
+<template>
+  <div>
+    <li>
+      <label>
+        <input :id="todo.id" type="checkbox" :checked="todo.done" />
+        <span>{{todo.title}}</span>
+      </label>
+      <button class="btn btn-danger">删除</button>
+    </li>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Item",
+  props: ["todo"]
+};
+</script>
+```
+
+
+
+### 添加Todo
+
+props可以**<font color='red'>操作函数进行传递（利用传递过来的函数修改传递方的数据）</font>**，以下案例就是App将函数传递给MyHeader，然后MyHeader调用函数进行相应的操作。此时MyHeader和List都可以对数据todos进行操作。
+
+App:
+
+```vue
+<template>
+  <MyHeader :addTodo="addTodo" />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      todos: [
+        { id: "00001", title: "吃饭", done: true },
+        { id: "00002", title: "睡觉", done: true },
+        { id: "00003", title: "抽烟", done: false }
+      ]
+    };
+  },
+
+  methods: {
+    addTodo(todoObj) {
+      this.todos.unshift(todoObj);
+    }
+  }
+};
+</script>
+```
+
+
+
+MyHeader：
+
+```vue
+<script>
+export default {
+  methods: {
+    add(event) {
+      // 将用户的输入包装成一个对象
+      const todoObj = { id: nanoid(), title: event.target.value, done: false };
+      this.addTodo(todoObj);
+    }
+  },
+
+  props: ["addTodo"]
+};
+</script>
+```
+
+
+
+### 勾选Todo
+
+正常的传递顺序为App -> List -> Item，那么如果需要从App传递到Item的话，最基础的做法就是利用List来进行传递了。传递完成之后，在Item中选择对应的todo编号，让后交给App将todo的done值取反。
+
+App：
+
+```vue
+<template>
+	<List :todos="todos" :checkTodo="checkTodo" />
+</template>
+
+<script>
+export default {
+  methods: {
+    checkTodo(id) {
+      this.todos.forEach(todo => {
+        if (todo.id === id) {
+          // 执行取消勾选的操作
+          todo.done = !todo.done;
+        }
+      });
+    }
+  }
+};
+</script>
+```
+
+
+
+List进行传递的操作：
+
+```vue
+<template>
+	<Item v-for="todoObj in todos" :key="todoObj.id" :checkTodo="checkTodo" />
+</template>
+
+<script>
+export default {
+  props: ["checkTodo"]
+};
+</script>
+```
+
+
+
+Item使用传递过来的方法：
+
+```vue
+<template>
+	<input :id="todo.id" type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)" />
+</template>
+
+<script>
+export default {
+  props: ["checkTodo"],
+  methods: {
+    handleCheck(id) {
+      this.checkTodo(id);
+    }
+  }
+};
+</script>
+```
+
+
+
+### Footer操作
+
+#### 已完成/未完成
+
+使用计算属性统计已完成和未完成的todo的数量。
+
+```vue
+<template>
+	<span>
+    <span>已完成{{doneTotal}}</span>
+    / 全部{{total}}
+    </span>
+</template>
+
+<script>
+export default {
+  computed: {
+    total() {
+      return this.todos.length;
+    },
+
+    doneTotal() {
+      // const x = this.todos.reduce((pre, current) => {
+      //   // pre是上次规约执行后的值，current是此次规约的item元素
+      //   // console.log("@", pre, current);
+      //   return pre + (current.done ? 1 : 0);
+      // }, 0);
+      // 使用规约的方式统计已经完成的todo个数
+      return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0);
+    }
+  },
+  props: ["todos", "checkAllTodo"]
+};
+</script>
+```
+
+
+
+#### 隐藏底部统计信息
+
+total计算属性参见上一步。
+
+```vue
+<template>
+  <!-- 0 -> false, 其他 -> true -->
+  <div class="todo-footer" v-show="total">
+  </div>
+</template>
+```
+
+
+
+#### 全选与全不选
+
+##### 复杂方式
+
+App存放对todos操作的方法：
+
+```vue
+<template>
+  <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" />
+</template>
+
+
+export default {
+  methods: {
+    // 全选or取消全选
+    checkAllTodo(done) {
+      this.todos.forEach(todo => (todo.done = done));
+    }
+  }
+};
+</script>
+```
+
+
+
+MyFooter中存放着前端的操作事件：
+
+```vue
+<template>
+    <!-- 如果全部todo都勾选，底部也需要被勾选 -->
+    <input type="checkbox" :checked="isAll" @change="checkAll" />
+</template>
+
+<script>
+export default {
+  computed: {
+    isAll: {
+      get() {
+        return this.total !== 0 && this.total === this.doneTotal;
+      }
+    }
+  },
+
+  methods: {
+    checkAll(event) {
+      // 获取checkbox是否被选择
+      // console.log(event.target.checked);
+      this.checkAllTodo(event.target.checked);
+    }
+  },
+
+  props: ["todos", "checkAllTodo"]
+};
+</script>
+```
+
+
+
+##### 简单方式
+
+App同上一步，MyFooter使用v-model进行双向绑定，然后**<font color='red'>使用计算属性的set方法进行全选/全不选</font>**。
+
+```vue
+<template>
+    <!-- 简写方式，直接通过计算属性的setter方法对todos进行操作 -->
+    <input type="checkbox" v-model="isAll" />
+</template>
+
+<script>
+export default {
+  computed: {
+    isAll: {
+      set(value) {
+        this.checkAllTodo(value);
+      },
+
+      get() {
+        return this.total !== 0 && this.total === this.doneTotal;
+      }
+    }
+  }
+
+  props: ["todos", "checkAllTodo"]
+};
+</script>
+```
+
+
+
+#### 清除已经完成的任务
+
+同样的操作todos的方法定义到App中，不再过多描述：
+
+```vue
+<template>
+  <MyFooter :todos="todos" :clearAllTodo="clearAllTodo" />
+</template>
+
+<script>
+export default {
+  methods: {
+    // 清除所有已经完成的todo
+    clearAllTodo() {
+      this.todos = this.todos.filter(todo => !todo.done);
+    }
+  }
+};
+</script>
+```
+
+
+
+MyFooter：
+
+```vue
+<template>
+  <button class="btn btn-danger" @click="clearAllTodo">清除已完成任务</button>
+</template>
+
+<script>
+export default {
+  props: ["clearAllTodo"]
+};
+```
+
+
+
+### JS使用技巧
+
+#### 删除集合中的一个元素
+
+```javascript
+// 删除一个todo
+deleteTodo(id) {
+    this.todos = this.todos.filter(todo => todo.id !== id);
+}
+```
+
+
+
+#### 根据条件统计元素个数
+
+```javascript
+// 使用规约的方式进行统计
+const x = this.todos.reduce((pre, current) => {
+    // pre是上次规约执行后的值，current是此次规约的item元素
+    // console.log("@", pre, current);
+    return pre + (current.done ? 1 : 0);
+}, 0);
+// 使用规约的方式统计已经完成的todo个数
+return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0);
+```
+
+
+
+### 总结
+
+- 组件化编码流程：
+  - 拆分静态组件：组件要按照功能点拆分，命名不要与html元素冲突。
+  - 实现动态组件：考虑好数据的存放位置，数据是一个组件在用，还是一些组件在用：
+    - 一个组件在用：放在组件自身即可。
+    - 一些组件在用：放在他们共同的父组件上（状态提升）。
+  - 实现交互：从绑定事件开始。
+- props适用于：
+  - 父组件 ==> 子组件 通信
+  - 子组件 ==> 父组件 通信（要求父先给子一个函数）
+- 使用v-model时要切记：v-model绑定的值不能是props传过来的值，因为props是不可以修改的！
+- props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。
