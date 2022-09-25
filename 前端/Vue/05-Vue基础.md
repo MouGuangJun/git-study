@@ -804,3 +804,246 @@ return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0);
   - 子组件 ==> 父组件 通信（要求父先给子一个函数）
 - 使用v-model时要切记：v-model绑定的值不能是props传过来的值，因为props是不可以修改的！
 - props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。
+
+
+
+## 浏览器本地缓存
+
+### localStorage
+
+浏览器中的查看位置：
+
+![image-20220925213015783](../../../md-photo/image-20220925213015783.png)
+
+
+
+常用Api：
+
+#### setItem
+
+保存一个本地缓存文件，<font color='red'>localStorage只能存储字符串，如果需要存储对象，则需要转换为Json的方式进行存储</font>
+
+```javascript
+<script type="text/javascript">
+    let p = { name: '张三', age: 18 }
+    function saveData() {
+        // window上的属性可以直接使用
+        localStorage.setItem('msg', '哈哈');
+        // 将对象以json的方式进行存储，存储结果：{"name":"张三","age":18}
+        localStorage.setItem('personJson', JSON.stringify(p));
+    }
+</script>
+```
+
+
+
+#### getItem
+
+读取缓存文件中的内容，<font color='red'>当读取一个并没有存进去的值时，得到的结果是null值</font>
+
+```javascript
+function readData() {
+    console.log(localStorage.getItem('msg'));
+    // 读取到的json转换为对象
+    const person = localStorage.getItem('personJson');
+    console.log(JSON.parse(person));
+}
+```
+
+
+
+#### removeItem
+
+删除指定的key值缓存
+
+```javascript
+function deleteData() {
+    localStorage.removeItem('msg2');
+}
+```
+
+
+
+#### clear
+
+清空所有的缓存
+
+```javascript
+function clearData() {
+    localStorage.clear();
+}
+```
+
+
+
+### sessionStorage
+
+和localSession类似，不过它是会话级别的缓存，浏览器关闭之后数据就被清除了。<font color='red'>localSession只有用户主动清除浏览器缓存，或者系统调用清除的api进行删除，数据才会消失</font>。
+
+
+
+### TodoList数据缓存
+
+将TodoList的数据存储到本地缓存，防止页面刷新的时候数据丢失。
+
+在App中修改数据的处理方式即可。<font color='red'>如果缓存为空，则给一个空数据，防止todos.length报错</font>。
+
+```javascript
+data() {
+    return {
+        // 数据todos从浏览器本地缓存中读取，但是如果缓存为空，则给一个空数据，防止todos.length报错
+        todos: JSON.parse(localStorage.getItem("todos")) || []
+    };
+}
+```
+
+
+
+使用watch属性监视data中的todos发生变化时，同时通知localStorage缓存中的内容发生更改。<font color='red'>需要开启深度监视，不然对象中的内容发生变化时，vue无法监视到</font>.
+
+```javascript
+// 使用watch属性，如果检测到todos发生变化，则往本地缓存中储存一份
+watch: {
+    // 将修改后的值存放到本地缓存中
+    todos: {
+        // 开启深度监视，修改done值的时候，也能监视到
+        deep: true,
+            handler(newValue) {
+            localStorage.setItem("todos", JSON.stringify(newValue));
+        }
+    }
+}
+```
+
+
+
+### 总结
+
+1. 存储内容大小一般支持5MB左右（不同浏览器可能还不一样）
+
+2. 浏览器端通过 Window.sessionStorage 和 Window.localStorage 属性来实现本地存储机制。
+
+3. 相关API：
+
+   1. `xxxxxStorage.setItem('key', 'value');` 该方法接受一个键和值作为参数，会把键值对添加到存储中，如果键名存在，则更新其对应的值。
+
+   2. `xxxxxStorage.getItem('person');`
+
+      ​	该方法接受一个键名作为参数，返回键名对应的值。
+
+   3. `xxxxxStorage.removeItem('key');`
+
+      ​	该方法接受一个键名作为参数，并把该键名从存储中删除。
+
+   4. `xxxxxStorage.clear()`
+
+      ​	该方法会清空存储中的所有数据。
+
+4. 备注：
+
+   1. SessionStorage存储的内容会随着浏览器窗口关闭而消失。
+   2. LocalStorage存储的内容，需要手动清除才会消失。
+   3. `xxxxxStorage.getItem(xxx)`如果xxx对应的value获取不到，那么getItem的返回值是null。
+   4. `JSON.parse(null)`的结果依然是null。
+
+
+
+## 组件的自定义事件
+
+### 绑定事件
+
+#### 直接在组件上绑定
+
+App组件：
+
+```vue
+<template>
+  <div class="app">
+    <!-- 通过父组件给子组件绑定一个自定事件实现：子给父传递数据（第一种写法，使用v-on/@符号） -->
+    <Student v-on:stuNameEvent="getStudentName" />
+    <!-- 仅需要执行一次 /> -->
+    <!-- <Student v-on:stuNameEvent.once="getStudentName" /> -->
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    // 使用Es6的写法，第一个接收到的参数是name，其他的参数封装为一个数组
+    getStudentName(name, ...params) {
+      console.log("App收到了学生的名字", name, params);
+    }
+  }
+};
+</script>
+```
+
+
+
+Student组件触发对应的事件：
+
+```vue
+<template>
+	<button @click="sendStudentName">把学生名给App</button>
+</template>
+
+<script>
+export default {
+  methods: {
+    sendStudentName() {
+      // 触发Student组件实例身上的stuNameEvent事件
+      // 传递多个参数
+      this.$emit("stuNameEvent", this.name, "您好", "hello", "扣你几哇");
+    }
+  }
+};
+</script>
+```
+
+
+
+执行结果：
+
+![image-20220925231803004](../../../md-photo/image-20220925231803004.png)
+
+
+
+#### 使用ref的方式绑定
+
+Student组件的触发事件不变，修改App组件在页面挂载后，绑定对应的事件。<font color='red'>这种方式更灵活，可以做更多的操作，比如设置定时器等</font>。
+
+```vue
+<template>
+  <div class="app">
+    <!-- 通过父组件给子组件绑定一个自定事件实现：子给父传递数据（第二种写法，使用ref） -->
+    <Student ref="student" />
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    // 使用Es6的写法，第一个接收到的参数是name，其他的参数封装为一个数组
+    getStudentName(name, ...params) {
+      console.log("App收到了学生的名字", name, params);
+    }
+  },
+  
+  mounted() {
+    // 可以过段时间再绑定事件，可以做其他更多的操作
+    // setTimeout(() => {
+    //   this.$refs.student.$on("stuNameEvent", this.getStudentName);
+    // }, 3000);
+
+    // 该事件只触发一次
+    this.$refs.student.$once("stuNameEvent", this.getStudentName);
+  }
+};
+</script>
+```
+
+
+
+执行结果：
+
+![image-20220925232203341](../../../md-photo/image-20220925232203341.png)
