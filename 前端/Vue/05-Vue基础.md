@@ -1047,3 +1047,181 @@ export default {
 执行结果：
 
 ![image-20220925232203341](../../../md-photo/image-20220925232203341.png)
+
+
+
+### 解除绑定
+
+App中再添加一个自定义事件event1:
+
+```vue
+<template>
+	<Student ref="student" @event1="event1"/>
+</template>
+
+<script>
+export default {
+  methods: {
+    event1() {
+      console.log("event1被调用了。。。");
+    }
+  }
+};
+</script>
+```
+
+
+
+Student组件中添加解绑函数：
+
+```vue
+<template>
+	<button @click="unbind">解除绑定事件</button>
+</template>
+
+<script>
+export default {
+  methods: {
+    unbind() {
+      // 解绑一个自定义事件
+      // this.$off("stuNameEvent");
+
+      // 解绑多个自定义事件
+      // this.$off(["stuNameEvent", "event1"]);
+
+      // 解绑所有的自定义事件
+      this.$off();
+    }
+  }
+};
+</script>
+```
+
+
+
+测试结果：
+
+![image-20220926195103723](../../../md-photo/image-20220926195103723.png)
+
+
+
+**<font color='red'>VM、VC实例销毁后，对应VC组件上的自定义事件都会被销毁掉。</font>**
+
+Student中添加销毁方法：
+
+```vue
+<template>
+    <button @click="death">点我销毁vc实例对象</button>
+</template>
+
+<script>
+export default {
+  methods: {
+    death() {
+      // 销毁了当前Student组件实例，销毁后所有的Student实例的自定义事件都失效
+      this.$destroy();
+    }
+  }
+};
+</script>
+```
+
+
+
+测试结果：
+
+![image-20220926195357966](../../../md-photo/image-20220926195357966.png)
+
+### 注意事项
+
+#### this指向问题
+
+App组件：
+
+```vue
+<template>
+  <div class="app">
+    <h2>{{msg}}， 学生姓名是：{{studentName}}</h2>
+    <Student ref="student" />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: "您好啊",
+      studentName: ""
+    };
+  },
+
+  methods: {
+    getStudentName(name, ...params) {
+      console.log("App收到了学生的名字", name, params);
+      this.studentName = name;
+    }
+  },
+
+  mounted() {
+    // App组件的methods中存放getStudentName函数，此时的this是App
+    // this.$refs.student.$on("stuNameEvent", this.getStudentName);
+
+    // 使用普通函数绑定，此时的this是Studnet
+    // this.$refs.student.$on("stuNameEvent", function(name, ...params) {
+    //   this.studentName = name;
+    //   console.log(this); // 此时的this是student组件对象
+    // });
+
+    // 使用箭头函数，将this指向app
+    this.$refs.student.$on("stuNameEvent", (name, ...params) => {
+      console.log(this); // 此时的this是App组件
+      this.studentName = name;
+    });
+  }
+};
+</script>
+```
+
+
+
+**App组件的methods中存放getStudentName函数，此时的this是App**
+
+![image-20220926201920598](../../../md-photo/image-20220926201920598.png)
+
+**使用普通函数绑定，此时的this是Studnet**
+
+![image-20220926202331201](../../../md-photo/image-20220926202331201.png)
+
+
+
+**使用箭头函数，将this指向app**
+
+![image-20220926202438723](../../../md-photo/image-20220926202438723.png)
+
+
+
+#### dom原始事件使用
+
+<font color='red'>**需要添加.native后缀修饰，否则会被vue认为是一个自定义事件**</font>。
+
+```vue
+<template>
+    <Student @click.native="show"/>
+</template>
+
+<script>
+export default {
+  methods: {
+    show() {
+      alert("native event");
+    }
+  }
+};
+</script>
+```
+
+
+
+测试结果：
+
+![image-20220926202923386](../../../md-photo/image-20220926202923386.png)
