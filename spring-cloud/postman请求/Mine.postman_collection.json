@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "c31fbcf0-8f3c-4c5a-b9ed-c52553b4d7f9",
+		"name": "Mine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Java内存中实现分页效果",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"receiver\": \"U0001\",\r\n    \"keyValues\": [\r\n        {\r\n            \"key\": \"cardId\",\r\n            \"value\": \"20\"\r\n        },\r\n        {\r\n            \"key\": \"name\",\r\n            \"value\": \"张三\"\r\n        }\r\n    ],\r\n    \"current\": 1,\r\n    \"size\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8093/getCachedPage"
+			},
+			"response": []
+		},
+		{
+			"name": "获取内存分页的Json字符串",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8093/getJsonStr"
+			},
+			"response": []
+		}
+	]
+}

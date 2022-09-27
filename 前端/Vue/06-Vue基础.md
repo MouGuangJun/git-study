@@ -134,6 +134,8 @@ export default {
 
 ## 全局事件总线
 
+### 定义
+
 实现任意组件之间的通信。
 
 通过中间件X实现不同组件间的通信。**<font color='red'>在A组件上写一个回调函数，X绑定该回调函数的事件demo，B组件编写代码触发X上的事件demo</font>**。从而完成从B组件到A组件的数据传递，**其中X要对所有组件可见**。
@@ -172,3 +174,119 @@ export default {
 测试结果：
 
 ![image-20220926233437302](../../../md-photo/image-20220926233437302.png)
+
+
+
+### 实例
+
+main.js中创建全局事件总线：<font color='red'>包含vc和vm的两种创建方式，**其中通过vm生命周期钩子创建的方式常用**</font>。
+
+```javascript
+// 使用组件的方式
+// const VComponent = Vue.extend({});
+// Vue.prototype.$bus = new VComponent();
+
+new Vue({
+    el: '#app',
+    render: h => h(App),
+    // 在vm实例对象创建完成后，在其身上绑定全局事件总线
+    beforeCreate() {
+        Vue.prototype.$bus = this;// 安装全局事件总线
+    },
+});
+```
+
+
+
+School中绑定和解绑事件：<font color='red'>此时vc组件销毁时需要解绑自定义事件，否则自定义事件永远无法解绑</font>。
+
+```vue
+<template>
+    <h2>学生姓名：{{studentName}}</h2>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      studentName: ""
+    };
+  },
+
+  // 绑定全局的自定义事件
+  mounted() {
+    this.$bus.$on("sendStudentName", studentName => {
+      console.log("成功收到Student传递过来的数据！", studentName);
+      this.studentName = studentName;
+    });
+  },
+
+  // 将当前School上的自定义事件解绑
+  beforeDestroy() {
+    this.$bus.$off("sendStudentName");
+  }
+};
+</script>
+```
+
+
+
+Student组件去触发对应的自定义事件：
+
+```vue
+<script>
+export default {
+  methods: {
+    // 触发自定义事件
+    sendStudentName() {
+      this.$bus.$emit("sendStudentName", this.name);
+    }
+  }
+};
+</script>
+```
+
+
+
+测试结果，**<font color='red'>可以看到触发这个事件的是Root（vm自身）</font>**：
+
+![image-20220927224649358](../../../md-photo/image-20220927224649358.png)
+
+### 总结
+
+1. 一种组件间通信的方式，适用于<span style="color:red">任意组件间通信</span>。
+
+2. 安装全局事件总线：
+
+   ```js
+   new Vue({
+   	......
+   	beforeCreate() {
+   		Vue.prototype.$bus = this //安装全局事件总线，$bus就是当前应用的vm
+   	},
+       ......
+   }) 
+   ```
+
+3. 使用事件总线：
+
+   1. 接收数据：A组件想接收数据，则在A组件中给$bus绑定自定义事件，事件的<span style="color:red">回调留在A组件自身。</span>
+
+      ```js
+      methods(){
+        demo(data){......}
+      }
+      ......
+      mounted() {
+        this.$bus.$on('xxxx',this.demo)
+      }
+      ```
+
+   2. 提供数据：```this.$bus.$emit('xxxx',数据)```
+
+4. 最好在beforeDestroy钩子中，用$off去解绑<span style="color:red">当前组件所用到的</span>事件。
+
+
+
+## 消息的订阅与发布
+
