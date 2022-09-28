@@ -290,3 +290,120 @@ export default {
 
 ## 消息的订阅与发布
 
+### 实例
+
+安装pubsub.js进行消息的发布与订阅：
+
+```bash
+$ npm i pubsub-js@1.6.0
+```
+
+
+
+School组件中订阅消息，<font color='red'>**subscribe中的回调函数需要使用箭头函数，否则this是undefined，如果参数msgName不需要用到，可以用下划线_进行参数占位**</font>：
+
+```vue
+<template>
+    <button @click="destory">销毁组件</button>
+</template>
+
+<script>
+// 引入消息发布订阅js
+import pubsub from "pubsub-js";
+
+export default {
+  methods: {
+    // 销毁组件时，看消息是否还能订阅到
+    destory() {
+      this.$destroy();
+    }
+  },
+
+  mounted() {
+    // 订阅消息（如果用普通的函数的话，这里的this是undefined）
+    // 第一个参数是订阅消息名称，第二个是数据
+    this.pubId = pubsub.subscribe("sendStudentName", (msgName, data) => {
+      console.log(this);// 普通函数 === undefined
+      console.log("订阅到了学生的名字", data);
+      this.studentName = data;
+    });
+  },
+
+  // 组件销毁的时候取消消息的订阅
+  beforeDestroy() {
+    pubsub.unsubscribe(this.pubId);
+  }
+};
+</script>
+```
+
+
+
+Student组件发送消息：
+
+```vue
+<script>
+// 引入消息发布订阅js
+import pubsub from "pubsub-js";
+export default {
+  methods: {
+    sendStudentName() {
+      // 发布消息
+      pubsub.publish("sendStudentName", this.name);
+    }
+  }
+};
+</script>
+```
+
+
+
+测试结果：
+
+![image-20220928214450209](../../../md-photo/image-20220928214450209.png)
+
+如果使用箭头函数：
+
+```javascript
+this.pubId = pubsub.subscribe("sendStudentName", function(msgName, data) {
+    console.log(this);
+    console.log("订阅到了学生的名字", data);
+    this.studentName = data;
+});
+```
+
+![image-20220928214626329](../../../md-photo/image-20220928214626329.png)
+
+
+
+如果vc组件销毁时没有取消消息订阅：
+
+![image-20220928214736780](../../../md-photo/image-20220928214736780.png)
+
+### 总结
+
+## 消息订阅与发布（pubsub）
+
+1. 一种组件间通信的方式，适用于任意组件间通信。
+
+2. 使用步骤：
+
+   1. 安装pubsub：`npm i pubsub-js`
+
+   2. 引入: `import pubsub from 'pubsub-js'`
+
+   3. 接收数据：A组件想接收数据，则在A组件中订阅消息，订阅的回调留在A组件自身。
+
+      ```js
+      methods(){
+        demo(data){......}
+      }
+      ......
+      mounted() {
+        this.pid = pubsub.subscribe('xxx',this.demo) //订阅消息
+      }
+      ```
+
+   4. 提供数据：`pubsub.publish('xxx',数据)`
+
+   5. 最好在beforeDestroy钩子中，用`PubSub.unsubscribe(pid)`去取消订阅。
