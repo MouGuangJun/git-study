@@ -382,8 +382,6 @@ this.pubId = pubsub.subscribe("sendStudentName", function(msgName, data) {
 
 ### 总结
 
-## 消息订阅与发布（pubsub）
-
 1. 一种组件间通信的方式，适用于任意组件间通信。
 
 2. 使用步骤：
