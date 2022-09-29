@@ -407,3 +407,184 @@ this.pubId = pubsub.subscribe("sendStudentName", function(msgName, data) {
    4. 提供数据：`pubsub.publish('xxx',数据)`
 
    5. 最好在beforeDestroy钩子中，用`PubSub.unsubscribe(pid)`去取消订阅。
+
+
+
+## $nextTick
+
+ 默认情况下，vue会等回调函数完成之后才重新解析模板生成dom元素，使用nextTick api可以等<font color='red'>重新解析模板生成dom元素结束后才调用对应的函数</font>。
+
+1. 语法：`this.$nextTick(回调函数)`
+2. 作用：在下一次 DOM 更新结束后执行其指定的回调。
+3. 什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。
+
+```vue
+<template>
+	<input ref="inputTitle"/>
+	<button @click="handleEdit(todo)">编辑</button>
+</template>
+
+<script>
+export default {
+    // 点击编辑按钮的时候，前面的文字修改为输入框
+    handleEdit(todo) {
+      // 如果todo上没有isEdit属性，才追加属性
+      // 通过hasOwnProperty("xxx");api判断vm身上是否存在对应的属性
+      if (todo.hasOwnProperty("isEdit")) {
+        todo.isEdit = true;
+      } else {
+        console.log("todo身上没有isEdit属性！");
+        this.$set(todo, "isEdit", true);
+      }
+
+      // 默认情况下，vue会等回调函数完成之后才重新解析模板生成dom元素
+      // 使用nextTick api可以等重新解析模板生成dom元素结束后才调用对应的函数
+      this.$nextTick(function() {
+        this.$refs.inputTitle.focus();
+      });
+    }
+  }
+};
+</script>
+```
+
+在vue重新解析模板生成dom元素结束后才触发获得焦点事件，否则就是在vue未重新解析模板的时候就触发了获取焦点事件。重新解析后就无法再获得焦点了，达不到想要的效果。
+
+
+
+测试结果：
+
+![image-20220929215414620](../../../md-photo/image-20220929215414620.png)
+
+
+
+如果不使用$nextTick api：
+
+![image-20220929215516322](../../../md-photo/image-20220929215516322.png)
+
+
+
+## Vue动画
+
+### 动画效果
+
+使用transition标签实现动画的效果：
+
+通过绑定v-show事件，<font color='red'>当isShow为true时执行v-enter-active动画效果，为false时执行v-leave-active动画效果</font>。
+
+```vue
+<template>
+  <div>
+    <button @click="isShow = !isShow">显示/隐藏</button>
+    <!-- 开启动画过渡效果 -->
+    <transition>
+      <h2 v-show="isShow">您好啊</h2>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Test",
+  data() {
+    return {
+      isShow: true
+    };
+  }
+};
+</script>
+```
+
+
+
+编写css效果，<font color='blue'>其中h1中的配置是对css动画的学习</font>：
+
+```vue
+<style scoped>
+h2 {
+  background-color: orange;
+}
+
+/* 出现的动画 */
+.v-enter-active {
+  animation-name: start;
+  animation-duration: 1s;
+}
+
+/* 消失的动画 */
+.v-leave-active {
+  animation-name: start;
+  animation-duration: 1s;
+  animation-direction: reverse;
+}
+
+/* 仅仅作为案例使用 */
+h1 {
+  /* 选择关键帧 */
+  animation-name: start;
+  /* 关键帧持续时间 */
+  animation-duration: 2s;
+  /* 关键帧执行次数 */
+  animation-iteration-count: 2;
+  /* 关键帧[from -> to] [to -> from] 的切换 */
+  animation-direction: alternate;
+  /* 动画保持结束时的样子 */
+  animation-fill-mode: forwards;
+}
+
+/* 定义关键帧 */
+@keyframes start {
+  /* 关键帧开始的效果 */
+  from {
+    /* 用于X轴的偏移量 */
+    transform: translateX(-100%);
+  }
+
+  /* 关键帧结束的效果 */
+  to {
+  }
+}
+</style>
+```
+
+
+
+注意事项：
+
+1. 当transition标签中定义name时，应该使用[name]-enter-active、[name]-leave-active的方式来定义入场、出场动画。
+
+```vue
+<template>
+	<transition name="ts">
+    	<h2 v-show="isShow">您好啊</h2>
+    </transition>
+</template>
+
+<style scoped>
+/* 出现的动画 */
+.ts-enter-active {
+  animation-name: start;
+  animation-duration: 1s;
+}
+
+/* 消失的动画 */
+.ts-leave-active {
+  animation-name: start;
+  animation-duration: 1s;
+  animation-direction: reverse;
+}
+</style>
+```
+
+
+
+2. 如果想要动画一上来就执行，使用apper属性，<font color='red'>其中appear === :appear="true"</font>。
+
+```vue
+<template>
+	<transition name="ts" appear>
+    	<h2 v-show="isShow">您好啊</h2>
+    </transition>
+</template>
+```
+
