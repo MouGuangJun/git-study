@@ -483,7 +483,7 @@ export default {
 
 <script>
 export default {
-  name: "Test",
+  name: "Animation",
   data() {
     return {
       isShow: true
@@ -504,16 +504,18 @@ h2 {
 }
 
 /* 出现的动画 */
-.v-enter-active {
+.am-enter-active {
   animation-name: start;
   animation-duration: 1s;
+  animation-timing-function: linear;
 }
 
 /* 消失的动画 */
-.v-leave-active {
+.am-leave-active {
   animation-name: start;
   animation-duration: 1s;
   animation-direction: reverse;
+  animation-timing-function: linear;
 }
 
 /* 仅仅作为案例使用 */
@@ -528,6 +530,8 @@ h1 {
   animation-direction: alternate;
   /* 动画保持结束时的样子 */
   animation-fill-mode: forwards;
+  /* 运动方式：匀速运动/贝塞尔曲线等 */
+  animation-timing-function: linear;
 }
 
 /* 定义关键帧 */
@@ -540,6 +544,7 @@ h1 {
 
   /* 关键帧结束的效果 */
   to {
+    transform: translateX(0);
   }
 }
 </style>
@@ -586,3 +591,240 @@ h1 {
 </template>
 ```
 
+
+
+### 过渡效果
+
+使用xxx-enter（动画进入的起点）、xxx-enter-to（动画进入的终点）、xxx-leave（动画离开的起点）、xxx-leave-to（动画离开的终点）来实现动画效果。
+
+编写模板、js：
+
+```vue
+<template>
+  <!-- 动画效果 -->
+  <div>
+    <transition name="ts" appear>
+      <h2 v-show="isShow">您好啊</h2>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TransitionT",
+  props: ["isShow", "update"]
+};
+</script>
+```
+
+
+
+编写css样式，<font color='red'>**可以将相同的过渡样式放到ts-enter/leave-active进行统一的管理**</font>：
+
+```vue
+<style scoped>
+h2 {
+  background-color: orange;
+}
+
+/* 将统一的过渡样式放到一起 */
+.ts-enter-active,
+.ts-leave-active {
+  transition-duration: 1s;
+  transition-timing-function: linear;
+}
+
+/* 进入的起点、离开的终点 */
+.ts-enter,
+.ts-leave-to {
+  transform: translateX(-100%);
+}
+
+/* 进入的终点、离开的起点 */
+.ts-enter-to,
+.ts-leave {
+  transform: translateX(0);
+}
+</style>
+```
+
+
+
+最终结果（*动画效果*和*过渡效果*都能达到一样的效果）：
+
+![image-20221002175237367](../../../md-photo/image-20221002175237367.png)
+
+
+
+### 多个元素过渡
+
+使用<font color='red'>transition-group</font>标签实现为多个标签使用相同的动画效果，<font color='red'>其中每一个标签都要绑定key值</font>，如下案例所示：
+
+**动画效果与上一个案例一致**
+
+```vue
+<template>
+  <!-- 多个元素过渡效果 -->
+  <div>
+    <transition-group name="tsg" appear>
+      <h2 v-show="!isShow" key="key1">您好啊</h2>
+      <h2 v-show="isShow" key="key2">您也很好</h2>
+    </transition-group>
+  </div>
+</template>
+```
+
+测试结果：
+![image-20221002220830191](../../../md-photo/image-20221002220830191.png)
+
+
+
+### 集成第三方动画
+
+animate.css，参见./../第三方css样式效果.md
+
+安装animate.css：
+
+```bash
+$ npm install animate.css --save
+```
+
+在需要用到样式的js中引入对应的css：
+
+```vue
+<script>
+import "animate.css";
+export default {
+  name: "AnimateT"
+};
+</script>
+```
+
+
+
+在需要动画效果的<font color='red'>transition标签</font>上绑定name：animate\__animated animate__bounce，已经想要使用的动画样式：
+![image-20221002222952067](../../../md-photo/image-20221002222952067.png)
+
+
+
+引入对应的样式，分别绑定vue中的**<font color='red'>enter-active-class（进入动画样式）、 leave-active-class（离开动画样式）</font>**：
+
+```vue
+<template>
+  <!-- 引入第三方样式 -->
+  <div>
+    <transition
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__zoomInUp"
+      leave-active-class="animate__zoomOutRight"
+    >
+      <h2 v-show="isShow">您好啊（第三方样式）</h2>
+    </transition>
+  </div>
+</template>
+```
+
+
+
+测试结果：
+
+![image-20221002223425061](../../../md-photo/image-20221002223425061.png)
+
+
+
+### TodoList动画改造
+
+#### Item修改
+
+注意：此时的Item<font color='red'>li标签外层由transition标签包裹，而非div标签（否则删除的时候没有动画效果）</font>，<font color='red'>使用leave、leave-to过渡效果时，必须用todo-leave-active指定持续时间才有效。</font>。
+
+```vue
+<template>
+  <transition name="todo" appear>
+    ...
+  </transition>
+</template>
+
+<style scoped>
+/* 添加动画效果 */
+/* .todo-enter-active {
+  animation-name: start;
+  animation-duration: 1s;
+}
+
+.todo-leave-active {
+  animation-name: start;
+  animation-duration: 1s;
+  animation-direction: reverse;
+}
+
+@keyframes start {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+} */
+
+/* 设置动画的持续时长 */
+.todo-enter-active,
+.todo-leave-active {
+  transition-duration: 1s;
+}
+
+.todo-enter,
+.todo-leave-to {
+  transform: translateX(100%);
+}
+
+.todo-enter-to,
+.todo-leave {
+  transform: translateX(0);
+}
+</style>
+```
+
+
+
+测试结果：
+![image-20221002230843982](../../../md-photo/image-20221002230843982.png)    
+
+
+
+#### List修改
+
+
+
+### 总结
+
+1. 作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。
+
+2. 图示：
+
+   ![image](../../../md-photo/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamF5TG9n,size_20,color_FFFFFF,t_70,g_se,x_16.png)
+
+3. 写法：
+
+   1. 准备好样式：
+
+      - 元素进入的样式：
+        1. v-enter：进入的起点
+        2. v-enter-active：进入过程中
+        3. v-enter-to：进入的终点
+      - 元素离开的样式：
+        1. v-leave：离开的起点
+        2. v-leave-active：离开过程中
+        3. v-leave-to：离开的终点
+
+   2. 使用`<transition>`包裹要过度的元素，并配置name属性：
+
+      ```vue
+      <transition name="hello">
+      	<h1 v-show="isShow">你好啊！</h1>
+      </transition>
+      ```
+
+   3. 备注：若有多个元素需要过度，则需要使用：`<transition-group>`，且每个元素都要指定`key`值。
