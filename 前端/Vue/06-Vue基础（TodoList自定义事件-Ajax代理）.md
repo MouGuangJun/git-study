@@ -796,6 +796,50 @@ export default {
 
 #### List修改
 
+注意：对List修改时，因为List中的Item元素标签不止一个，所以应该使用<font color='red'>transition-group标签（key属性已经在v-for遍历的时候指定）</font>，且该标签应该包裹着Item组件。
+
+修改内容：
+
+```vue
+<template>
+  <div>
+    <ul class="todo-main">
+      <transition-group name="todo">
+        <Item v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj" />
+      </transition-group>
+    </ul>
+  </div>
+</template>
+
+<style scoped>
+/* 添加动画效果 */
+.todo-enter-active {
+  animation-name: start;
+  animation-duration: 1s;
+}
+
+.todo-leave-active {
+  animation-name: start;
+  animation-duration: 1s;
+  animation-direction: reverse;
+}
+
+@keyframes start {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+</style>
+```
+
+测试结果：
+
+![image-20221003155242323](../../../md-photo/image-20221003155242323.png)
+
 
 
 ### 总结
@@ -828,3 +872,256 @@ export default {
       ```
 
    3. 备注：若有多个元素需要过度，则需要使用：`<transition-group>`，且每个元素都要指定`key`值。
+
+
+
+## Vue脚手架实现代理
+
+### Express搭建服务器
+
+```bash
+$ npm i express
+```
+
+在src同级目录下添加99_server文件夹，文件夹里面分别编写server1.js和server2.js：
+
+```js
+const express = require('express')
+const app = express()
+
+app.use((request,response,next)=>{
+	console.log('有人请求服务器1了');
+	// console.log('请求来自于',request.get('Host'));
+	// console.log('请求的地址',request.url);
+	next()
+})
+
+app.get('/students',(request,response)=>{
+	const students = [
+		{id:'001',name:'tom',age:18},
+		{id:'002',name:'jerry',age:19},
+		{id:'003',name:'tony',age:120},
+	]
+	response.send(students)
+})
+
+app.listen(5000,(err)=>{
+	if(!err) console.log('服务器1启动成功了,请求学生信息地址为：http://localhost:5000/students');
+})
+```
+
+```javascript
+const express = require('express')
+const app = express()
+
+app.use((request,response,next)=>{
+	console.log('有人请求服务器2了');
+	next()
+})
+
+app.get('/cars',(request,response)=>{
+	const cars = [
+		{id:'001',name:'奔驰',price:199},
+		{id:'002',name:'马自达',price:109},
+		{id:'003',name:'捷达',price:120},
+	]
+	response.send(cars)
+})
+
+app.listen(5001,(err)=>{
+	if(!err) console.log('服务器2启动成功了,请求汽车信息地址为：http://localhost:5001/cars');
+})
+```
+
+启动服务的命令：
+
+```bash
+$ pwd
+D:\前端\Vue\vue-test\99_server
+$ node server1.js
+$ node server2.js
+```
+
+项目结构：
+
+![image-20221003165511434](../../../md-photo/image-20221003165511434.png)
+
+
+
+### Vue发送Ajax请求
+
+#### 方式一
+
+安装axios：
+
+```bash
+$ npm i axios
+```
+
+引入axios：
+
+```javascript
+import axios from 'axios';
+```
+
+通过Vue的方式发送Ajax请求：
+
+```vue
+<template>
+  <div>
+    <button @click="getStudnets">获取学生信息</button>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "App",
+  methods: {
+    getStudnets() {
+      axios.get("http://localhost:5000/students").then(
+        // 成功时输出返回数据
+        response => {
+          console.log("请求成功了", response.data);
+        },
+
+        // 失败时输出错误信息
+        error => {
+          console.log("请求失败了", error.message);
+        }
+      );
+    }
+  }
+};
+</script>
+```
+
+此时Ajax访问后端服务存在跨域的问题：
+
+![image-20221003165656128](../../../md-photo/image-20221003165656128.png)
+
+
+
+使用vue代理解决跨域问题：
+
+在vue.config.js文件中添加服务代理配置：
+
+```javascript
+devServer: {
+    proxy: "http://localhost:5000"
+}
+```
+
+<font color='red'>修改App中请求服务器的端口为代理服务器的端口</font>：
+
+```vue
+<script>
+export default {
+  methods: {
+    getStudnets() {
+      axios.get("http://localhost:8080/students").then(
+        ...
+      );
+    }
+  }
+};
+</script>
+```
+
+执行结果：
+
+![image-20221003170924906](../../../md-photo/image-20221003170924906.png)
+
+问题：该种方式的代理虽然简单，但是<font color='red'>**1、如果访问的资源前端存在，就不会发送到服务器的请求了；2、只能配置一个被代理的服务器地址**</font>
+
+
+
+#### 方式二
+
+通过配置访问路径的前缀进行代理，<font color='red'>**将所有请求同一个服务器的请求添加相同前缀，然后在代理的时候再去除前缀**</font>，还可以配置代理的一些规则。
+
+App中的请求地址：
+
+```vue
+<script>
+export default {
+  methods: {
+    getStudnets() {
+      axios.get("http://localhost:8080/stu/students").then(
+        // 成功时输出返回数据
+        response => {
+          console.log("请求成功了", response.data);
+        },
+
+        // 失败时输出错误信息
+        error => {
+          console.log("请求失败了", error.message);
+        }
+      );
+    },
+
+    getCars() {
+      axios.get("http://localhost:8080/car/cars").then(
+        // 成功时输出返回数据
+        response => {
+          console.log("请求成功了", response.data);
+        },
+
+        // 失败时输出错误信息
+        error => {
+          console.log("请求失败了", error.message);
+        }
+      );
+    }
+  }
+};
+</script>
+```
+
+在vue.config.js文件中添加服务代理配置：
+
+```javascript
+devServer: {
+    proxy: {
+        "/stu": {
+            target: "http://localhost:5000",
+            // true->服务器收到的请求头host为5000
+            // false -> 服务器收到的请求头host为8080
+            ws: true, // 用于支持websocket
+            changeOrigin: true,
+            // 重写请求的url，将以/stu路径开头的请求中的/stu替换为空
+            // 如果不这样写，后端服务收到的请求会多一个/stu
+            pathRewrite: { "^/stu": "" }
+        },
+
+        "/car": {
+            target: "http://localhost:5001",
+            ws: true,
+            changeOrigin: true,
+            pathRewrite: { "^/car": "" }
+        }
+    }
+}
+```
+
+
+
+测试结果：
+
+成功访问到students的信息：
+
+![image-20221003204847037](../../../md-photo/image-20221003204847037.png)
+
+成功访问到cars的信息：
+
+![image-20221003204911196](../../../md-photo/image-20221003204911196.png)
+
+如果不配置pathRewrite来削减请求的前缀，<font color='red'>**后端接收到的请求仍然带着前缀**</font>：
+
+![image-20221003205143779](../../../md-photo/image-20221003205143779.png)
+
+
+
+如果配置changeOrigin为false，<font color='red'>**后端接收到的请求端口为真实的端口，而不是跟后端一样的端口**</font>：
+
+![image-20221003205424445](../../../md-photo/image-20221003205424445.png)
