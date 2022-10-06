@@ -26,3 +26,21 @@
 | sort    | 对数组进行排序                                               |
 | reverse | 对数组进行倒序的操作                                         |
 
+
+
+## 解构赋值
+
+```javascript
+// 将对象解构
+let {foo, bar} = { foo: "aaa", bar: "bbb" };
+console.log(foo); // "aaa"
+
+// 将tool对象中的所有属性解析到tools中
+let tool = { fool: "aaa", bar: "bbb" };
+let tools = {
+    baz: "ccc",
+    ...tool
+}
+console.log(tools); // { baz: 'ccc', fool: 'aaa', bar: 'bbb' }
+```
+
