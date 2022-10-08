@@ -410,7 +410,10 @@ this.$router.go(n);// 前进（正数）/后退（负数）n步
 
 ```vue
 <!-- keep-alive让vc切走的时候不销毁，include是其中不需要销毁的vc组件名称 -->
-<keep-alive include="News"> 
+<!-- 缓存单个路由组件 -->
+<!-- <keep-alive include="News"> -->
+<!-- 缓存多个路由组件 -->
+<keep-alive :include="['News', 'Message']">
     <router-view></router-view>
 </keep-alive>
 ```
@@ -418,3 +421,262 @@ this.$router.go(n);// 前进（正数）/后退（负数）n步
 测试结果：
 
 ![image-20221007225422459](../../../md-photo/image-20221007225422459.png)
+
+
+
+### 两个新的生命周期钩子
+
+- 作用：路由组件所独有的两个钩子，用于捕获路由组件的激活状态。
+- 具体名字：
+  - `activated`路由组件被激活时触发。
+  - `deactivated`路由组件失活时触发。
+
+实例：
+
+组件激活的时候触发定时器，切走的时候关闭定时器。（<font color='red'>**可以在组件被缓存的情况下让一些动作变得可控[开/关]**</font>）。
+
+```vue
+<template>
+  <div>
+    <ul>
+      <li :style="{opacity}">欢迎学习Vue</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  activated() {
+    console.log("News组件激活了...");
+    this.timer = setInterval(() => {
+      console.log("@");
+      this.opacity -= 0.01;
+      if (this.opacity <= 0) this.opacity = 1;
+    }, 16);
+  },
+
+  deactivated() {
+    console.log("News组件失活了...");
+    console.log("清空定时器：", this.timer);
+    clearInterval(this.timer);
+  }
+};
+</script>
+```
+
+测试结果：
+
+激活组件的时候触发定时器：
+
+![image-20221008202318244](../../../md-photo/image-20221008202318244.png)
+
+失活组件的时候关闭定时器：
+
+![image-20221008202413310](../../../md-photo/image-20221008202413310.png)
+
+
+
+### 路由守卫
+
+作用：对路由进行权限控制
+
+#### 全局守卫
+
+<font color='red'>**1.用户自定义的数据需要放到meta中；2.next只在前置路由守卫中存在；3.后置路由守卫一般用于放行后做一些事，避免在前置路由守卫中出现重复的代码**</font>。
+
+```javascript
+{
+    ...
+    meta: {
+        title: "关于",
+        isAuth: true
+    }
+}
+
+// 全局前置路由守卫 --- 初始化的时候被调用、每次路由切换之前被调用
+router.beforeEach((to, from, next) => {
+    // to是指到哪个路由，from是指从哪个路由过来
+    console.log(to, from);
+    // 当路由到的组件不是news、message组件或者school名字是尚硅谷时，才展示news、message组件中的内容
+    if (/* (to.name !== "news" && to.name != "message") */
+        !to.meta.isAuth // 判断是否需要鉴权
+        || localStorage.getItem("school") === "尚硅谷") {
+        next();// 放行
+    } else {
+        alert("学校名字不对，无权限查看！");
+    }
+});
+
+// 全局后置路由守卫 --- 初始化的时候被调用、每次路由切换之后被调用
+// 切换完成了，不再需要next进行放行
+router.afterEach((to, from) => {
+    // to是指到哪个路由，from是指从哪个路由过来
+    console.log(to, from);
+    document.title = to.meta.title || "硅谷系统";
+});
+
+
+export default router;
+```
+
+测试案例：
+
+手动在浏览器的本地内存中添加键为school的数据：
+
+![image-20221008205111617](../../../md-photo/image-20221008205111617.png)
+
+
+
+学校名字不是尚硅谷时，没有查看的权限：
+
+![image-20221008213353335](../../../md-photo/image-20221008213353335.png)
+
+通过后置路由守卫实现页签的切换（**路由切换完成之后执行，防止在前置路由守卫处出现冗余的代码**）：
+
+![image-20221008213509313](../../../md-photo/image-20221008213509313.png)
+
+
+
+#### 独享守卫
+
+<font color='red'>**1.beforeEnter在beforeEach后执行，如果beforeEach拦截了，那么这段代码不会被执行；2.beforeEnter和afterEach互不影响**</font>。
+
+```js
+// beforeEnter在beforeEach后执行，如果beforeEach拦截了，那么这段代码不会被执行
+beforeEnter(to, from, next) {
+    if (localStorage.getItem("school") === "尚硅谷") {
+        next();
+    } else {
+        alert("学校名字不对，无权限查看！");
+    }
+}
+```
+
+
+
+#### 组件内路由守卫
+
+<font color='red'>**beforeRouteLeave不是后置路由守卫，而是在该路由切走前执行的一些操作，如果不放行，那么一直保持该组件不变**</font>。
+
+```javascript
+// 通过路由规则，进入该组件的时候被调用
+beforeRouteEnter(to, from, next) {
+    if (localStorage.getItem("school") === "尚硅谷") {
+      next();
+    } else {
+      alert("学校名字不对，无权限查看！");
+    }
+},
+
+// 通过路由规则，离开该组件的时候被调用
+// 参数同beforeRouteEnter
+// 这里不是后置路由守卫，而是在该路由切走前执行的一些操作，如果不放行，那么一直保持该组件不变
+beforeRouteLeave(to, from, next) {
+	alert("不满足指定的条件，该页面不能被切走！");
+}
+```
+
+测试结果：
+
+beforeRouteEnter结果跟全局守卫/独享守卫一致。
+
+beforeRouteLeave：
+
+路由切走离开组件的时候进行判断，如果不放行，那么该页面无法被切走。
+
+![image-20221008221912488](../../../md-photo/image-20221008221912488.png)
+
+
+
+### 路由器的两种工作模式
+
+#### 定义
+
+1. 对于一个url来说，什么是hash值？—— #及其后面的内容就是hash值。
+2. hash值不会包含在 HTTP 请求中，即：hash值不会带给服务器。
+3. hash模式：
+   1. 地址中永远带着#号，不美观 。
+   2. 若以后将地址通过第三方手机app分享，若app校验严格，则地址会被标记为不合法。
+   3. 兼容性较好。
+4. history模式：
+   1. 地址干净，美观 。
+   2. 兼容性和hash模式相比略差。
+   3. 应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题。
+
+
+
+#### 实例
+
+编写后端服务器：
+
+```javascript
+const express = require("express");
+
+const app = express();
+
+// 设置静态资源的路径 __dirname相当于./
+app.use(express.static(__dirname + "/static/server3"));
+
+app.get("/person", (req, res) => {
+    res.send({
+        name: "Tom",
+        age: 18
+    });
+});
+
+app.listen(5000, (err) => {
+    if (!err) console.log("服务器启动成功了！");
+})
+```
+
+将Vue项目编译为js、css、html静态资源：
+
+```bash
+$ npm run build
+```
+
+编译完成之后的文件夹位置
+
+![image-20221008230914896](../../../md-photo/image-20221008230914896.png)
+
+将资源放到服务器的static目录下：
+
+![image-20221008231340900](../../../md-photo/image-20221008231340900.png)
+
+
+
+##### histroy模式
+
+![image-20221008231241188](../../../md-photo/image-20221008231241188.png)
+
+解决该问题的方法：
+
+让后端认为这是在访问静态资源即可，通过connect-history-api-fallback应用解决该问题：
+
+```bash
+# 需要在服务器位置安装该应用
+$ npm i connect-history-api-fallback
+```
+
+后端服务器修改为：
+
+```javascript
+const history = require("connect-history-api-fallback");
+
+// 判断路径是在访问后端资源还是前端路由
+app.use(history());
+
+...
+```
+
+成功访问到静态资源：
+
+![image-20221008233036045](../../../md-photo/image-20221008233036045.png)
+
+
+
+#### hash模式
+
+hash模式由于传递给后端的路径没有变，所以没有影响，可以正常访问静态资源。
+
+![image-20221008233427771](../../../md-photo/image-20221008233427771.png)
