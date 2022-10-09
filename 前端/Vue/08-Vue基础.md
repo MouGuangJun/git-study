@@ -680,3 +680,209 @@ app.use(history());
 hash模式由于传递给后端的路径没有变，所以没有影响，可以正常访问静态资源。
 
 ![image-20221008233427771](../../../md-photo/image-20221008233427771.png)
+
+
+
+
+
+## UI组件库
+
+### 移动端常用 UI 组件库
+
+1. Vant https://youzan.github.io/vant
+2. Cube UI https://didi.github.io/cube-ui
+3. Mint UI http://mint-ui.github.io
+
+### PC 端常用 UI 组件库
+
+1. Element UI https://element.eleme.cn
+2. IView UI https://www.iviewui.com
+
+
+
+### Element UI使用
+
+#### 基本使用
+
+安装Element UI
+
+```bash
+$ npm i element-ui
+```
+
+
+
+main.js中引入element-ui：
+
+```javascript
+// 引入Vue
+import Vue from 'vue';
+
+// 引入Element-UI组件库
+import ElementUI from "element-ui";
+import 'element-ui/lib/theme-chalk/index.css';
+
+// 使用ElementUI插件
+Vue.use(ElementUI);
+
+// 引入App
+import App from './App';
+
+// 关闭Vue生产提示
+Vue.config.productionTip = false;
+
+new Vue({
+    el: '#app',
+    render: h => h(App),
+});
+```
+
+引入对应的组件库使用即可：
+
+```vue
+<template>
+  <div>
+    <button>传统的按钮</button>
+
+    <el-row>
+      <el-button type="primary" round>主要按钮</el-button>
+      <el-button type="success">成功按钮</el-button>
+    </el-row>
+
+    <el-row>
+      <el-button icon="el-icon-delete-solid" circle></el-button>
+      <el-button type="primary" icon="el-icon-edit" circle></el-button>
+    </el-row>
+
+    <el-date-picker
+      v-model="value"
+      align="left"
+      type="date"
+      placeholder="选择日期"
+      :picker-options="pickerOptions"
+    ></el-date-picker>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      pickerOptions: {
+        // 禁止选择的日期
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        // 设置快捷选项卡
+        shortcuts: [
+          {
+            text: "今天",
+            onClick(picker) {
+              picker.$emit("pick", new Date());
+            }
+          },
+          {
+            text: "昨天",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit("pick", date);
+            }
+          },
+          {
+            text: "一周前",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", date);
+            }
+          }
+        ]
+      },
+      value: ""
+    };
+  }
+};
+</script>
+```
+
+成功应用了组件：
+
+![image-20221009224424470](../../../md-photo/image-20221009224424470.png)
+
+组件的配置项参见官方的文档说明：
+
+![image-20221009224506698](../../../md-photo/image-20221009224506698.png)
+
+
+
+#### 按需引入
+
+安装 babel-plugin-component：
+
+```bash
+# D表示的是开发依赖，会把包添加到package.json的devDependencies下，这些包只在做项目的时候会使用到，在项目打包上线后不依赖于这些包项目依然可以正常运行。比如：gulp/webpack、eslint、sass等等。
+
+# -S表示的是生产依赖，会把包添加到package.json的dependencies下，这些包在项目打包上线后依然需要使用项目才能正常运行，比如：axios、element-ui、vue-router等等。
+
+$ npm install babel-plugin-component -D
+```
+
+
+
+babel.config.js文件中增加配置：
+
+```javascript
+module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset',
+    ["es2015", { "modules": false }]
+  ],
+
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
+  ]
+}
+```
+
+在main.js中引入使用到的对应ElementUI中的组件：
+
+```javascript
+import { Button, Row, DatePicker } from "element-ui";
+Vue.component(Button.name, Button);
+Vue.component(Row.name, Row);
+// use和component的方式都可以
+Vue.use(DatePicker);
+```
+
+出现找不到模块的错误：
+
+![image-20221009230125300](../../../md-photo/image-20221009230125300.png)
+
+安装对应的包即可：
+
+```bash
+$ npm i babel-plugin-component
+$ npm i babel-preset-es2015
+```
+
+出现插件预设的错误：
+
+![image-20221009230505796](../../../md-photo/image-20221009230505796.png)
+
+<font color='red'>修改babel.config.js中的**es2015**为**@babel/env**</font>
+
+![image-20221009231354626](../../../md-photo/image-20221009231354626.png)
+
+成功实现了按需引入：
+
+![image-20221009232247768](../../../md-photo/image-20221009232247768.png)
+
+![image-20221009232421082](../../../md-photo/image-20221009232421082.png)
