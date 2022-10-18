@@ -54,3 +54,11 @@ Color Picker
 用于颜色的选取
 
 ![image-20220928222251020](../../md-photo/image-20220928222251020.png)
+
+
+
+## JS-CSS-HTML Formatter
+
+格式化js、css、html代码
+
+![image-20221018230204428](../../md-photo/image-20221018230204428.png)
