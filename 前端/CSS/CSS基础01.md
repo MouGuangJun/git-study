@@ -60,3 +60,28 @@ Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提�
 - align-content: center; 默认值。元素被拉伸以适应容器。各行将会伸展以占用剩余的空间。如果剩余的空间是负数，该值等效于’flex-start’。
 - align-content: space-between;元素位于各行之间留有空白的容器内。各行在弹性盒容器中平均分布。
 - align-content: space-around;元素位于各行之前、之间、之后都留有空白的容器内。各行在弹性盒容器中平均分布，两端保留子元素与子元素之间间距大小的一半。如果剩余的空间是负数或弹性盒容器中只有一行，该值等效于’center’。
+
+
+
+## box-sizing
+
+```css
+.login_form {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+```
+
+### content-box
+
+padding和border不被包含在定义的width和height之内。对象的实际宽度等于设置的width值和border、padding之和，即 ( Element width = width + border + padding)
+
+此属性表现为标准模式下的盒模型。
+
+![image-20221019204132238](../../../md-photo/image-20221019204132238.png)
+
+### border-box
+
+padding和border被包含在定义的width和height之内。对象的实际宽度就等于设置的width值，即使定义有border和padding也不会改变对象的实际宽度，即 ( Element width = width )
+
+![image-20221019204114129](../../../md-photo/image-20221019204114129.png)

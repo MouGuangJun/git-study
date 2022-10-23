@@ -1,0 +1,7 @@
+命令行杀端口号：
+netstat -aon|findstr "XXXX"
+taskkill /pid XXXX -t -f
+
+示例：
+netstat -aon|findstr "8091"
+taskkill /pid 9628 -t -f
