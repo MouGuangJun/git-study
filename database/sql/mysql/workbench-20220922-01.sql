@@ -1,1 +1,1 @@
-select * from spring.message;
+select * from user_info;

@@ -1,10 +1,51 @@
 {
 	"info": {
-		"_postman_id": "c31fbcf0-8f3c-4c5a-b9ed-c52553b4d7f9",
+		"_postman_id": "5a558a97-8dc2-4e07-b866-e6dc05e3eeff",
 		"name": "Mine",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "菜单",
+			"item": [
+				{
+					"name": "点击菜单时记录热度",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"menuId\": \"1270\",\r\n    \"userId\": \"1000\",\r\n    \"orgId\": \"10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8093/recordHotspot"
+					},
+					"response": []
+				},
+				{
+					"name": "菜单热度排行Top10",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"1000\",\r\n    \"orgId\": \"10\",\r\n    \"authMenuIds\": [\r\n        \"1260\",\r\n        \"1250\",\r\n        \"1240\",\r\n        \"1230\",\r\n        \"1220\",\r\n        \"1210\",\r\n        \"1200\",\r\n        \"1190\",\r\n        \"1180\",\r\n        \"1170\",\r\n        \"1150\",\r\n        \"1140\",\r\n        \"1130\",\r\n        \"1120\",\r\n        \"1110\",\r\n        \"1100\",\r\n        \"1090\",\r\n        \"1080\",\r\n        \"1070\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8093/menuHotspotTop10"
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Java内存中实现分页效果",
 			"request": {
