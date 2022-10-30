@@ -1,5 +1,13 @@
 # CSS基础
 
+## 效果
+
+### !important
+
+提高指定样式规则的应用优先权（优先级），使该条样式属性声明具有<font color='red'>最高优先级。</font>
+
+
+
 ## Display
 
 ### flex布局
@@ -85,3 +93,38 @@ padding和border不被包含在定义的width和height之内。对象的实际�
 padding和border被包含在定义的width和height之内。对象的实际宽度就等于设置的width值，即使定义有border和padding也不会改变对象的实际宽度，即 ( Element width = width )
 
 ![image-20221019204114129](../../../md-photo/image-20221019204114129.png)
+
+
+
+## 文字相关
+
+水平、垂直居中：
+
+```css
+text-align: center; // 水平居中
+line-height: 24px;// 与外层div同样的高度
+```
+
+字间距
+
+```css
+letter-spacing: 0.2em;
+```
+
+
+
+## 动画效果
+
+### transition
+
+```css
+// 全写形式
+transition-property: width;// 属性
+transition-duration: 2s;// 过渡持续时间
+transition-timing-function: linear;// 过渡的速度曲线
+transition-delay: 1s;// 延迟过渡的时间
+
+// 简写形式
+transition: width 2s linear 1s;
+```
+
