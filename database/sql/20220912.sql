@@ -1,8 +1,13 @@
-SELECT * FROM user_info;
+SELECT
+  *
+FROM
+  sp_permission_api AS api
+  LEFT JOIN sp_permission AS main
+    ON main.ps_id = api.ps_id
+WHERE main.ps_id IS NOT NULL
 
-SELECT * FROM org_info;
-
-SELECT type_no FROM business_type;
 
 
-SELECT * FROM sys_dict;
+SELECT * FROM sp_permission_api;
+
+SELECT * FROM sp_permission;
