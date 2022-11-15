@@ -24,3 +24,4 @@ mysqldump -u root -p -A > D:\notebook\study-note\database\sql\mysql\all.sql
 
 mysqldump -u [数据库用户名] -p [要备份的数据库名称]>[备份文件的保存路径]
 mysqldump  --column-statistics=0 -u root -p nacos > D:\notebook\study-note\database\sql\mysql\nacos.sql
+mysqldump  --column-statistics=0 -u root -p nacos > D:\notebook\study-note\database\sql\mysql\db\nacos.sql

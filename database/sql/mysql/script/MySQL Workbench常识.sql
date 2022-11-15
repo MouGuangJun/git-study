@@ -1,0 +1,2 @@
+# 关闭SQL安全更新模式
+SET SQL_SAFE_UPDATES = 0; 
