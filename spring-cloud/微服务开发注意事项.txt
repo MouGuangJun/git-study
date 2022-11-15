@@ -5,3 +5,6 @@
 5.常量类枚举需要先按照不同的功能进行规划
 6.Example.CreateCreteria() 方法andCondition和andEqual（如果value为空，不拼接sql条件）等方法的区别
 7.StreamUtils、MybatisUtils、StringUtils、DateUtils、Arith工具类的准备
+8.改别人的Dto、Service、In、Out最好跟文件的创建人确认之后再添加
+9.@Transcation注解不能作用于：私有方法上。方法内抓住异常，但是不重新抛出异常。同一个类A方法调用了B方法，B方法上加了注解，但是A方法没有添加注解，但此时调用A方法
+10.mybatis使用map进行结果返回时，需要将查询的字段全部转为大写
