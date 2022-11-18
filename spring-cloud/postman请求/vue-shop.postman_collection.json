@@ -1,10 +1,186 @@
 {
 	"info": {
-		"_postman_id": "30f690ef-0762-4e18-bad7-529009a8d57d",
+		"_postman_id": "61c769db-42a5-49f8-bbcc-bbd581f44f44",
 		"name": "vue-shop",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "用户管理",
+			"item": [
+				{
+					"name": "获取用户列表数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/private/v1/users?pagenum=1&pagesize=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"private",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pagenum",
+									"value": "1"
+								},
+								{
+									"key": "pagesize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"19779@qq.com\",\r\n    \"mobile\": \"13587932546\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/private/v1/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"private",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户状态",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"1977914@qq.com\",\r\n    \"mobile\": \"13587932545\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/private/v1/users/512",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"private",
+								"v1",
+								"users",
+								"512"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/private/v1/users/500/state/false",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"private",
+								"v1",
+								"users",
+								"500",
+								"state",
+								"false"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "登录服务",
 			"request": {
