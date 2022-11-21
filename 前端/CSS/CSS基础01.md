@@ -128,3 +128,28 @@ transition-delay: 1s;// 延迟过渡的时间
 transition: width 2s linear 1s;
 ```
 
+
+
+## 全局样式
+
+### min-width
+
+屏幕最小宽度，小于这个宽度时会自动折叠。
+
+![image-20221121225016653](../../../md-photo/image-20221121225016653.png)
+
+```css
+/* 全局样式表 */
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*屏幕最小宽度，小于这个宽度时会自动折叠*/
+    min-width: 1366px;
+}
+```
+
+
+
