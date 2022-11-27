@@ -4,3 +4,8 @@ INSERT INTO `sp_manager` (`mg_id`, `mg_name`, `mg_pwd`, `mg_time`, `role_id`, `m
 
 
 SELECT * FROM sp_role;
+UPDATE sp_role SET ps_ids = '102,0,107,109,154,155,145,146,148' WHERE role_id = '44';
+
+
+
+SELECT * FROM sp_user;
