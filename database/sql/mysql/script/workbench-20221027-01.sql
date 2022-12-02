@@ -1,13 +1,3 @@
-select
-        USER_ID as userId,
-        MENU_ID as menuId,
-        SUM(HOTSPOT) as hotspot
-        from
-        MENU_HOTSPOT
-        where
-        RECORDED_DATE > '2022/10/26'
-        group by
-        USER_ID,
-        MENU_ID;
-        
-select * from MENU_HOTSPOT;
+select count(1) from MEASURE_HEAT;
+
+select count(1) from MEASURE_HEAT where year ='2020' and month='10';
