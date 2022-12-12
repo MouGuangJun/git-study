@@ -44,3 +44,11 @@ let tools = {
 console.log(tools); // { baz: 'ccc', fool: 'aaa', bar: 'bbb' }
 ```
 
+
+
+解构后重新赋值，达到clone一个对象的效果：
+
+```javascript
+this.editUserInfo = { ...row }
+```
+
