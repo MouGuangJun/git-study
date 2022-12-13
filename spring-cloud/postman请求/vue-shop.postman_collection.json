@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "61c769db-42a5-49f8-bbcc-bbd581f44f44",
+		"_postman_id": "fb98a619-2994-46b8-b042-33826e783d14",
 		"name": "vue-shop",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -84,23 +84,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/users",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"users"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/users"
 					},
 					"response": []
 				},
@@ -124,24 +108,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/users/512",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"users",
-								"512"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/users/512"
 					},
 					"response": []
 				},
@@ -156,26 +123,7 @@
 								"type": "default"
 							}
 						],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/users/500/state/false",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"users",
-								"500",
-								"state",
-								"false"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/users/500/state/false"
 					},
 					"response": []
 				},
@@ -190,24 +138,7 @@
 								"type": "default"
 							}
 						],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/users/512",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"users",
-								"512"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/users/512"
 					},
 					"response": []
 				}
@@ -230,24 +161,7 @@
 								"type": "default"
 							}
 						],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/rights/tree",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"rights",
-								"tree"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/rights/tree"
 					},
 					"response": []
 				}
@@ -270,23 +184,7 @@
 								"type": "default"
 							}
 						],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles"
 					},
 					"response": []
 				},
@@ -310,23 +208,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles"
 					},
 					"response": []
 				},
@@ -350,24 +232,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles/43",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles",
-								"43"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/43"
 					},
 					"response": []
 				},
@@ -391,24 +256,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles/43",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles",
-								"43"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/43"
 					},
 					"response": []
 				},
@@ -432,26 +280,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles/44/rights/148",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles",
-								"44",
-								"rights",
-								"148"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/44/rights/148"
 					},
 					"response": []
 				},
@@ -475,25 +304,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/private/v1/roles/44/rights",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"private",
-								"v1",
-								"roles",
-								"44",
-								"rights"
-							]
-						}
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/44/rights"
 					},
 					"response": []
 				}
@@ -519,23 +330,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8888/api/private/v1/login",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8888",
-					"path": [
-						"api",
-						"private",
-						"v1",
-						"login"
-					]
-				}
+				"url": "http://127.0.0.1:8888/api/private/v1/login"
 			},
 			"response": []
 		},

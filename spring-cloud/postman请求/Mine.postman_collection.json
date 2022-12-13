@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5a558a97-8dc2-4e07-b866-e6dc05e3eeff",
+		"_postman_id": "02767f5b-e2a9-4fbe-92b1-f761a01f6695",
 		"name": "Mine",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -47,6 +47,29 @@
 			]
 		},
 		{
+			"name": "目录",
+			"item": [
+				{
+					"name": "获取目录详情信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ruleType\": \"DependentApplyTab\",\r\n    \"ruleNo\": \"1010010\",\r\n    \"params\": {\r\n        \"BusinessPhase\": \"CreditApply\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8093/getCatalogInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Java内存中实现分页效果",
 			"request": {
 				"method": "POST",
@@ -79,6 +102,24 @@
 					}
 				},
 				"url": "localhost:8093/getJsonStr"
+			},
+			"response": []
+		},
+		{
+			"name": "tryAnything",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8087/redis/string"
 			},
 			"response": []
 		}

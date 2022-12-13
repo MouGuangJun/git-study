@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6e31a72b-0554-4a2b-9de1-cc0474732e46",
+		"_postman_id": "0bcfc22b-5e63-4457-b223-660ef9ce928d",
 		"name": "Spring Cloud",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -21,7 +21,8 @@
 									"language": "json"
 								}
 							}
-						}
+						},
+						"url": ""
 					},
 					"response": []
 				},

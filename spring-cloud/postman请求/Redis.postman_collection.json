@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "4ea29a4a-63fb-4b13-98b5-443c45062540",
+		"_postman_id": "a133d892-d464-4eee-861a-3d0a35e54264",
 		"name": "Redis",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -25,16 +25,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getUserName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getUserName"
-									]
-								}
+								"url": "localhost:8093/getUserName"
 							},
 							"response": []
 						},
@@ -52,16 +43,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getUserRealName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getUserRealName"
-									]
-								}
+								"url": "localhost:8093/getUserRealName"
 							},
 							"response": []
 						},
@@ -79,16 +61,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getUserInfo",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getUserInfo"
-									]
-								}
+								"url": "localhost:8093/getUserInfo"
 							},
 							"response": []
 						},
@@ -106,16 +79,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getUserInfoByIds",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getUserInfoByIds"
-									]
-								}
+								"url": "localhost:8093/getUserInfoByIds"
 							},
 							"response": []
 						},
@@ -133,16 +97,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getUserInfos",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getUserInfos"
-									]
-								}
+								"url": "localhost:8093/getUserInfos"
 							},
 							"response": []
 						}
@@ -165,16 +120,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getOrgName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getOrgName"
-									]
-								}
+								"url": "localhost:8093/getOrgName"
 							},
 							"response": []
 						},
@@ -192,16 +138,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getOrgRealName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getOrgRealName"
-									]
-								}
+								"url": "localhost:8093/getOrgRealName"
 							},
 							"response": []
 						},
@@ -219,16 +156,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getOrgInfo",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getOrgInfo"
-									]
-								}
+								"url": "localhost:8093/getOrgInfo"
 							},
 							"response": []
 						},
@@ -246,16 +174,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getOrgInfoByIds",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getOrgInfoByIds"
-									]
-								}
+								"url": "localhost:8093/getOrgInfoByIds"
 							},
 							"response": []
 						},
@@ -273,16 +192,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getOrgInfos",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getOrgInfos"
-									]
-								}
+								"url": "localhost:8093/getOrgInfos"
 							},
 							"response": []
 						}
@@ -305,16 +215,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getBusinessName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getBusinessName"
-									]
-								}
+								"url": "localhost:8093/getBusinessName"
 							},
 							"response": []
 						},
@@ -332,16 +233,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getBusinessRealName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getBusinessRealName"
-									]
-								}
+								"url": "localhost:8093/getBusinessRealName"
 							},
 							"response": []
 						},
@@ -359,16 +251,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getBusinessInfo",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getBusinessInfo"
-									]
-								}
+								"url": "localhost:8093/getBusinessInfo"
 							},
 							"response": []
 						},
@@ -386,16 +269,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getBusinessInfoByIds",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getBusinessInfoByIds"
-									]
-								}
+								"url": "localhost:8093/getBusinessInfoByIds"
 							},
 							"response": []
 						},
@@ -413,16 +287,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getBusinessInfos",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getBusinessInfos"
-									]
-								}
+								"url": "localhost:8093/getBusinessInfos"
 							},
 							"response": []
 						}
@@ -445,16 +310,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getCodeName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getCodeName"
-									]
-								}
+								"url": "localhost:8093/getCodeName"
 							},
 							"response": []
 						},
@@ -472,16 +328,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getCodeRealName",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getCodeRealName"
-									]
-								}
+								"url": "localhost:8093/getCodeRealName"
 							},
 							"response": []
 						},
@@ -499,16 +346,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getCodeInfo",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getCodeInfo"
-									]
-								}
+								"url": "localhost:8093/getCodeInfo"
 							},
 							"response": []
 						},
@@ -526,16 +364,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getCodeInfoByIds",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getCodeInfoByIds"
-									]
-								}
+								"url": "localhost:8093/getCodeInfoByIds"
 							},
 							"response": []
 						},
@@ -553,16 +382,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "localhost:8093/getCodeInfos",
-									"host": [
-										"localhost"
-									],
-									"port": "8093",
-									"path": [
-										"getCodeInfos"
-									]
-								}
+								"url": "localhost:8093/getCodeInfos"
 							},
 							"response": []
 						}
@@ -582,16 +402,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "localhost:8093/codeConvert",
-							"host": [
-								"localhost"
-							],
-							"port": "8093",
-							"path": [
-								"codeConvert"
-							]
-						}
+						"url": "localhost:8093/codeConvert"
 					},
 					"response": []
 				}
