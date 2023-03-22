@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "72e28c34-0dca-44ad-81a7-4c1dbfd2661d",
+		"name": "Spring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Spring Batch",
+			"item": [
+				{
+					"name": "批量更新地址信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"@class\": \"java.util.HashMap\",\r\n    \"MultiResourceItemReader.resourceIndex\": 3,\r\n    \"batch.taskletType\": \"org.springframework.batch.core.step.item.ChunkOrientedTasklet\",\r\n    \"FlatFileItemReader.read.count\": 6,\r\n    \"batch.stepType\": \"org.springframework.batch.core.step.tasklet.TaskletStep\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8098/batch/start"
+					},
+					"response": []
+				},
+				{
+					"name": "测试Launcher的方式来调度任务",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"这是一个前端传入的参数\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8098/job"
+					},
+					"response": []
+				},
+				{
+					"name": "测试Operator的方式来调度任务",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"这是一个前端传入的jobOperator参数\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8098/jobOperator"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

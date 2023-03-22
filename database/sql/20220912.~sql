@@ -1,20 +1,30 @@
-SELECT * FROM clms.class_catalog;
-SELECT * FROM code_library WHERE ITEMNANE LIKE 'Ö´ÐÐ%';
-
-SELECT * FROM all_tables WHERE OWNER='CCMS';
+SELECT * FROM sp_user;
 
 
-
-SELECT userenv('language') FROM DUAL; 
-SELECT * FROM V$NLS_PARAMETERS;
-
-SELECT * FROM nls_database_parameters;
-
-SELECT * FROM nls_instance_parameters;
+SELECT * FROM sp_manager;
 
 
-SELECT * FROM nls_session_parameters
+select * from user_info;
 
-SELECT * FROM user_users;
+select * from acct_transaction;
 
-SELECT * FROM Dba_Tablespaces;
+
+select fo.*
+  from flow_object fo, acct_transaction at, acct_loan al
+ where al.serialno = at.relativeobjectno(+)
+   and at.serialno = fo.objectno
+   and fo.objecttype = 'TranactionApply'
+   and fo.objectno = at.serialno
+   and fo.applytype = 'TranactionApply'
+   and fo.phasetype = '1010'
+   and at.transcode in ('',
+                        '2001',
+                        '2002',
+                        '2004',
+                        '3006',
+                        '3007',
+                        '2005',
+                        '2006',
+                        '9997',
+                        '3010');
+

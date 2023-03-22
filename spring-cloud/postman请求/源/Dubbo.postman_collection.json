@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "5018b5c5-e9f8-47c1-a1a7-b49f31c0fc4a",
+		"name": "Dubbo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "dubbo快速开始",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"receiver\": \"U0001\",\r\n    \"keyValues\": [\r\n        {\r\n            \"key\": \"cardId\",\r\n            \"value\": \"20\"\r\n        },\r\n        {\r\n            \"key\": \"name\",\r\n            \"value\": \"张三\"\r\n        }\r\n    ],\r\n    \"current\": 1,\r\n    \"size\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/initOrder?userId=张三",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"initOrder"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "张三"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dubbo程序配置",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"receiver\": \"U0001\",\r\n    \"keyValues\": [\r\n        {\r\n            \"key\": \"cardId\",\r\n            \"value\": \"20\"\r\n        },\r\n        {\r\n            \"key\": \"name\",\r\n            \"value\": \"张三\"\r\n        }\r\n    ],\r\n    \"current\": 1,\r\n    \"size\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8084/config"
+			},
+			"response": []
+		},
+		{
+			"name": "远程通用服务",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8088/remote"
+			},
+			"response": []
+		}
+	]
+}

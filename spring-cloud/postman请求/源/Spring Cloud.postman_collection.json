@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "0bcfc22b-5e63-4457-b223-660ef9ce928d",
+		"name": "Spring Cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "format",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sysHead\": {\r\n        \"serverSystemId\": null,\r\n        \"clientSystemId\": \"als\",\r\n        \"serviceCode\": \"app.als.cl.TradeService.creditBuild\",\r\n        \"responseTime\": null,\r\n        \"serviceName\": null,\r\n        \"userId\": \"10180901\",\r\n        \"orgId\": \"10001003050\",\r\n        \"responseCode\": null,\r\n        \"terminalType\": null,\r\n        \"requestTime\": null,\r\n        \"serviceMode\": 0,\r\n        \"clientLocale\": \"zh\",\r\n        \"operationId\": \"OP20220501211804771100038\",\r\n        \"terminalAddress\": null,\r\n        \"responseMessage\": null\r\n    },\r\n    \"appHead\": {\r\n        \"serviceType\": 0,\r\n        \"reversalSerialNo\": null,\r\n        \"maxRows\": 0,\r\n        \"firstRow\": 0,\r\n        \"returnRows\": 0,\r\n        \"totalRows\": 0,\r\n        \"summaryFields\": [],\r\n        \"summaryFlag\": 0,\r\n        \"responseSerialno\": null,\r\n        \"requestSerialNo\": \"reqid_2022-05-01_21_18_04_771_5db55170092b407fa2ad9a9790c9071a\"\r\n    },\r\n    \"body\": {\r\n        \"clCheckFlag\": \"NoCheck\",\r\n        \"creditPhase\": \"Applying\",\r\n        \"effectFlag\": \"N\",\r\n        \"oldBusinessList\": [\r\n            {\r\n                \"oldObjectType\": \"Business\",\r\n                \"oldBusinessNo\": \"CLBusiness6OSZQftvlQPShLwemYRtm3\",\r\n                \"oldBusinessFlag\": \"Deleted\"\r\n            }\r\n        ],\r\n        \"occupyFlag\": \"Y\",\r\n        \"creditList\": []\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "thread1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:/serial"
+					},
+					"response": []
+				},
+				{
+					"name": "thread2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:/serial"
+					},
+					"response": []
+				},
+				{
+					"name": "thread3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:/serial"
+					},
+					"response": []
+				},
+				{
+					"name": "thread4",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:/serial"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feign",
+			"item": [
+				{
+					"name": "order",
+					"item": [
+						{
+							"name": "查询支付记录信息",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:6003/consumer/getPayment/1"
+							},
+							"response": []
+						},
+						{
+							"name": "测试Feign超时时间",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:6003/consumer/timeOut"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment",
+					"item": [
+						{
+							"name": "服务端测试Feign超时时间",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8001/payment/timeOut"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Hystrix",
+			"item": [
+				{
+					"name": "payment",
+					"item": [
+						{
+							"name": "测试Hystrix正常响应",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8007/payment/hystrix/ok/1"
+							},
+							"response": []
+						},
+						{
+							"name": "测试Hystrix超时响应",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8007/payment/hystrix/timeOut/1"
+							},
+							"response": []
+						},
+						{
+							"name": "测试Hystrix服务熔断正常",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8007/payment/hystrix/circuit/1"
+							},
+							"response": []
+						},
+						{
+							"name": "测试Hystrix服务熔断失败",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8007/payment/hystrix/circuit/-1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "order",
+					"item": [
+						{
+							"name": "测试Hystrix正常响应",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:6004/consumer/hystrix/ok/1"
+							},
+							"response": []
+						},
+						{
+							"name": "测试Hystrix超时响应",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:6004/consumer/hystrix/timeOut/1"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Spring Cloud Config",
+			"item": [
+				{
+					"name": "通过config实例访问github上的配置文件1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "config-2001.com:2001/master/config-dev.yml"
+					},
+					"response": []
+				},
+				{
+					"name": "通过config实例访问github上的配置文件2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "config-2001.com:2001/config-dev.yml"
+					},
+					"response": []
+				},
+				{
+					"name": "通过config实例访问github上的配置文件3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "config-2001.com:2001/config/dev/master"
+					},
+					"response": []
+				},
+				{
+					"name": "客户端通过config实例访问配置信息2002",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:2002/getDatasourceDriver"
+					},
+					"response": []
+				},
+				{
+					"name": "客户端通过config实例访问配置信息2003",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:2003/getDatasourceDriver"
+					},
+					"response": []
+				},
+				{
+					"name": "通知客户端实例刷新配置信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2001/actuator/bus-refresh"
+					},
+					"response": []
+				},
+				{
+					"name": "通知客户端服务总线刷新配置信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:2002/actuator/refresh"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Spring Cloud Gateway",
+			"item": [
+				{
+					"name": "使用注册中心",
+					"item": [
+						{
+							"name": "通过GateWay网关访问服务getServer1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:1001/gateway/getServer1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "通过GateWay网关访问服务getServer1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:1001/gateway/getServer2"
+					},
+					"response": []
+				},
+				{
+					"name": "直接使用服务端的地址访问getServer1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8001/gateway/getServer1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Spring Cloud Stream",
+			"item": [
+				{
+					"name": "测试rabbitmq生产端发送消息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3001/sendMessage"
+					},
+					"response": []
+				},
+				{
+					"name": "测试springcloud stream多个bindings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3001/sendCustomMessage"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SpringCloud Sleuth",
+			"item": [
+				{
+					"name": "Sleuth客服端远程调用服务端测试链路跟踪",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:1102/client/getServerPort"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server-Register",
+			"item": [
+				{
+					"name": "zookeeper",
+					"item": [
+						{
+							"name": "payment",
+							"item": [
+								{
+									"name": "获取端口及注册信息",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"cloud-provider-payment\",\r\n    \"id\": \"c59e8d8b-b1ee-4269-82a6-97256242de09\",\r\n    \"address\": \"LAPTOP-R9JHJ6PC\",\r\n    \"port\": 8003,\r\n    \"sslPort\": null,\r\n    \"payload\": {\r\n        \"@class\": \"org.springframework.cloud.zookeeper.discovery.ZookeeperInstance\",\r\n        \"id\": \"application-1\",\r\n        \"name\": \"cloud-provider-payment\",\r\n        \"metadata\": {}\r\n    },\r\n    \"registrationTimeUTC\": 1657636019712,\r\n    \"serviceType\": \"DYNAMIC\",\r\n    \"uriSpec\": {\r\n        \"parts\": [\r\n            {\r\n                \"value\": \"scheme\",\r\n                \"variable\": true\r\n            },\r\n            {\r\n                \"value\": \"://\",\r\n                \"variable\": false\r\n            },\r\n            {\r\n                \"value\": \"address\",\r\n                \"variable\": true\r\n            },\r\n            {\r\n                \"value\": \":\",\r\n                \"variable\": false\r\n            },\r\n            {\r\n                \"value\": \"port\",\r\n                \"variable\": true\r\n            }\r\n        ]\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8003/payment/zk"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "order",
+							"item": [
+								{
+									"name": "消费者调用远程服务",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:6001/order/zk"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "eureka",
+					"item": [
+						{
+							"name": "payment",
+							"item": [
+								{
+									"name": "新增支付记录信息",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"serialNo\":\"PI2022070300000001\",\r\n    \"note\":\"from web\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8001/payment/addPayment"
+									},
+									"response": []
+								},
+								{
+									"name": "查询支付记录信息",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:8001/payment/getPayment/1/music"
+									},
+									"response": []
+								},
+								{
+									"name": "查询注册中心中的服务信息",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"serialNo\":\"PI2022070300000003\",\r\n    \"note\":\"from order\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:8001/payment/system/discovery"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "order",
+							"item": [
+								{
+									"name": "新增支付记录信息",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"serialNo\":\"PI2022070300000003\",\r\n    \"note\":\"from order\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:/order/addPayment"
+									},
+									"response": []
+								},
+								{
+									"name": "新增支付记录信息Entity",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"serialNo\":\"PI2022070300000003\",\r\n    \"note\":\"from order\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:/order/addPayment"
+									},
+									"response": []
+								},
+								{
+									"name": "查询支付记录信息",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:/order/getPayment/1"
+									},
+									"response": []
+								},
+								{
+									"name": "查询支付记录信息Entity",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:/order/getForPaymentEntity/1"
+									},
+									"response": []
+								},
+								{
+									"name": "手写的负载均衡",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"errCode\": \"000000\",\r\n    \"errMsg\": null,\r\n    \"scenarioInfo\": {\r\n        \"catalog\": {\r\n            \"scenarioId\": \"001\",\r\n            \"scenarioName\": \"测试第一个场景\",\r\n            \"initiateClass\": \"demoInit\",\r\n            \"runCondition\": null\r\n        },\r\n        \"groups\": [\r\n            {\r\n                \"groupId\": \"001010\",\r\n                \"scenarioId\": \"001\",\r\n                \"groupName\": \"第一分组\",\r\n                \"sortNo\": \"001010\",\r\n                \"remark\": null,\r\n                \"models\": [\r\n                    {\r\n                        \"modelId\": \"0010100010\",\r\n                        \"modelName\": \"第一模型\",\r\n                        \"loopIndex\": 1,\r\n                        \"scriptType\": \"0\",\r\n                        \"executeScript\": \"demoCheck1\",\r\n                        \"runCondition\": \"\\\"1\\\" == \\\"1\\\"\",\r\n                        \"status\": \"1\",\r\n                        \"passMessage\": \"通过\",\r\n                        \"noPassMessage\": \"不通过\",\r\n                        \"remark\": null,\r\n                        \"needExec\": true\r\n                    },\r\n                    {\r\n                        \"modelId\": \"0010100020\",\r\n                        \"modelName\": \"第二模型\",\r\n                        \"loopIndex\": 2,\r\n                        \"scriptType\": \"0\",\r\n                        \"executeScript\": \"demoCheck2\",\r\n                        \"runCondition\": \"javaFilter('demoFilter', riskElement)\",\r\n                        \"status\": \"1\",\r\n                        \"passMessage\": \"通过\",\r\n                        \"noPassMessage\": \"不通过\",\r\n                        \"remark\": null,\r\n                        \"needExec\": true\r\n                    },\r\n                    {\r\n                        \"modelId\": \"0010100030\",\r\n                        \"modelName\": \"第三模型\",\r\n                        \"loopIndex\": 3,\r\n                        \"scriptType\": \"0\",\r\n                        \"executeScript\": \"demoCheck3\",\r\n                        \"runCondition\": \"sqlFilter(\\\"select 'true' from dual\\\", riskElement)\",\r\n                        \"status\": \"1\",\r\n                        \"passMessage\": \"通过\",\r\n                        \"noPassMessage\": \"不通过\",\r\n                        \"remark\": null,\r\n                        \"needExec\": true\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"param\": {\r\n            \"phasename\": \"客户经理阶段\",\r\n            \"procinstid\": \"PI20220789000001\",\r\n            \"objectno\": \"BA20220789000001\",\r\n            \"user_name\": \"张三\",\r\n            \"userid\": \"1000\",\r\n            \"taskid\": \"TI20220789000001\",\r\n            \"phaseno\": \"0010\"\r\n        },\r\n        \"cacheKey\": null\r\n    },\r\n    \"success\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:/consumer/loadBalance"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "consul",
+					"item": [
+						{
+							"name": "payment",
+							"item": [
+								{
+									"name": "获取consul服务地址信息",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "localhost:8005/payment/consul"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "order",
+							"item": [
+								{
+									"name": "消费者调用远程服务",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "localhost:6002/order/consul"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

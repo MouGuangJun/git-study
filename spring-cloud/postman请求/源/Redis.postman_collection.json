@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "a133d892-d464-4eee-861a-3d0a35e54264",
+		"name": "Redis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "码值缓存",
+			"item": [
+				{
+					"name": "用户",
+					"item": [
+						{
+							"name": "通过用户编号查询用户名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "1000",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getUserName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过用户编号查询用户真实名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "10011",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getUserRealName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过用户编号查询用户详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "1002",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getUserInfo"
+							},
+							"response": []
+						},
+						{
+							"name": "通过用户编号集合查询用户详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    \"1000\",\r\n    \"1001\",\r\n    null\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getUserInfoByIds"
+							},
+							"response": []
+						},
+						{
+							"name": "查询用户详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getUserInfos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "机构",
+					"item": [
+						{
+							"name": "通过机构编号查询机构名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "10",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getOrgName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过机构编号查询机构真实名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "101010",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getOrgRealName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过机构编号查询机构详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "2020",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getOrgInfo"
+							},
+							"response": []
+						},
+						{
+							"name": "通过机构编号集合查询机构详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    \"10\",\r\n    \"1010\",\r\n    \"1020\",\r\n    \"20\",\r\n    \"2010\",\r\n    \"2020\"\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getOrgInfoByIds"
+							},
+							"response": []
+						},
+						{
+							"name": "查询机构详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getOrgInfos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "业务品种",
+					"item": [
+						{
+							"name": "通过业务品种编号查询业务品种名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "1",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getBusinessName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过业务品种编号查询业务品种真实名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "1010",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getBusinessRealName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过业务品种编号查询业务品种详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "1020",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getBusinessInfo"
+							},
+							"response": []
+						},
+						{
+							"name": "通过业务品种编号集合查询业务品种详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    \"1\",\r\n    \"1010\",\r\n    \"1020\",\r\n    \"2\",\r\n    \"2010\",\r\n    \"2020\"\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getBusinessInfoByIds"
+							},
+							"response": []
+						},
+						{
+							"name": "查询业务品种详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getBusinessInfos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "码值",
+					"item": [
+						{
+							"name": "通过一、二级码值查询业务码值名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dictType\": \"CreditLevel\",\r\n    \"dictVal\": \"A\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getCodeName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过一、二级码值查询码值真实名称",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dictType\": \"NoPassDeal\",\r\n    \"dictVal\": \"0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getCodeRealName"
+							},
+							"response": []
+						},
+						{
+							"name": "通过一、二级码值查询码值详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dictType\": \"NoPassDeal\",\r\n    \"dictVal\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getCodeInfo"
+							},
+							"response": []
+						},
+						{
+							"name": "通过一码值、二级码值集合查询码值详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    \"1\",\r\n    \"2\",\r\n    \"3\",\r\n    null\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getCodeInfoByIds"
+							},
+							"response": []
+						},
+						{
+							"name": "通过一级码值查询码值详情信息",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "ScriptType",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8093/getCodeInfos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "对象的码值转换",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8093/codeConvert"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

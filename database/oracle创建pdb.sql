@@ -1,3 +1,8 @@
+--切换到oracle用户
+linux：su - oracle
+--启动oracle监听
+linux：lsnrctl start|status|stop
+
 --Oracle需要启动的服务：
 --OracleOraDB19Home1MTSRecoveryService、OracleOraDB19Home1TNSListener、OracleRemExecServiceV2、OracleServiceORCL、OracleVssWriterORCL
 --以sysdba的身份登录

@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "fb98a619-2994-46b8-b042-33826e783d14",
+		"name": "vue-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户管理",
+			"item": [
+				{
+					"name": "获取用户列表数据",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/private/v1/users?pagenum=1&pagesize=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"private",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pagenum",
+									"value": "1"
+								},
+								{
+									"key": "pagesize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"19779@qq.com\",\r\n    \"mobile\": \"13587932546\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户状态",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"1977914@qq.com\",\r\n    \"mobile\": \"13587932545\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/users/512"
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg3NzYyMjMsImV4cCI6MTY2ODg2MjYyM30.WlBWAx8gEerDErub6MZ3vNIJvJgF7_0xd3V3e-pmDYc",
+								"type": "default"
+							}
+						],
+						"url": "http://127.0.0.1:8888/api/private/v1/users/500/state/false"
+					},
+					"response": []
+				},
+				{
+					"name": "删除单个用户",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg5MzgxMzksImV4cCI6MTY2OTAyNDUzOX0.idxr-qzt1nkjurlUEylxo7twEsYteC96Tr6mXH5HTyo",
+								"type": "default"
+							}
+						],
+						"url": "http://127.0.0.1:8888/api/private/v1/users/512"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "权限管理",
+			"item": [
+				{
+					"name": "获取权限列表数据",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njk1NDAyNDcsImV4cCI6MTY2OTYyNjY0N30.ZXBEs_YzTCsOudz3DmMw6_GIR1gDtwbYmOR487pHJfI",
+								"type": "default"
+							}
+						],
+						"url": "http://127.0.0.1:8888/api/private/v1/rights/tree"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色管理",
+			"item": [
+				{
+					"name": "获取角色列表数据",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njk1NDAyNDcsImV4cCI6MTY2OTYyNjY0N30.ZXBEs_YzTCsOudz3DmMw6_GIR1gDtwbYmOR487pHJfI",
+								"type": "default"
+							}
+						],
+						"url": "http://127.0.0.1:8888/api/private/v1/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "添加角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2NjkwMzUwMjgsImV4cCI6MTY2OTEyMTQyOH0.RT3iGUXqRXQC3PtRuAdXgm0ss2CkJwHiZtRl5u6cKD8",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleName\": \"系统管理员\",\r\n    \"roleDesc\": \"超管，可以进行所有的操作\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "修改角色",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2NjkwMzUwMjgsImV4cCI6MTY2OTEyMTQyOH0.RT3iGUXqRXQC3PtRuAdXgm0ss2CkJwHiZtRl5u6cKD8",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleName\": \"系统管理员\",\r\n    \"roleDesc\": \"超管，可以进行所有的操作\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/43"
+					},
+					"response": []
+				},
+				{
+					"name": "删除角色",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njk1NDAyNDcsImV4cCI6MTY2OTYyNjY0N30.ZXBEs_YzTCsOudz3DmMw6_GIR1gDtwbYmOR487pHJfI",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/43"
+					},
+					"response": []
+				},
+				{
+					"name": "删除角色指定权限",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njk1NDAyNDcsImV4cCI6MTY2OTYyNjY0N30.ZXBEs_YzTCsOudz3DmMw6_GIR1gDtwbYmOR487pHJfI",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/44/rights/148"
+					},
+					"response": []
+				},
+				{
+					"name": "角色授权",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njk1NDAyNDcsImV4cCI6MTY2OTYyNjY0N30.ZXBEs_YzTCsOudz3DmMw6_GIR1gDtwbYmOR487pHJfI",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rids\": [\r\n        \"102,0,107,109,154,155,145,146,148\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8888/api/private/v1/roles/44/rights"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "登录服务",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "default"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8888/api/private/v1/login"
+			},
+			"response": []
+		},
+		{
+			"name": "获取菜单相关信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE2Njg5MzgxMzksImV4cCI6MTY2OTAyNDUzOX0.idxr-qzt1nkjurlUEylxo7twEsYteC96Tr6mXH5HTyo",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8888/api/private/v1/menus?=",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"private",
+						"v1",
+						"menus"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

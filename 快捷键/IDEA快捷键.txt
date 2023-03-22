@@ -20,7 +20,7 @@ ctrl + N：搜索类
 
 ctrl + shfit + U：大小写切换
 
-alt + 左键拖动鼠标：块编辑
+alt + 左键拖动鼠标 / alt + shift：块编辑
 
 ctrl + alt + 左右箭头：返回上一步操作
 alt + 左右箭头：不同页面的切换

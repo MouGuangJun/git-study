@@ -1,4 +1,7 @@
 ctrl + shift + o：去除无效的引用
 alt + shift + a ：进入块编辑模式
-
 ctrl+shift+T：全局搜索Class文件
+ctrl+shift+F：格式化代码
+ctrl+shift+R：快速转大写
+ctrl+shift+Y：快速转小写
+ctrl+alt+上下箭头：快速复制一行

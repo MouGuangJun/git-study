@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "6f0f0597-453c-4b2d-b215-f18be712a8be",
+		"name": "风险探测",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "风险探测场景信息",
+			"item": [
+				{
+					"name": "获取风险探测场景列表信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/catalog/getCatalogList"
+					},
+					"response": []
+				},
+				{
+					"name": "新增风险探测场景信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"006\",\r\n    \"scenarioName\": \"测试第一个场景\",\r\n    \"runCondition\": null,\r\n    \"initiateClass\": \"demoInit1\",\r\n    \"remark\": \"测试\",\r\n    \"operator\": \"gjmou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/catalog/updateCatalogInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "更新风险探测场景信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"006\",\r\n    \"scenarioName\": \"测试第一个场景\",\r\n    \"runCondition\": null,\r\n    \"initiateClass\": \"demoInit1\",\r\n    \"remark\": null,\r\n    \"operator\": \"gjmou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/catalog/addCatalogInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "删除风险探测场景信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"006\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/catalog/deleteCatalogInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "风险探测参数信息",
+			"item": [
+				{
+					"name": "获取风险探测参数列表信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/args/getArgsList"
+					},
+					"response": []
+				},
+				{
+					"name": "新增风险探测参数信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"argId\": \"001060\",\r\n    \"sortNo\": \"001060\",\r\n    \"argsString\": \"用户名称6\",\r\n    \"executeScript\": \"SELECT USER_NAME FROM USER_INFO WHERE User_Id=:UserId\",\r\n    \"className\": \"\",\r\n    \"scriptType\": \"1\",\r\n    \"status\": \"1\",\r\n    \"remark\": \"前端录入修改\",\r\n    \"operator\": \"mj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/args/updateArgsInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "更新风险探测参数信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"argId\": \"001060\",\r\n    \"sortNo\": \"001060\",\r\n    \"argsString\": \"用户名称6\",\r\n    \"executeScript\": \"SELECT USER_NAME FROM USER_INFO WHERE User_Id=:UserId\",\r\n    \"className\": \"\",\r\n    \"scriptType\": \"1\",\r\n    \"status\": \"1\",\r\n    \"remark\": \"前端录入\",\r\n    \"operator\": \"mj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/args/addArgsInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "删除风险探测参数信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"argId\": \"001060\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/args/deleteArgsInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "风险探测分组信息",
+			"item": [
+				{
+					"name": "获取风险探测分组列表信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/group/getGroupList"
+					},
+					"response": []
+				},
+				{
+					"name": "新增风险探测分组信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupId\": \"001060\",\r\n    \"scenarioId\": \"001\",\r\n    \"groupName\": \"测试分组6\",\r\n    \"remark\": \"前端新增的分组\",\r\n    \"operator\": \"mj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/group/addGroupInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "更新风险探测分组信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupId\": \"001060\",\r\n    \"scenarioId\": \"001\",\r\n    \"groupName\": \"测试分组6\",\r\n    \"remark\": \"前端新增的分组修改\",\r\n    \"operator\": \"mj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/group/updateGroupInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "删除风险探测分组信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupId\": \"001060\",\r\n    \"scenarioId\": \"001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/group/deleteGroupInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "风险探测模型信息",
+			"item": [
+				{
+					"name": "获取风险探测模型列表信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"modelId\": \"001\",\r\n    \"modelName\": \"一\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/model/getModelList"
+					},
+					"response": []
+				},
+				{
+					"name": "新增风险探测模型信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"modelId\": \"0010100040\",\r\n    \"modelName\": \"第四模型\",\r\n    \"scriptType\": \"1\",\r\n    \"runCondition\": \"none\",\r\n    \"status\": \"1\",\r\n    \"passMessage\": \"通过\",\r\n    \"noPassMessage\": \"不通过\",\r\n    \"executeScript\": \"demoCheck4\",\r\n    \"noPassDeal\": \"1\",\r\n    \"remark\": \"前端录入数据\",\r\n    \"operator\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/model/addModelInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "更新风险探测模型信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"modelId\": \"0010100040\",\r\n    \"modelName\": \"第四模型\",\r\n    \"scriptType\": \"1\",\r\n    \"runCondition\": \"none\",\r\n    \"status\": \"1\",\r\n    \"passMessage\": \"通过\",\r\n    \"noPassMessage\": \"不通过\",\r\n    \"executeScript\": \"demoCheck4\",\r\n    \"noPassDeal\": \"1\",\r\n    \"remark\": \"前端测试数据的更新操作\",\r\n    \"operator\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/model/updateModelInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "风险探测关联关系信息",
+			"item": [
+				{
+					"name": "获取风险探测分组下的模型信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"groupId\": \"001010\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/relative/queryModelByRelative"
+					},
+					"response": []
+				},
+				{
+					"name": "新增模型并建立关联关系",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"groupId\": \"001010\",\r\n    \"sortNo\": \"0010100050\",\r\n    \"addModelIn\": {\r\n        \"modelId\": \"0010100050\",\r\n        \"modelName\": \"第五模型\",\r\n        \"scriptType\": \"2\",\r\n        \"runCondition\": \" 1 = 2\",\r\n        \"status\": \"1\",\r\n        \"passMessage\": \"通过\",\r\n        \"noPassMessage\": \"不通过\",\r\n        \"executeScript\": \"demoCheck5\",\r\n        \"noPassDeal\": \"1\",\r\n        \"remark\": \"新增模型并建立关联关系\",\r\n        \"operator\": \"gjmou\"\r\n    },\r\n    \"operator\": \"gjmou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/relative/addRelative"
+					},
+					"response": []
+				},
+				{
+					"name": "新建模型与分组的关联关系",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"groupId\": \"001010\",\r\n    \"sortNo\": \"0010100010\",\r\n    \"modelId\": \"0010100010\",\r\n    \"operator\": \"gjmou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/relative/addRelativeModel"
+					},
+					"response": []
+				},
+				{
+					"name": "删除模型与分组的关联关系",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scenarioId\": \"001\",\r\n    \"groupId\": \"001010\",\r\n    \"sortNo\": \"0010100050\",\r\n    \"modelId\": \"0010100050\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8091/relative/deleteRelative"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "获取风险探测场景并运行模型",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8091/getInfoAndRun"
+			},
+			"response": []
+		}
+	]
+}

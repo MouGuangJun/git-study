@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "d4bb1ec3-15dc-4890-a7a4-2bbee626026f",
+		"name": "OSF",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "格式化",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EsbHeader\": {\r\n        \"SERVICE_NAME\": \"P01Q0001\",\r\n        \"SERVICE_VERSION\": \"1.0.0\",\r\n        \"SCENES_CODE\": \"25\",\r\n        \"SCENES_VERSION\": \"1.0.0\",\r\n        \"CHANNEL_CODE\": \"010304\",\r\n        \"CONSUM_REQ_DATE\": \"20230322\",\r\n        \"CONSUM_REQ_TIME\": \"162844519\",\r\n        \"CONSUM_SYS_CODE\": \"CCMS0\",\r\n        \"SERVICE_REQ_SEQ\": \"CCMS020230322162844100000044\",\r\n        \"GLOBAL_SEQ\": \"GCCMS020230322162844100000044\",\r\n        \"SRC_ENC_CODE\": null,\r\n        \"DEST_ENC_NODE\": null,\r\n        \"FILE_PATH\": null,\r\n        \"FILE_FLAG\": null,\r\n        \"PROVID_SYS_CODE\": \"CCMS0\",\r\n        \"SERVICE_RSP_SEQ\": \"CCMS020230322162857100000049\",\r\n        \"PROVID_RSP_DATE\": \"20230322\",\r\n        \"PROVID_RSP_TIME\": \"162857\",\r\n        \"RET_STATUS\": \"S\",\r\n        \"RET_INFO_ARRAY\": [\r\n            {\r\n                \"RET_CODE\": \"000000\",\r\n                \"RET_INFO\": \"处理成功！\"\r\n            }\r\n        ]\r\n    },\r\n    \"Body\": {\r\n        \"name\": \"响应体\",\r\n        \"num\": 12.446,\r\n        \"subResponse\": {\r\n            \"number\": 14.567\r\n        },\r\n        \"subResponses\": [\r\n            {\r\n                \"number\": 14.567\r\n            }\r\n        ]\r\n    },\r\n    \"AppHeader\": {\r\n        \"LEGAL_CODE\": \"999999\",\r\n        \"TRAN_CODE\": null,\r\n        \"BRANTH_ID\": \"53030200\",\r\n        \"TRAN_TELLER\": \"CCMS0\",\r\n        \"CONSUM_TRAN_DATE\": \"20230322\",\r\n        \"CONSUM_TRAN_TIME\": \"162844519\",\r\n        \"CONSUM_TRAN_SEQ\": null,\r\n        \"AUTH_TELLER\": null,\r\n        \"AUTH_REQ_SEQ\": null,\r\n        \"AUTH_FLAG\": null,\r\n        \"AUTH_STATUS\": null,\r\n        \"AUTH_INFO_ARRAY\": [],\r\n        \"CONFIRM_STATUS\": null,\r\n        \"CONFIRM_FLAG\": null,\r\n        \"CONFIRM_INFO_ARRAY\": [],\r\n        \"PROVID_TRAN_DATE\": \"20230322\",\r\n        \"PROVID_TRAN_TIME\": \"162857\",\r\n        \"PROVID_TRAN_SEQ\": \"CCMS020230322162857100000049\",\r\n        \"PAGE_INFO\": {\r\n            \"CURR_PAGE_NUM\": null,\r\n            \"PER_PAGE_NUM\": null,\r\n            \"TOTAL_NUM\": null,\r\n            \"TOTAL_PAGE_NUM\": null\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/servlet/services"
+			},
+			"response": []
+		},
+		{
+			"name": "OSF同步接口",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EsbHeader\": {\r\n        \"SERVICE_NAME\": \"P01Q0001\",\r\n        \"SERVICE_VERSION\": \"1.0.0\",\r\n        \"SCENES_CODE\": \"25\",\r\n        \"SCENES_VERSION\": \"1.0.0\",\r\n        \"CONSUM_SYS_CODE\": \"CCMS0\",\r\n        \"CHANNEL_CODE\": \"010304\",\r\n        \"CONSUM_REQ_DATE\": \"20230314\",\r\n        \"CONSUM_REQ_TIME\": \"162257892\",\r\n        \"SERVICE_REQ_SEQ\": \"CCMS02023031003284510000502\",\r\n        \"GLOBAL_SEQ\": \"GCCMS02023031003284510000502\",\r\n        \"SRC_ENC_CODE\": null,\r\n        \"DEST_ENC_NODE\": null,\r\n        \"FILE_PATH\": null,\r\n        \"FILE_FLAG\": \"0\",\r\n        \"SYS_EXTEND\": null\r\n    },\r\n    \"Body\": {\r\n        \"NAME\": \"张三\",\r\n        \"SUBREQUEST\": {\r\n            \"ADDRESS\": \"云南省昆明市\"\r\n        },\r\n        \"OBJECT_ARRAY\": [\r\n            [\r\n                {\r\n                    \"TYPE\": \"中文类型\"\r\n                }\r\n            ]\r\n        ],\r\n        \"STRING_ARRAY\": [\r\n            {\r\n                \"TYPE\": \"英文类型\"\r\n            }\r\n        ]\r\n    },\r\n    \"AppHeader\": {\r\n        \"LEGAL_CODE\": \"999999\",\r\n        \"SUB_SYS_ID\": \"CCMS0\",\r\n        \"TRAN_CODE\": null,\r\n        \"BRANTH_ID\": \"53030200\",\r\n        \"TRAN_TELLER\": \"CCMS0\",\r\n        \"CONSUM_TRAN_DATE\": \"20230314\",\r\n        \"CONSUM_TRAN_TIME\": \"162257892\",\r\n        \"CONSUM_TRAN_SEQ\": null,\r\n        \"AUTH_TELLER\": null,\r\n        \"AUTH_REQ_SEQ\": null,\r\n        \"AUTH_FLAG\": null,\r\n        \"AUTH_STATUS\": null,\r\n        \"AUTH_INFO_ARRAY\": null,\r\n        \"CONFIRM_STATUS\": null,\r\n        \"CONFIRM_FLAG\": null,\r\n        \"CONFIRM_INFO_ARRAY\": null,\r\n        \"PAGE_INFO\": {\r\n            \"PAGE_UP_DOWN\": \"1\",\r\n            \"CURR_PAGE_NUM\": \"10\",\r\n            \"PER_PAGE_NUM\": \"9\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/servlet/services"
+			},
+			"response": []
+		},
+		{
+			"name": "OSF异步接口",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"EsbHeader\": {\r\n        \"SERVICE_NAME\": \"P08N0007\",\r\n        \"SERVICE_VERSION\": \"1.0.0\",\r\n        \"SCENES_CODE\": \"0X\",\r\n        \"SCENES_VERSION\": \"1.0.0\",\r\n        \"CONSUM_SYS_CODE\": \"CCMS0\",\r\n        \"CHANNEL_CODE\": \"010304\",\r\n        \"CONSUM_REQ_DATE\": \"20230314\",\r\n        \"CONSUM_REQ_TIME\": \"162257892\",\r\n        \"SERVICE_REQ_SEQ\": \"CCMS02023031003284510000502\",\r\n        \"GLOBAL_SEQ\": \"GCCMS02023031003284510000502\",\r\n        \"SRC_ENC_CODE\": null,\r\n        \"DEST_ENC_NODE\": null,\r\n        \"FILE_PATH\": null,\r\n        \"FILE_FLAG\": \"0\",\r\n        \"SYS_EXTEND\": null\r\n    },\r\n    \"Body\": {\r\n        \"NAME\": \"王五\",\r\n        \"ADDRESS\": \"湖南省长沙市\"\r\n    },\r\n    \"AppHeader\": {\r\n        \"LEGAL_CODE\": \"999999\",\r\n        \"SUB_SYS_ID\": \"CCMS0\",\r\n        \"TRAN_CODE\": null,\r\n        \"BRANTH_ID\": \"53030200\",\r\n        \"TRAN_TELLER\": \"CCMS0\",\r\n        \"CONSUM_TRAN_DATE\": \"20230314\",\r\n        \"CONSUM_TRAN_TIME\": \"162257892\",\r\n        \"CONSUM_TRAN_SEQ\": null,\r\n        \"AUTH_TELLER\": null,\r\n        \"AUTH_REQ_SEQ\": null,\r\n        \"AUTH_FLAG\": null,\r\n        \"AUTH_STATUS\": null,\r\n        \"AUTH_INFO_ARRAY\": null,\r\n        \"CONFIRM_STATUS\": null,\r\n        \"CONFIRM_FLAG\": null,\r\n        \"CONFIRM_INFO_ARRAY\": null,\r\n        \"PAGE_INFO\": {\r\n            \"PAGE_UP_DOWN\": \"1\",\r\n            \"CURR_PAGE_NUM\": \"10\",\r\n            \"PER_PAGE_NUM\": \"9\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/servlet/services"
+			},
+			"response": []
+		}
+	]
+}
