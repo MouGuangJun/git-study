@@ -58,6 +58,42 @@
 				"url": "localhost:8080/servlet/services"
 			},
 			"response": []
+		},
+		{
+			"name": "服务端xml格式报文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<XmlUser>\r\n    <name>张三</name>\r\n    <age>18</age>\r\n</XmlUser>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "localhost:8093/xml/createUser"
+			},
+			"response": []
+		},
+		{
+			"name": "客户端xml格式报文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "localhost:8093/xml/postCreateUser"
+			},
+			"response": []
 		}
 	]
 }
