@@ -306,6 +306,95 @@
 			]
 		},
 		{
+			"name": "查看tcp信息",
+			"item": [
+				{
+					"name": "获取所有的客户端信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8097/clientList"
+					},
+					"response": []
+				},
+				{
+					"name": "给所有的客户端发送信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8097/downDataToAllClient?content=hello netty",
+							"host": [
+								"localhost"
+							],
+							"port": "8097",
+							"path": [
+								"downDataToAllClient"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "hello netty"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给指定的客户端发送信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8097/downDataToClient?code=server:df176ea0&content=hello, df176ea0",
+							"host": [
+								"localhost"
+							],
+							"port": "8097",
+							"path": [
+								"downDataToClient"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "server:df176ea0"
+								},
+								{
+									"key": "content",
+									"value": "hello, df176ea0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "resttemplate",
+			"item": [
+				{
+					"name": "resttemplate打印日志信息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8097/resttemplate/logging"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Java内存中实现分页效果",
 			"request": {
 				"method": "POST",
