@@ -407,6 +407,29 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "分布式锁",
+			"item": [
+				{
+					"name": "简单上锁测试",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8087/redisson/deduct"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
